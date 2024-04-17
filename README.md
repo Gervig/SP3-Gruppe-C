@@ -1,2 +1,2 @@
 # SP3 Gruppe C
- SP3 projekt for Gruppe C
+ SP3 project for Gruppe C

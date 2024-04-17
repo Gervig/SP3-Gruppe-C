@@ -1,0 +1,118 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Main{
++ static void main(String[] args)
+}
+
+class Stream{
+- String name
+'utilities
+- ArrayList<User> users
+- TextUI ui
+- FileIO io
+- ArrayList<String> listOfActions;
+- String seriesDataPath
+- String filmDataPath
+'constructor
++ Stream(String name)
+'methods
+- void setup()
+' setup er til er at læse data
++ runStartMenu()
++ void createUser()
+' skal createUser være void? Det er den i matador
++ loginUser()
+' skal loginUser være void?
++ runDialog()
+' i runDialog kan man vælge at søge
+- void quitProgram()
+}
+
+
+class User{
+-String name
+- int id
+-ArrayList<Profile> profile
++ chooseProfile()
++ createProfile()
+}
+
+class Profile{
+- String name
+- ArrayList<Series> seenSeries
+- ArrayList<Film> seenFilm
+- ArrayList<Video> savedVideo
++ boolean watchVideo()
++ boolean addToSaved()
+
+}
+class FileIO{
++ ArrayList<String> readFilmData(String path)
++ ArrayList<String> readSeriesData(String path)
++ void saveData(ArrayList<User> users, String path)
++ String[] readFilmData(String path, int length)
++ String[] readSeriesData(String path, int length)
++ ArrayList<User> readSaveData(String path, int length)
+}
+
+class TextUI{
+- Scanner scanner
++ void displayMsg(String s)
++ int promptNumeric(String msg)
++ String promptText(String msg)
++ int promptChoice(String msg, ArrayList<String> list)
+}
+
+abstract Class Video{
+- String name
+- String genre
+- float rating
+- boolean hasSeen
+- ArrayList<int> releaseDate
+'constructor
++ Video(name, genre, rating)
+'methods
++ int getReleaseDate()
++ String getName()
++ String getGenre()
++ float getRating()
+}
+
+class Series{
+- ArrayList<String [3]> seenEpisodes
+- int seasons
+- int episodes
+- ArrayList<int> releaseDate
+'constructor - hvis serien ikke er slut
++ Series (releaseDate.get(0), seasons, episodes)
+'constructor - hvis serien er afsluttet
++ Series (releaseDate.get(0), releaseDate.get(1), seasons, episodes)
+}
+
+class Film {
+- ArrayList<int> releaseDate
+'constructor
++ Film (releaseDate)
+}
+
+
+class Search{
++ ArrayList<Video> search()
+}
+
+
+Video <|-- Series
+Video <|-- Film
+
+User *-- Profile
+
+Main *-- Stream
+
+Stream *-- User
+Stream *-- FileIO
+Stream *-- TextUI
+Stream *-- Video
+Stream *-- Search
+
+@enduml

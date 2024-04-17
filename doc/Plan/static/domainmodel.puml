@@ -1,7 +1,52 @@
 @startuml
 
+rectangle "toString'n'Chill" {
+
 object User
+object Login
+object SignUp
 object Film
 object Series
+object StartMenu
+object UserMenu
+object History
+object Saved
+object Profiles
+object Genre
+object Seasons
+object Rating
+object ReleaseDate
+object Search
+object Video
+
+StartMenu *-- Login
+StartMenu *-- SignUp
+
+SignUp *-- Profiles
+
+Login *-- User
+User *-- Profiles
+Profiles *-- UserMenu
+
+UserMenu o-- History
+UserMenu o-- Saved
+UserMenu *-- Video
+UserMenu *-- Search
+
+Video <|-- Series
+Video <|-- Film
+
+Series *-- Genre
+Series *-- Seasons
+Series *-- Rating
+Series *-- ReleaseDate
+
+Film *-- Genre
+Film *-- Rating
+Film *-- ReleaseDate
+
+
+}
+
 
 @enduml
