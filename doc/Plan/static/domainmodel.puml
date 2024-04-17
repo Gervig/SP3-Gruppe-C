@@ -1,0 +1,7 @@
+@startuml
+
+object User
+object Film
+object Series
+
+@enduml
