@@ -91,11 +91,7 @@ class Series{
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-- ArrayList<int> releaseDate
-'constructor - hvis serien ikke er slut
-+ Series (releaseDate.get(0), seasons, episodes)
-'constructor - hvis serien er afsluttet
-+ Series (releaseDate.get(0), releaseDate.get(1), seasons, episodes)
++ Series (seasons, episodes)
 + getSeason()
 + getEpisode()
 }
