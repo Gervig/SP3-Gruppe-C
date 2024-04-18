@@ -33,22 +33,15 @@ class Stream{
 
 
 class User{
--String name
-- int id
--ArrayList<Profile> profile
-+ chooseProfile()
-+ createProfile()
-' skal den checke om den user har en profil med det brugernavn?
-}
-
-class Profile{
 - String name
+- int id
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
++ boolean watchVideo()
 + boolean addToSaved()
-
 }
+
 class FileIO{
 + ArrayList<String> readFilmData(String path)
 + ArrayList<String> readSeriesData(String path)
@@ -69,7 +62,7 @@ class TextUI{
 
 interface IVideo {
 boolean watchVideo()
-int getReleaseDate()
+String getReleaseDate()
 String getName()
 String getGenre()
 float getRating()
@@ -96,7 +89,6 @@ class Series{
 }
 
 class Film {
-- String MovieName
 'constructor
 + Film ()
 }
@@ -117,8 +109,6 @@ IVideo *-- Video
 
 Video <|-- Series
 Video <|-- Film
-
-User *-- Profile
 
 Main *-- Stream
 
