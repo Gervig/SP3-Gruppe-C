@@ -47,7 +47,6 @@ class Profile{
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
 + boolean addToSaved()
-'bør disse være under IVideo eller video i stedet?
 
 }
 class FileIO{
@@ -82,9 +81,9 @@ abstract Class Video{
 - String genre
 - float rating
 - boolean hasSeen
-- ArrayList<int> releaseDate
+- String releaseDate
 'constructor
-+ Video(name, genre, rating)
++ Video(name, releaseDate, genre, rating)
 }
 
 class Series{
@@ -97,9 +96,9 @@ class Series{
 }
 
 class Film {
-- ArrayList<int> releaseDate
+- String MovieName
 'constructor
-+ Film (releaseDate)
++ Film ()
 }
 
 
