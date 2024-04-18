@@ -6,7 +6,10 @@ public class Search {
     private ArrayList<Video> csr;
     Scanner scan = new Scanner(System.in);
    public void searchGenre(){
-      //Use scanner to gain user input which will be the search
+      TextUI.displayMsg("Please enter the genre you want to search");
+      String choice = scan.nextLine();
+
+      //Use scanner to gain user input which will be the search hejsa
       //Use string given by to search a file
       //Pull data from fileIO, data comes as CSV
       //Separate the data from CSV to only gain data about genre
