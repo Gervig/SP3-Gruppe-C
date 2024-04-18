@@ -25,7 +25,7 @@ class Stream{
 ' createUser skal vel checke om der er andre med det brugernavn
 + loginUser()
 ' skal loginUser være void?
-' den skal vel checke om der er en user med det username
+' den skal vel checke om der er en user med det username og tjekke om loginnet er korrekt
 + runDialog()
 ' i runDialog kan man vælge at søge
 - void quitProgram()
@@ -33,23 +33,15 @@ class Stream{
 
 
 class User{
--String name
-- int id
--ArrayList<Profile> profile
-+ chooseProfile()
-+ createProfile()
-' skal den checke om den user har en profil med det brugernavn?
-}
-
-class Profile{
 - String name
+- int id
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
++ boolean watchVideo()
 + boolean addToSaved()
-'bør disse være under IVideo eller video i stedet?
-
 }
+
 class FileIO{
 + ArrayList<String> readFilmData(String path)
 + ArrayList<String> readSeriesData(String path)
@@ -70,7 +62,7 @@ class TextUI{
 
 interface IVideo {
 boolean watchVideo()
-int getReleaseDate()
+String getReleaseDate()
 String getName()
 String getGenre()
 float getRating()
@@ -82,28 +74,27 @@ abstract Class Video{
 - String genre
 - float rating
 - boolean hasSeen
-- ArrayList<int> releaseDate
+- String releaseDate
 'constructor
-+ Video(name, genre, rating)
++ Video(name, releaseDate, genre, rating)
 }
 
 class Series{
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-- ArrayList<int> releaseDate
-'constructor - hvis serien ikke er slut
-+ Series (releaseDate.get(0), seasons, episodes)
-'constructor - hvis serien er afsluttet
-+ Series (releaseDate.get(0), releaseDate.get(1), seasons, episodes)
++ Series (seasons, episodes)
 + getSeason()
 + getEpisode()
 }
 
 class Film {
-- ArrayList<int> releaseDate
+<<<<<<< Updated upstream
+=======
+- ArrayList<String> MovieName()
+>>>>>>> Stashed changes
 'constructor
-+ Film (releaseDate)
++ Film ()
 }
 
 
@@ -122,8 +113,6 @@ IVideo *-- Video
 
 Video <|-- Series
 Video <|-- Film
-
-User *-- Profile
 
 Main *-- Stream
 
