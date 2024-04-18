@@ -9,6 +9,7 @@ class Stream{
 - String name
 'utilities
 - ArrayList<User> users
+- currentUser
 - TextUI ui
 - FileIO io
 - ArrayList<String> listOfActions;

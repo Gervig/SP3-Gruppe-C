@@ -9,7 +9,7 @@ public class Stream {
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
 
-    public void Stream(String name) {
+    public Stream (String name) {
         this.name = name;
         this.ui = new TextUI();
         this.io = new FileIO();
@@ -22,8 +22,8 @@ public class Stream {
     }
 
     private void setup() {
-        //readFilmData(filmDataPath);
-        //readSeriesData(seriesDataPath);
+        readFilmData(filmDataPath);
+        readSeriesData(seriesDataPath);
 
     }
 
@@ -37,7 +37,7 @@ public class Stream {
                 case 1:
                     //Login to existing user
                     this.loginUser();
-                    this.runDialog(); //Skal kalde på UserMenu (findes i domænemodellen, findes IKKE i classeDiagrammet)
+                    this.runDialog();
 
                     break;
                 case 2:
@@ -52,36 +52,37 @@ public class Stream {
                     break;
             }
 
-            public void createUser(){
+            public User createUser(){
                 String newUsername = promptText("Choose a username:");
                 if(!users.getUsername().equals(newUsername)){
                     String newPassword = promptText("Choose a password:");
                     User newUser = new User(newUsername, newPassword);
                     users.add(newUser);
+                    return newUser;
             }else{
                 System.out.println("Username already in use, please choose a different username:");
+                return null;
             }
 
             }
 
-            public void loginUser() {
-
-                System.out.println("write username and password");
+            public User loginUser() {
 
                 boolean isloggedIn = false;
-                String username = promptText("Please type your username:");
+                String username = promptText("Please write username:");
                 // String password too
                 while (!isloggedIn) {
                     for (User u : users) {
                         if (u.getusername.equals(username)) {
                             User user = u;
 
-                            if (user.getPassword.equals(passwordPromptFromUserInput)) {
+                            if (user.getPassword.equals(promptText("Please write password:"))) {
                                 System.out.println("logged in xd");
                                 isloggedIn = true;
-                                return;
+                                return user;
                             } else {
-                                sout
+                                System.out.println("Wrong password please try agian:");
+                                //Lav evt en back option
                             }
 
                         }
@@ -95,7 +96,7 @@ public class Stream {
             }
 
             private void quitProgram () {
-
+                io.saveData(this.currentUser,)
             }
         }
     }
