@@ -74,6 +74,7 @@ int getReleaseDate()
 String getName()
 String getGenre()
 float getRating()
+String playVideo()
 }
 
 abstract Class Video{
@@ -95,6 +96,8 @@ class Series{
 + Series (releaseDate.get(0), seasons, episodes)
 'constructor - hvis serien er afsluttet
 + Series (releaseDate.get(0), releaseDate.get(1), seasons, episodes)
++ getSeason()
++ getEpisode()
 }
 
 class Film {

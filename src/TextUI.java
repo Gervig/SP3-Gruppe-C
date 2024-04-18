@@ -22,4 +22,3 @@ public class TextUI {
         return 0;
     }
 }
-// hej
