@@ -25,7 +25,7 @@ class Stream{
 ' createUser skal vel checke om der er andre med det brugernavn
 + loginUser()
 ' skal loginUser være void?
-' den skal vel checke om der er en user med det username
+' den skal vel checke om der er en user med det username og tjekke om loginnet er korrekt
 + runDialog()
 ' i runDialog kan man vælge at søge
 - void quitProgram()
@@ -89,6 +89,10 @@ class Series{
 }
 
 class Film {
+<<<<<<< Updated upstream
+=======
+- ArrayList<String> MovieName()
+>>>>>>> Stashed changes
 'constructor
 + Film ()
 }
