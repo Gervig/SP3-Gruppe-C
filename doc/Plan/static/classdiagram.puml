@@ -46,7 +46,6 @@ class Profile{
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
-+ boolean watchVideo()
 + boolean addToSaved()
 'bør disse være under IVideo eller video i stedet?
 
@@ -70,6 +69,7 @@ class TextUI{
 }
 
 interface IVideo {
+boolean watchVideo()
 int getReleaseDate()
 String getName()
 String getGenre()
