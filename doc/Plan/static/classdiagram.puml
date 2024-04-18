@@ -85,17 +85,17 @@ class Series{
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-+ Series (String[] seriesData)
++ Series (ArrayList<String> seriesData)
 + getSeason()
 + getEpisode()
-+ createSeries(String[] seriesData)
++ createSeries(ArrayList<String> seriesData)
 }
 
 class Film {
 'constructor
-+ Film (String[] filmData)
++ Film (ArrayList<String> filmData)
 - ArrayList<String> MovieName()
-+ createFilms(String[] filmData))
++ createFilms(ArrayList<String> filmData))
 }
 
 
@@ -110,7 +110,7 @@ class Search{
 'skal vi have funktioner der kun søger blandt serier og film adskilt?
 }
 
-IVideo *-- Video
+IVideo *.. Video
 
 Video <|-- Series
 Video <|-- Film

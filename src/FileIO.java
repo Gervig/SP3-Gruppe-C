@@ -9,8 +9,8 @@ public class FileIO {
 
 
     //reads filmdata
-    public String[] readFilmData(String path, int length){
-        String [] filmdata = new String[length];
+    public ArrayList<String> readFilmData(String path, int length){
+        ArrayList<String> filmdata = new ArrayList<>();
         File file = new File(path);
 
         try{
@@ -18,7 +18,7 @@ public class FileIO {
 
             for(int i = 0; i < length ; i++){
                 String line = scan.nextLine();
-                filmdata[i]=line;
+                filmdata.set(i, line);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File was not found");;
@@ -29,8 +29,8 @@ public class FileIO {
 
 
     //reads seriesdata
-    public String[] readSeriesData(String path, int length){
-        String [] seriesdata = new String[length];
+    public ArrayList<String> readSeriesData(String path, int length){
+        ArrayList<String> seriesdata = new ArrayList<>();
         File file = new File(path);
 
         try{
@@ -38,7 +38,7 @@ public class FileIO {
 
             for(int i = 0; i < length ; i++){
                 String line = scan.nextLine();
-                seriesdata[i]=line;
+                seriesdata.set(i, line);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File was not found");;
