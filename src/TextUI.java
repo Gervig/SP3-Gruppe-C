@@ -5,7 +5,7 @@ public class TextUI {
     //
     // Not adapted to our program, needs review to make it work for us properly (Maybe?)
     //
-    private final Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     public void displayList(ArrayList<String> list, String msg){
         System.out.println(msg);
@@ -44,7 +44,7 @@ public class TextUI {
 
     }
 
-    public void displayMsg(String msg){
+    public static void displayMsg(String msg){
         System.out.println("\n***************");
         System.out.println(msg);
         System.out.println("***************\n");
