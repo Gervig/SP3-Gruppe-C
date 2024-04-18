@@ -25,4 +25,8 @@ public float getRating(){
 return rating;
 }
 
+    @Override
+    public String toString() {
+        return "Title: " + getName() + ", released in: " + getReleaseDate() + "\nGenre: " + getGenre();
+    }
 }
