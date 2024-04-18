@@ -3,23 +3,22 @@ class Series extends Video{
     private int season;
     private int episode;
 
-    public Series(String name, String genre, float rating){
-    super(name, genre, rating);
+    public Series(String [] seriesData){
     }
 
 
     public int getSeason(){
-        return 0;
+        return this.season;
     }
 
     public int getEpisode(){
-        return 0;
+        return this.episode;
     }
 
 
     @Override
     public String toString() {
-        return super.toString() + "\nSeason: " + getSeason() + getEpisode();
+        return super.toString() + "\nSeason: " + getSeason() + "\nEpisode: " + getEpisode();
     }
 
 }

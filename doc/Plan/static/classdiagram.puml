@@ -34,7 +34,6 @@ class Stream{
 
 class User{
 - String name
-- int id
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
