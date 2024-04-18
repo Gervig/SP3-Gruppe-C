@@ -4,16 +4,16 @@ private String name;
 private String genre;
 private float rating;
 private boolean hasSeen;
-private ArrayList<Integer> releaseDate;
+private String releaseDate;
 
 //constructor
-public Video(String name, String genre, float rating){
+public Video(){
 
 }
 
 //methods
-public int getReleaseDate(){
-    return releaseDate.get(0);
+public String getReleaseDate(){
+    return this.releaseDate;
 }
 public String getName(){
     return name;
