@@ -22,8 +22,10 @@ class Stream{
 + runStartMenu()
 + void createUser()
 ' skal createUser være void? Det er den i matador
+' createUser skal vel checke om der er andre med det brugernavn
 + loginUser()
 ' skal loginUser være void?
+' den skal vel checke om der er en user med det username
 + runDialog()
 ' i runDialog kan man vælge at søge
 - void quitProgram()
@@ -36,6 +38,7 @@ class User{
 -ArrayList<Profile> profile
 + chooseProfile()
 + createProfile()
+' skal den checke om den user har en profil med det brugernavn?
 }
 
 class Profile{
@@ -45,6 +48,7 @@ class Profile{
 - ArrayList<Video> savedVideo
 + boolean watchVideo()
 + boolean addToSaved()
+'bør disse være under IVideo eller video i stedet?
 
 }
 class FileIO{
@@ -58,10 +62,18 @@ class FileIO{
 
 class TextUI{
 - Scanner scanner
++ void displayList()
 + void displayMsg(String s)
 + int promptNumeric(String msg)
 + String promptText(String msg)
 + int promptChoice(String msg, ArrayList<String> list)
+}
+
+interface IVideo {
+int getReleaseDate()
+String getName()
+String getGenre()
+float getRating()
 }
 
 abstract Class Video{
@@ -72,11 +84,6 @@ abstract Class Video{
 - ArrayList<int> releaseDate
 'constructor
 + Video(name, genre, rating)
-'methods
-+ int getReleaseDate()
-+ String getName()
-+ String getGenre()
-+ float getRating()
 }
 
 class Series{
@@ -99,8 +106,16 @@ class Film {
 
 class Search{
 + ArrayList<Video> search()
+'methods til de forskellige søgemuligheder
+' Skal disse returnere objekterne fra video?
++ searchGenre()
++ searchName()
++ searchRating()
++ searchReleasedate()
+'skal vi have funktioner der kun søger blandt serier og film adskilt?
 }
 
+IVideo *-- Video
 
 Video <|-- Series
 Video <|-- Film
@@ -112,7 +127,7 @@ Main *-- Stream
 Stream *-- User
 Stream *-- FileIO
 Stream *-- TextUI
-Stream *-- Video
+Stream *-- IVideo
 Stream *-- Search
 
 @enduml

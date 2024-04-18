@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public abstract class Video {
+public abstract class Video implements IVideo {
 private String name;
 private String genre;
 private float rating;
