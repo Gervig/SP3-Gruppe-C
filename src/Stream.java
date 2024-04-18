@@ -9,7 +9,7 @@ public class Stream {
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
 
-    public void Stream(String name) {
+    public Stream(String name) {
         this.name = name;
         this.ui = new TextUI();
         this.io = new FileIO();
