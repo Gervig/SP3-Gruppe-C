@@ -9,6 +9,8 @@ class Stream{
 - String name
 'utilities
 - ArrayList<User> users
+- ArrayList<Film> films
+- ArrayList<Series> series
 - String userDataPath
 - TextUI ui
 - FileIO io
