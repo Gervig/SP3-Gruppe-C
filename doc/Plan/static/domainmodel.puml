@@ -8,10 +8,9 @@ object SignUp
 object Film
 object Series
 object StartMenu
-object UserMenu
+object Stream
 object History
 object Saved
-object Profiles
 object Genre
 object Seasons
 object Rating
@@ -19,19 +18,20 @@ object ReleaseDate
 object Search
 object Video
 
+User *-- Stream
+Login *-- User
+User *-- SignUp
+
+
 StartMenu *-- Login
 StartMenu *-- SignUp
 
-SignUp *-- Profiles
 
-Login *-- User
-User *-- Profiles
-Profiles *-- UserMenu
 
-UserMenu o-- History
-UserMenu o-- Saved
-UserMenu *-- Video
-UserMenu *-- Search
+Stream o-- History
+Stream o-- Saved
+Stream *-- Video
+Stream *-- Search
 
 Video <|-- Series
 Video <|-- Film
