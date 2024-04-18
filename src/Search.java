@@ -9,7 +9,7 @@ public class Search {
       TextUI.displayMsg("Please enter the genre you want to search");
       String choice = scan.nextLine();
 
-      //Use scanner to gain user input which will be the search hejsa
+      //Use scanner to gain user input which will be the search
       //Use string given by to search a file
       //Pull data from fileIO, data comes as CSV
       //Separate the data from CSV to only gain data about genre
