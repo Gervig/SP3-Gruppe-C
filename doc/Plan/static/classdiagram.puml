@@ -9,6 +9,7 @@ class Stream{
 - String name
 'utilities
 - ArrayList<User> users
+- String userDataPath
 - TextUI ui
 - FileIO io
 - ArrayList<String> listOfActions;
@@ -43,8 +44,8 @@ class User{
 }
 
 class FileIO{
-+ ArrayList<String> readFilmData(String path)
-+ ArrayList<String> readSeriesData(String path)
++ String[] readFilmData(String path)
++ String[] readSeriesData(String path)
 + void saveData(ArrayList<User> users, String path)
 + String[] readFilmData(String path, int length)
 + String[] readSeriesData(String path, int length)
@@ -76,25 +77,24 @@ abstract Class Video{
 - boolean hasSeen
 - String releaseDate
 'constructor
-+ Video(name, releaseDate, genre, rating)
++ Video()
 }
 
 class Series{
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-+ Series (seasons, episodes)
++ Series (String[] seriesData)
 + getSeason()
 + getEpisode()
++ createSeries(String[] seriesData)
 }
 
 class Film {
-<<<<<<< Updated upstream
-=======
-- ArrayList<String> MovieName()
->>>>>>> Stashed changes
 'constructor
-+ Film ()
++ Film (String[] filmData)
+- ArrayList<String> MovieName()
++ createFilms(String[] filmData))
 }
 
 
