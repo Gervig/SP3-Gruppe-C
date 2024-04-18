@@ -1,2 +1,80 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class FileIO {
+
+
+    //reads filmdata
+    public String[] readFilmData(String path, int length){
+        String [] filmdata = new String[length];
+        File file = new File(path);
+
+        try{
+            Scanner scan = new Scanner(file);
+
+            for(int i = 0; i < length ; i++){
+                String line = scan.nextLine();
+                filmdata[i]=line;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");;
+        }
+
+        return filmdata;
+    }
+
+
+    //reads seriesdata
+    public String[] readSeriesData(String path, int length){
+        String [] seriesdata = new String[length];
+        File file = new File(path);
+
+        try{
+            Scanner scan = new Scanner(file);
+
+            for(int i = 0; i < length ; i++){
+                String line = scan.nextLine();
+                seriesdata[i]=line;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");;
+        }
+
+        return seriesdata;
+    }
+
+    //Saves data
+    public static void saveData(ArrayList<User> users, String path) {
+        try {
+            FileWriter writer = new FileWriter(path);
+            writer.write("Title, release date, genre");
+            for (User u : users) {
+                writer.write(u + "\n");
+            }
+            writer.close();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        } ;
+    }
+    public ArrayList<String> readUserData(String path){
+        ArrayList<String> userData = new ArrayList<>();
+        File file = new File(path);
+
+        try{
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()){
+                String s = scan.nextLine();
+                userData.add(s);
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        return userData;
+    }
+
+
 }
