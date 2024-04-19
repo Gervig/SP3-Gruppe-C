@@ -117,6 +117,7 @@ public class Search {
             TextUI.displayMsg("Please enter the 2 ratings you want to search within");
             double lower = Double.parseDouble(scan.nextLine());
             double upper = Double.parseDouble(scan.nextLine());
+            System.out.println(" ");
 
             seperator();
 
