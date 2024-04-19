@@ -11,11 +11,17 @@ public class User {
     this.name = name;
     }
 
+    //methods
 
 public boolean watchVideo(){
-    return true;
+        if (Video == Series)
+    ArrayList<Series> seenSeries = new ArrayList<>();
+        if (watchSeries() == true){
+        seenSeries.add();
+    }
+        return true;
 }
 public boolean addToSaved(){
-    return true;
+        return true;
 }
 }
