@@ -27,6 +27,10 @@ public String getGenre() {
 public float getRating(){
 return rating;
 }
+public boolean playVideo() {
+        String msg = getName() + " is now playing...";
+        return true;
+    }
 
     @Override
     public String toString() {

@@ -31,7 +31,7 @@ public class Search {
         seperator();
 
         for (String filmData : filmDataList) {
-            String[] parts = filmData.split(";");
+            String[] parts = filmData.split(";\\s*");
             String[] genres = parts[2].split(",\\s*"); // Splitting the genre string into individual genres
 
             for (String genre : genres) {
