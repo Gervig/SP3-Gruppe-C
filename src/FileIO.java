@@ -21,7 +21,7 @@ public class FileIO {
                 filmdata.add(i, line);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File was not found");;
+            System.out.println("File was not found");
         }
 
         return filmdata;
@@ -58,7 +58,7 @@ public class FileIO {
             writer.close();
         }catch (IOException e) {
             throw new RuntimeException(e);
-        } ;
+        }
     }
     public ArrayList<String> readUserData(String path){
         ArrayList<String> userData = new ArrayList<>();

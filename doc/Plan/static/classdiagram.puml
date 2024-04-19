@@ -37,6 +37,7 @@ class Stream{
 
 class User{
 - String name
+- boolean hasSeen
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
@@ -63,7 +64,6 @@ class TextUI{
 }
 
 interface IVideo {
-boolean watchVideo()
 String getReleaseDate()
 String getName()
 String getGenre()
@@ -75,17 +75,17 @@ abstract Class Video{
 - String name
 - String genre
 - float rating
-- boolean hasSeen
 - String releaseDate
 'constructor
-+ Video()
++ Video(String name, String genre, float rating, String releaseDate)
 }
 
 class Series{
+'brug evt. et map
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-+ Series (ArrayList<String> seriesData)
++ Series (int seasons)
 + getSeason()
 + getEpisode()
 + createSeries(ArrayList<String> seriesData)
@@ -93,8 +93,8 @@ class Series{
 
 class Film {
 'constructor
-+ Film (ArrayList<String> filmData)
-- ArrayList<String> MovieName()
++ Film ()
+- ArrayList<String> movieName()
 + createFilms(ArrayList<String> filmData))
 }
 
@@ -120,7 +120,7 @@ Main *-- Stream
 Stream *-- User
 Stream *-- FileIO
 Stream *-- TextUI
-Stream *-- IVideo
-Stream *-- Search
+Search *-- IVideo
+Stream *- Search
 
 @enduml

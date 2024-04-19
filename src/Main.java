@@ -1,8 +1,10 @@
+
 public class Main {
-    public Stream stream = new Stream();
+    public Stream stream = new Stream("toString'n'Chill");
     static FileIO reader = new FileIO();
 
     public static void main(String[] args) {
+////        Stream stream = new Stream("toString'n'Chill");
         Search sear = new Search();
         //sear.searchGenre(reader.readFilmData("data/film.txt",100));
         sear.searchReleaseDate(reader.readFilmData("data/film.txt",100));
