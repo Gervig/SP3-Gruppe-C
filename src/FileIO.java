@@ -75,6 +75,18 @@ public class FileIO {
         }
         return userData;
     }
+    public void createUserFiles(String username, String password){
+        File fileH = new File("data\\UserData\\UserHistory\\" + username+".txt");
+        File fileS = new File("data\\UserData\\UserSaved\\" + username+".txt");
+        try {
+            FileWriter writer = new FileWriter("data\\UserData\\Users.txt");
+            writer.write(username + ";" + password + ";" + "\n");
+            writer.close();
+        } catch (IOException e){
+            System.out.println("File not found: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
 }

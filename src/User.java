@@ -7,11 +7,13 @@ public class User {
     private ArrayList<Film> seenFilm;
     private ArrayList<Video> savedVideo;
     private ArrayList<Video> seenVideo;
+    private String newPassword;
 
-    public User(String name, ArrayList<Video> savedVideo, ArrayList<Video> seenVideo) {
+    public User(String name, String newPassword) {
         this.name = name;
         this.savedVideo = savedVideo;
         this.seenVideo = seenVideo;
+        this.newPassword = newPassword;
     }
 
 //methods
@@ -26,5 +28,13 @@ public boolean watchVideo(Video video){
 }
 public boolean addToSaved(){
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return newPassword;
     }
 }

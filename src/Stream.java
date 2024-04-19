@@ -77,30 +77,40 @@ public class Stream {
     }
 
     public User createUser() {
-        String newUsername = promptText("Choose a username:");
-        if (!users.getUsername().equals(newUsername)) {
-            String newPassword = promptText("Choose a password:");
+        String newUsername = ui.promptText("Choose a username:");
+//        if (!users.get(0).equalsIgnoreCase(newUsername)) {
+//            String newPassword = ui.promptText("Choose a password:");
+//            User newUser = new User(newUsername, newPassword);
+//            users.add(newUser);
+//            return newUser;
+//        } else {
+//            System.out.println("Username already in use, please choose a different username:");
+//            return null;
+//        }
+        for (User user : users){
+            if (user.getName().equalsIgnoreCase(newUsername)){
+            System.out.println("Username already in use, please choose a different username:");
+            return null;
+            }else{
+            String newPassword = ui.promptText("Choose a password:");
+            io.createUserFiles(newUsername, newPassword);
             User newUser = new User(newUsername, newPassword);
             users.add(newUser);
             return newUser;
-        } else {
-            System.out.println("Username already in use, please choose a different username:");
-            return null;
         }
-
     }
 
     public User loginUser() {
 
         boolean isloggedIn = false;
-        String username = promptText("Please write username:");
+        String username = ui.promptText("Please write username:");
         // String password too
         while (!isloggedIn) {
             for (User u : users) {
-                if (u.getusername.equals(username)) {
+                if (u.getName().equals(username)) {
                     User user = u;
 
-                    if (user.getPassword.equals(promptText("Please write password:"))) {
+                    if (user.getPassword().equals(ui.promptText("Please write password:"))) {
                         System.out.println("logged in xd");
                         isloggedIn = true;
                         return user;
