@@ -21,9 +21,10 @@ public class Search {
         }
     }
 
-    public void searchGenre(ArrayList<String> filmDataList) {
+    public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
         ArrayList<String> moviesWithGenre = new ArrayList<>();
         boolean validInput = false;
+        int counter = 1;
 
         do {
         TextUI.displayMsg("Please enter the genre you want to search");
@@ -45,7 +46,9 @@ public class Search {
        if(!moviesWithGenre.isEmpty()) {
         TextUI.displayMsg("Here is all the movies with the genre " + "\""+choice+"\""+"\n");
         for (String movie : moviesWithGenre) {
-            TextUI.displayMsg(movie);
+
+            TextUI.displayMsg(counter+" "+movie);
+            counter +=1;
         }
            validInput = true; // Set validInput to true to exit the Do {} loop
     } else {
@@ -57,6 +60,7 @@ public class Search {
            }
        }
     } while (!validInput);
+    return moviesWithGenre;
 }
 
    public void searchName(){

@@ -7,7 +7,7 @@ public class Stream {
     FileIO io;
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
-    String filmDataPath = "data\\film.txt";
+    public String filmDataPath = "data\\film.txt";
 
     public Stream(String name) {
         this.name = name;
