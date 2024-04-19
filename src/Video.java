@@ -6,10 +6,13 @@ private float rating;
 private boolean hasSeen;
 private String releaseDate;
 
-//constructor
-public Video(){
-
-}
+    //constructor
+    public Video(String name, String genre, float rating, String releaseDate) {
+        this.name = name;
+        this.genre = genre;
+        this.rating = rating;
+        this.releaseDate = releaseDate;
+    }
 
 //methods
 public String getReleaseDate(){
@@ -24,6 +27,11 @@ public String getGenre() {
 public float getRating(){
 return rating;
 }
+public boolean playVideo(Video video) {
+        //todo msg skal soutes i TextUI
+        String msg = video.getName() + " is now playing...";
+        return true;
+    }
 
     @Override
     public String toString() {
