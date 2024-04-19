@@ -8,6 +8,7 @@ public class Stream {
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
+    private User currentUser;
 
     protected Film film;
 
@@ -30,21 +31,21 @@ public class Stream {
         for (String s : filmData) {
             String[] values = s.split(";");
             String name = values[0];
-            String year = values[1];
+            String releaseDate = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            Film film = new Film(name, year, genre, rating);
+            Film film = new Film(name, releaseDate, genre, rating);
         }
 
         ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
         for (String s : seriesData) {
             String[] values = s.split(";");
             String name = values[0];
-            String year = values[1];
+            String releaseDate = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            String episodes = values[4];
-            Series series = new Series(name, year, genre, rating, episodes);
+            String episode = values[4];
+            Series series = new Series(name, releaseDate, genre, rating, episode);
 
         }
     }
@@ -135,12 +136,12 @@ public class Stream {
                 break;
             case 2:
                 //View saved movies / series
-                currentUser.viewSaved
+                currentUser.viewSaved();
 
                 break;
             case 3:
                 //View watch historie
-                currentUser.viewSaved
+                currentUser.viewSaved();
 
                 break;
             case 4:

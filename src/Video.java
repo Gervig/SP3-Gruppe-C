@@ -7,7 +7,7 @@ private boolean hasSeen;
 private String releaseDate;
 
     //constructor
-    public Video(String name, String genre, float rating, String releaseDate) {
+    public Video(String name, String releaseDate, String genre, float rating) {
         this.name = name;
         this.genre = genre;
         this.rating = rating;
