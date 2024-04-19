@@ -22,9 +22,9 @@ public class Stream {
         listOfActions.add("2) Sign up");
         listOfActions.add("3) Quit");
 
-        this.setup();
+        //this.setup();
     }
-
+/*
     private void setup() {
         ArrayList<String> filmData = new ArrayList<>(io.readFilmData(filmDataPath, 100));
         for (String s : filmData) {
@@ -149,4 +149,6 @@ public class Stream {
     private void quitProgram() {
         io.saveData(this.currentUser, );
     }
+
+ */
 }

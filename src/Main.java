@@ -7,7 +7,7 @@ public class Main {
 ////        Stream stream = new Stream("toString'n'Chill");
         Search sear = new Search();
         //sear.searchGenre(reader.readFilmData("data/film.txt",100));
-        sear.searchReleaseDate(reader.readFilmData("data/film.txt",100));
+        sear.searchName(reader.readFilmData("data/film.txt",100));
 
     }
 }
