@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        //sup
+    Stream stream = new Stream("toString'n'Chill");
+
     }
 }

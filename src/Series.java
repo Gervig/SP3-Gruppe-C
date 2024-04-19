@@ -1,8 +1,24 @@
 class Series extends Video{
-    public Series(String name, String genre, float rating){
-    super(name, genre, rating);
+
+    private int season;
+    private int episode;
+
+    public Series(String [] seriesData){
     }
 
 
+    public int getSeason(){
+        return this.season;
+    }
+
+    public int getEpisode(){
+        return this.episode;
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nSeason: " + getSeason() + "\nEpisode: " + getEpisode();
+    }
 
 }
