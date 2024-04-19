@@ -26,7 +26,7 @@ public class Stream {
         //readSeriesData(seriesDataPath);
 
     }
-
+/*
     public void runStartMenu() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
@@ -99,4 +99,6 @@ public class Stream {
             }
         }
     }
+
+ */
 }
