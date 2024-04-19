@@ -22,5 +22,6 @@ skinparam actorStyle awesome
 (Play) --> (Continue)
 (Save) --> (Continue)
 (Remove From Saved) --> (Continue)
+(Continue) --> (Action)
 
 @enduml
