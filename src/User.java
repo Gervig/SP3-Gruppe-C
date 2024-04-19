@@ -19,6 +19,7 @@ public boolean watchVideo(){
 //        if (watchSeries() == true){
 //        seenSeries.add();
 //    }
+
         return true;
 }
 public boolean addToSaved(){

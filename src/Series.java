@@ -3,8 +3,8 @@ class Series extends Video{
     private int season;
     private int episode;
 
-    public Series(int season, int episode){
-        this.episode = episode;
+    public Series(String name, String genre, float rating, String releaseDate, int season) {
+        super(name, genre, rating, releaseDate);
         this.season = season;
     }
 

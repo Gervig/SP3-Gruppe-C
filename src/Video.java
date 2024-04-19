@@ -6,8 +6,16 @@ private float rating;
 private boolean hasSeen;
 private String releaseDate;
 
-//constructor
-public Video(){
+    public Video(String name, String genre, float rating, boolean hasSeen, String releaseDate) {
+        this.name = name;
+        this.genre = genre;
+        this.rating = rating;
+        this.hasSeen = hasSeen;
+        this.releaseDate = releaseDate;
+    }
+
+    //constructor
+public Video(String name, String genre, float rating, String releaseDate){
 
 }
 
