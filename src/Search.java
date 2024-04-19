@@ -105,13 +105,50 @@ public class Search {
        } while (!validInput);
 
        return moviesWithName;
+       //todo add partial name search
 
    }
-   public void searchRating(){
-      //Repeat searchGenre() but for rating (Potentially a range)
+    public ArrayList<String> searchRating(ArrayList<String> filmDataList){
+        ArrayList<String> moviesWithRating = new ArrayList<>();
+        boolean validInput = false;
+        int counter = 1;
 
+        do {
+            TextUI.displayMsg("Please enter the 2 ratings you want to search within");
+            double lower = Double.parseDouble(scan.nextLine());
+            double upper = Double.parseDouble(scan.nextLine());
 
-   }
+            seperator();
+
+            for (String filmData : filmDataList) {
+                String[] parts = filmData.split(";\\s*");
+                double rating = Double.parseDouble(parts[3]);
+
+                if (rating >= lower && rating <= upper) {
+                    // If the movie's rating falls within the specified range, add it to the list
+                    moviesWithRating.add(parts[0] + " (" + rating + ")");
+                }
+            }
+            if(!moviesWithRating.isEmpty()) {
+                TextUI.displayMsg("Here is all the movies within your rating range " + "\""+upper+"-"+lower+"\""+"\n");
+                for (String movie : moviesWithRating) {
+                    TextUI.displayMsg(counter+" "+movie);
+                    counter +=1;
+                }
+                validInput = true; // Set validInput to true to exit the Do {} loop
+            } else {
+                TextUI.displayMsg("No film or series was found within those search parameters, try another search");
+                TextUI.displayMsg("Would you like to try another search? (yes/no)");
+                String tryAgain = scan.nextLine().toLowerCase();
+                if (!tryAgain.equals("yes")) {
+                    validInput = true; // Exit the loop if the user doesn't want to try again
+                }
+            }
+        } while (!validInput);
+
+        return moviesWithRating;
+
+    }
    public void searchReleaseDate(){
       //Repeat searchGenre() but for release date (Potentially a range)
 

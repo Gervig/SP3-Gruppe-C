@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Search sear = new Search();
         //sear.searchGenre(reader.readFilmData("data/film.txt",100));
-        sear.searchName(reader.readFilmData("data/film.txt",100));
+        sear.searchRating(reader.readFilmData("data/film.txt",100));
 
     }
 }
