@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+skinparam actorStyle awesome
+:User: --> (Login)
+:User: --> (Sign Up)
+(Sign Up) --> (Menu)
+(Login) --> (Menu)
+(Menu) --> (Search)
+(Menu) --> (History)
+(Menu) --> (Saved)
+(Search) --> (Name)
+(Search) --> (Category)
+(Name) --> (Action)
+(Category) --> (Action)
+(History) --> (Action)
+(Saved) --> (Action)
+(Action) --> (Play)
+(Action) --> (Save)
+(Action) --> (Remove From Saved)
+(Play) --> (Continue)
+(Save) --> (Continue)
+(Remove From Saved) --> (Continue)
+
+@enduml
