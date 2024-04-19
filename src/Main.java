@@ -1,5 +1,9 @@
 public class Main {
+    public Stream stream = new Stream();
+
     public static void main(String[] args) {
-        //Git test
+        Search sear = new Search();
+        sear.searchGenre();
+
     }
 }
