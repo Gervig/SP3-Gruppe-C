@@ -6,7 +6,8 @@ public class Main {
     public static void main(String[] args) {
 ////        Stream stream = new Stream("toString'n'Chill");
         Search sear = new Search();
-        sear.searchGenre(reader.readFilmData("data/film.txt",100));
+        //sear.searchGenre(reader.readFilmData("data/film.txt",100));
+        sear.searchName(reader.readFilmData("data/film.txt",100));
 
     }
 }

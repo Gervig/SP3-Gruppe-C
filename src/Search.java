@@ -60,13 +60,51 @@ public class Search {
            }
        }
     } while (!validInput);
+
     return moviesWithGenre;
 }
 
-   public void searchName(){
-      //Repeat searchGenre() but for movie names
+   public ArrayList<String> searchName(ArrayList<String> filmDataList){
+       ArrayList<String> moviesWithName = new ArrayList<>();
+       boolean validInput = false;
+       int counter = 1;
 
-       //return movie that contains this name
+       do {
+           TextUI.displayMsg("Please enter the name you want to search for");
+           String choice = scan.nextLine();
+           seperator();
+
+           for (String filmData : filmDataList) {
+               String[] parts = filmData.split(";\\s*");
+               String[] names = parts[0].split(" \\s*"); // Splitting the genre string into individual names
+
+               for (String name : names) {
+                   if (name.equalsIgnoreCase(choice.trim())) {
+                       // If any of the movie's names match the user's choice, add it to the list
+                       moviesWithName.add(parts[0]);
+                       break; // Once a match is found, no need to continue checking other names for this movie
+                   }
+               }
+           }
+           if(!moviesWithName.isEmpty()) {
+               TextUI.displayMsg("Here is all the movies with the name " + "\""+choice+"\""+"\n");
+               for (String movie : moviesWithName) {
+
+                   TextUI.displayMsg(counter+" "+movie);
+                   counter +=1;
+               }
+               validInput = true; // Set validInput to true to exit the Do {} loop
+           } else {
+               TextUI.displayMsg("No film or series was found within those search parameters, try another search");
+               TextUI.displayMsg("Would you like to try another search? (yes/no)");
+               String tryAgain = scan.nextLine().toLowerCase();
+               if (!tryAgain.equals("yes")) {
+                   validInput = true; // Exit the loop if the user doesn't want to try again
+               }
+           }
+       } while (!validInput);
+
+       return moviesWithName;
 
    }
    public void searchRating(){
