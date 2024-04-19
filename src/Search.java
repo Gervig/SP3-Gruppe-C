@@ -115,7 +115,7 @@ public class Search {
        } while (!validInput);
 
        return moviesWithName;
-       //todo add partial name search
+
 
    }
     public ArrayList<String> searchRating(ArrayList<String> filmDataList){
