@@ -77,7 +77,7 @@ abstract Class Video{
 - float rating
 - String releaseDate
 'constructor
-+ Video()
++ Video(String name, String genre, float rating, String releaseDate)
 }
 
 class Series{
@@ -85,7 +85,7 @@ class Series{
 - ArrayList<String [3]> seenEpisodes
 - int seasons
 - int episodes
-+ Series (seasons, episodes)
++ Series (int seasons)
 + getSeason()
 + getEpisode()
 + createSeries(ArrayList<String> seriesData)

@@ -13,16 +13,15 @@ public class User {
 
     //methods
 
-public boolean watchVideo(){
-//        if (Video == Series)
-//    ArrayList<Series> seenSeries = new ArrayList<>();
-//        if (watchSeries() == true){
-//        seenSeries.add();
-//    }
-
+public boolean watchVideo(Video video){
+    if (video instanceof Series){
+        seenSeries.add((Series) video);
+    }else if(video instanceof Film){
+        seenFilm.add((Film) video);
+    }
         return true;
 }
 public boolean addToSaved(){
         return true;
-}
+    }
 }
