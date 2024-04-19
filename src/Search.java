@@ -150,9 +150,46 @@ public class Search {
         return moviesWithRating;
 
     }
-   public void searchReleaseDate(){
-      //Repeat searchGenre() but for release date (Potentially a range)
+   public ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList){
+       ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
+       boolean validInput = false;
+       int counter = 1;
 
+       do {
+           TextUI.displayMsg("Please enter the 2 release dates you want to search within");
+           int lower = Integer.parseInt(scan.nextLine());
+           int upper = Integer.parseInt(scan.nextLine());
+           System.out.println(" ");
+
+           seperator();
+
+           for (String filmData : filmDataList) {
+               String[] parts = filmData.split(";\\s*");
+               int releaseDate = Integer.parseInt(parts[1]);
+
+               if (releaseDate >= lower && releaseDate <= upper) {
+                   // If the movie's release Date falls within the specified range, add it to the list
+                   moviesWithReleaseDate.add(parts[0] + " (" + releaseDate + ")");
+               }
+           }
+           if(!moviesWithReleaseDate.isEmpty()) {
+               TextUI.displayMsg("Here is all the movies within your release date range " + "\""+upper+"-"+lower+"\""+"\n");
+               for (String movie : moviesWithReleaseDate) {
+                   TextUI.displayMsg(counter+" "+movie);
+                   counter +=1;
+               }
+               validInput = true; // Set validInput to true to exit the Do {} loop
+           } else {
+               TextUI.displayMsg("No film or series was found within the year "+lower+" and "+upper+ " please try a different range");
+               TextUI.displayMsg("Would you like to try another search? (yes/no)");
+               String tryAgain = scan.nextLine().toLowerCase();
+               if (!tryAgain.equals("yes")) {
+                   validInput = true; // Exit the loop if the user doesn't want to try again
+               }
+           }
+       } while (!validInput);
+
+       return moviesWithReleaseDate;
 
    }
 
