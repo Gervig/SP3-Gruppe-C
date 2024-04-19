@@ -58,7 +58,7 @@ public class FileIO {
             writer.close();
         }catch (IOException e) {
             throw new RuntimeException(e);
-        } ;
+        }
     }
     public ArrayList<String> readUserData(String path){
         ArrayList<String> userData = new ArrayList<>();

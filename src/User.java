@@ -6,12 +6,15 @@ public class User {
     private ArrayList<Series> seenSeries;
     private ArrayList<Film> seenFilm;
     private ArrayList<Video> savedVideo;
+    private ArrayList<Video> seenVideo;
 
-    public User (String name){
-    this.name = name;
+    public User(String name, ArrayList<Video> savedVideo, ArrayList<Video> seenVideo) {
+        this.name = name;
+        this.savedVideo = savedVideo;
+        this.seenVideo = seenVideo;
     }
 
-    //methods
+//methods
 
 public boolean watchVideo(Video video){
     if (video instanceof Series && video.playVideo(video)){
