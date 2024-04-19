@@ -73,7 +73,7 @@ public class Search {
            TextUI.displayMsg("Please enter the name you want to search for");
            String choice = scan.nextLine();
            seperator();
-
+            /*
            for (String filmData : filmDataList) {
                String[] parts = filmData.split(";\\s*");
                String[] names = parts[0].split(" \\s*"); // Splitting the genre string into individual names
@@ -86,8 +86,18 @@ public class Search {
                    }
                }
            }
+             */
+           for (String filmData : filmDataList) {
+               String[] parts = filmData.split(";\\s*");
+               String movieName = parts[0].toLowerCase(); // Convert movie name to lowercase for case-insensitive search
+
+               if (movieName.contains(choice)) {
+                   // If the movie name contains the user's choice (partial match), add it to the list
+                   moviesWithName.add(parts[0]);
+               }
+           }
            if(!moviesWithName.isEmpty()) {
-               TextUI.displayMsg("Here is all the movies with the name " + "\""+choice+"\""+"\n");
+               TextUI.displayMsg("Here is all the movies that contains the word " + "\""+choice+"\""+"\n");
                for (String movie : moviesWithName) {
 
                    TextUI.displayMsg(counter+" "+movie);
