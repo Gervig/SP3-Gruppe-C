@@ -27,8 +27,9 @@ public String getGenre() {
 public float getRating(){
 return rating;
 }
-public boolean playVideo() {
-        String msg = getName() + " is now playing...";
+public boolean playVideo(Video video) {
+        //todo msg skal soutes i TextUI
+        String msg = video.getName() + " is now playing...";
         return true;
     }
 

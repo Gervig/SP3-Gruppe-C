@@ -14,7 +14,7 @@ public class User {
     //methods
 
 public boolean watchVideo(Video video){
-    if (video instanceof Series){
+    if (video instanceof Series && video.playVideo(video)){
         seenSeries.add((Series) video);
     }else if(video instanceof Film){
         seenFilm.add((Film) video);
