@@ -14,11 +14,11 @@ public class User {
     //methods
 
 public boolean watchVideo(){
-        if (Video == Series)
-    ArrayList<Series> seenSeries = new ArrayList<>();
-        if (watchSeries() == true){
-        seenSeries.add();
-    }
+//        if (Video == Series)
+//    ArrayList<Series> seenSeries = new ArrayList<>();
+//        if (watchSeries() == true){
+//        seenSeries.add();
+//    }
         return true;
 }
 public boolean addToSaved(){

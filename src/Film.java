@@ -1,5 +1,5 @@
 class Film extends Video{
-    public Film(String [] filmData){
+    public Film(){
     }
 
     @Override

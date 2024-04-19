@@ -3,7 +3,9 @@ class Series extends Video{
     private int season;
     private int episode;
 
-    public Series(String [] seriesData){
+    public Series(int season, int episode){
+        this.episode = episode;
+        this.season = season;
     }
 
 
