@@ -23,10 +23,7 @@ public class FileIO {
         } catch (FileNotFoundException e) {
             System.out.println("File was not found");
         }
-
         return users;
-
-
     }
 
     //reads filmdata
