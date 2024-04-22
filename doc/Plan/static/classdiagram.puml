@@ -111,7 +111,7 @@ class Search{
 'skal vi have funktioner der kun søger blandt serier og film adskilt?
 }
 
-IVideo *.. Video
+IVideo <|-- Video
 
 Video <|-- Series
 Video <|-- Film
