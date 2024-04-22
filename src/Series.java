@@ -1,11 +1,11 @@
 class Series extends Video{
 
     private String season;
-    private int episode;
+    private String episode;
 
-    public Series(String name, String genre, float rating, String releaseDate, String season) {
-        super(name, genre, rating, releaseDate);
-        this.season = season;
+    public Series(String name, String releaseDate, String genre, float rating, String episode) {
+        super(name, releaseDate, genre, rating);
+        this.episode = episode;
     }
 
 
@@ -13,7 +13,7 @@ class Series extends Video{
         return this.season;
     }
 
-    public int getEpisode(){
+    public String getEpisode(){
         return this.episode;
     }
 

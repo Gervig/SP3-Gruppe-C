@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Main {
     public Stream stream = new Stream("toString'n'Chill");
@@ -5,9 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
 ////        Stream stream = new Stream("toString'n'Chill");
-        Search sear = new Search();
-        //sear.searchGenre(reader.readFilmData("data/film.txt",100));
-        sear.searchName(reader.readFilmData("data/film.txt",100));
+//        Search sear = new Search();
+//        //sear.searchGenre(reader.readFilmData("data/film.txt",100));
+//        sear.searchName(reader.readFilmData("data/film.txt",100));
+        ArrayList<Video> caspersList = new ArrayList<>();
+        User user = new User("Casper", "123");
 
     }
 }

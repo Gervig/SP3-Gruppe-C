@@ -1,7 +1,7 @@
 class Film extends Video{
 
-    public Film(String name, String genre, float rating, String releaseDate) {
-        super(name, genre, rating, releaseDate);
+    public Film(String name, String releaseDate, String genre, float rating) {
+        super(name, releaseDate, genre, rating);
     }
 
     @Override
