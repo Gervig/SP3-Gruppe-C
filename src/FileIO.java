@@ -7,16 +7,31 @@ import java.util.Scanner;
 
 public class FileIO {
 
+    public ArrayList<String> readUsers() {
+        String path = "data\\UserData\\Users.txt";
+        ArrayList<String> users = new ArrayList<>();
+        File file = new File(path);
+        try {
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                users.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        }
+        return users;
+    }
 
     //reads filmdata
-    public ArrayList<String> readFilmData(String path, int length){
+    public ArrayList<String> readFilmData(String path, int length) {
         ArrayList<String> filmdata = new ArrayList<>();
         File file = new File(path);
 
-        try{
+        try {
             Scanner scan = new Scanner(file);
 
-            for(int i = 0; i < length ; i++){
+            for (int i = 0; i < length; i++) {
                 String line = scan.nextLine();
                 filmdata.add(i, line);
             }
@@ -29,19 +44,20 @@ public class FileIO {
 
 
     //reads seriesdata
-    public ArrayList<String> readSeriesData(String path, int length){
+    public ArrayList<String> readSeriesData(String path, int length) {
         ArrayList<String> seriesdata = new ArrayList<>();
         File file = new File(path);
 
-        try{
+        try {
             Scanner scan = new Scanner(file);
 
-            for(int i = 0; i < length ; i++){
+            for (int i = 0; i < length; i++) {
                 String line = scan.nextLine();
                 seriesdata.add(i, line);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File was not found");;
+            System.out.println("File was not found");
+            ;
         }
 
         return seriesdata;
@@ -56,33 +72,35 @@ public class FileIO {
                 writer.write(u + "\n");
             }
             writer.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<String> readUserData(String path){
+
+    public ArrayList<String> readUserData(String path) {
         ArrayList<String> userData = new ArrayList<>();
         File file = new File(path);
 
-        try{
+        try {
             Scanner scan = new Scanner(file);
-            while (scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 String s = scan.nextLine();
                 userData.add(s);
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
         return userData;
     }
-    public void createUserFiles(String username, String password){
-        File fileH = new File("data\\UserData\\UserHistory\\" + username+".txt");
-        File fileS = new File("data\\UserData\\UserSaved\\" + username+".txt");
+
+    public void createUserFiles(String username, String password) {
+        File fileH = new File("data\\UserData\\UserHistory\\" + username + ".txt");
+        File fileS = new File("data\\UserData\\UserSaved\\" + username + ".txt");
         try {
             FileWriter writer = new FileWriter("data\\UserData\\Users.txt");
             writer.write(username + ";" + password + ";" + "\n");
             writer.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());
             e.printStackTrace();
         }

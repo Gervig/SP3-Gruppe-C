@@ -20,14 +20,18 @@ public class User {
 //methods
 
     //This method is used to save a list of videos that the user has seen.
-    public boolean watchedVideo(Video video) {
-        if (video instanceof Series && video.playVideo(video)) {
-            seenSeries.add((Series) video);
-        } else if (video instanceof Film) {
-            seenFilm.add((Film) video);
+        public void watchedVideo(Stream stream){    //needs stream parameter for stream object to be visible for the method
+            //todo need getter method to get names of films that have been seen
+            ArrayList<String> seenFilmNames = new ArrayList<>();
+            for (String s : seenFilmNames){
+                for (Film f : stream.getFilmList()){
+                    if (f.getName().equals(s)){
+                        Film film = f;
+                        seenFilm.add(f);
+                    }
+                }
+            }
         }
-        return true;
-    }
 
     //This method is used to add videos to the users list of savedVideos
     public void addToSaved(Video video) {
@@ -59,4 +63,4 @@ public class User {
         return savedVideo;
     }
 
-}
+    }

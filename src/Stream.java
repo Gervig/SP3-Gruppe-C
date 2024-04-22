@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Stream {
     String name;
     ArrayList<User> users = new ArrayList<>();
-    ArrayList<Film> filmsList = new ArrayList<>();
+    ArrayList<Film> filmList = new ArrayList<>();
     ArrayList<Series> seriesList = new ArrayList<>();
     TextUI ui;
     FileIO io;
@@ -37,7 +37,7 @@ public class Stream {
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
             Film film = new Film(name, releaseDate, genre, rating);
-            filmsList.add(film);
+            filmList.add(film);
         }
 
         ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
@@ -51,6 +51,16 @@ public class Stream {
             Series series = new Series(name, releaseDate, genre, rating, episode);
             seriesList.add(series);
         }
+
+        ArrayList<String> userList = io.readUsers();
+        for (String s : userList){
+            String[] values = s.split(";");
+            String name = values[0];
+            String password = values[1];
+            User user = new User(name, password);
+            users.add(user);
+        }
+
     }
 
     public void runDialog() {
@@ -235,4 +245,22 @@ public class Stream {
         private void quitProgram () {
             io.saveData(this.currentUser, );
         }*/
+
+    public ArrayList<User> getUserNames() {
+        ArrayList<String>namesOfUsers = new ArrayList<>();
+        for(User u: users){
+            namesOfUsers.add(u.getName());
+        }
+
+        return users;
     }
+
+    public ArrayList<Film> getFilmList() {
+        return filmList;
+    }
+
+    public void setFilmList(ArrayList<Film> filmList) {
+        this.filmList = filmList;
+    }
+}
+

@@ -43,6 +43,7 @@ class User{
 - ArrayList<Video> savedVideo
 + boolean watchedVideo()
 + boolean addToSaved()
++ boolean removeFromSaved()
 }
 
 class FileIO{
