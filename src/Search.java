@@ -10,6 +10,13 @@ public class Search {
     private ArrayList<Video> csr;
     FileIO reader = new FileIO();
     Scanner scan = new Scanner(System.in);
+    TextUI ui;
+
+    public ArrayList<String> getMoviesWithGenre() {
+        return moviesWithGenre;
+    }
+
+    ArrayList<String> moviesWithGenre = new ArrayList<>();
 
         //This method is used to seperate the information given from the CSV-file
     private void seperator() {
@@ -23,12 +30,10 @@ public class Search {
     }
         //This method is used to search through the genres from the CSV-file. The \\s* "deletes" the spaces between , and the name of the genre
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
-        ArrayList<String> moviesWithGenre = new ArrayList<>();
         boolean validInput = false;
         int counter = 1;
 
         do {
-        TextUI.displayMsg("Please enter the genre you want to search");
         String choice = scan.nextLine();
         seperator();
 
@@ -61,7 +66,6 @@ public class Search {
            }
        }
     } while (!validInput);
-
     return moviesWithGenre;
 }
 

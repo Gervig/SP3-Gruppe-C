@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Stream {
     String name;
-
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Film> filmList = new ArrayList<>();
     ArrayList<Series> seriesList = new ArrayList<>();
@@ -11,8 +10,7 @@ public class Stream {
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
-
-    public User currentUser;
+    private User currentUser;
 
     protected Film film;
 
@@ -27,7 +25,7 @@ public class Stream {
         listOfActions.add("2) Sign up");
         listOfActions.add("3) Quit");
 
-        this.setup();
+        //this.setup();
     }
 
     private void setup() {
@@ -35,10 +33,10 @@ public class Stream {
         for (String s : filmData) {
             String[] values = s.split(";");
             String name = values[0];
-            String year = values[1];
+            String releaseDate = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            Film film = new Film(name, year, genre, rating);
+            Film film = new Film(name, releaseDate, genre, rating);
             filmList.add(film);
         }
 
@@ -46,13 +44,14 @@ public class Stream {
         for (String s : seriesData) {
             String[] values = s.split(";");
             String name = values[0];
-            String year = values[1];
+            String releaseDate = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            String episodes = values[4];
-            Series series = new Series(name, year, genre, rating, episodes);
+            String episode = values[4];
+            Series series = new Series(name, releaseDate, genre, rating, episode);
             seriesList.add(series);
         }
+
         ArrayList<String> userList = io.readUsers();
         for (String s : userList){
             String[] values = s.split(";");
@@ -61,111 +60,197 @@ public class Stream {
             User user = new User(name, password);
             users.add(user);
         }
+
     }
 
     public void runDialog() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
-//        while (action != listOfActions.size()) {// the quit action is the last action
+        while (action != listOfActions.size()) {// the quit action is the last action
             action = ui.promptChoice(listOfActions, "Choose action:");
 
             switch (action) {
                 case 1:
                     //Login to existing user
-                    currentUser = this.loginUser();
+                //    this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                    currentUser = this.createUser();
+                //    this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
                     //quit program
-//                    this.quitProgram();
+            //        this.quitProgram();
 
                     break;
             }
-//        }
+        }
     }
-
+/*
     public User createUser() {
         String newUsername = ui.promptText("Choose a username:");
-        if (!getUserNames().equals(newUsername)) {
-            String newPassword = ui.promptText("Choose a password:");
-            User newUser = new User(newUsername, newPassword);
-            users.add(newUser);
-            io.createUserFiles(newUsername, newPassword);
-            return newUser;
-        } else {
-            System.out.println("Username already in use, please choose a different username:");
-            return createUser();
+//        if (!users.get(0).equalsIgnoreCase(newUsername)) {
+//            String newPassword = ui.promptText("Choose a password:");
+//            User newUser = new User(newUsername, newPassword);
+//            users.add(newUser);
+//            return newUser;
+//        } else {
+//            System.out.println("Username already in use, please choose a different username:");
+//            return null;
+//        }
+        for (User user : users) {
+            if (user.getName().equalsIgnoreCase(newUsername)) {
+                System.out.println("Username already in use, please choose a different username:");
+                return null;
+            } else {
+                String newPassword = ui.promptText("Choose a password:");
+                io.createUserFiles(newUsername, newPassword);
+                User newUser = new User(newUsername, newPassword);
+                users.add(newUser);
+                return newUser;
+            }
         }
+    }*/
+    /*
+        public User loginUser () {
 
-    }
+            boolean isloggedIn = false;
+            String username = ui.promptText("Please write username:");
+            // String password too
+            while (!isloggedIn) {
+                for (User u : users) {
+                    if (u.getName().equals(username)) {
+                        User user = u;
 
-    public User loginUser() {
-        String username = ui.promptText("Please write username:");
-        // String password too
-            for (User u : users) {
-                if (u.getName().equals(username)) {
-                    User user = u;
-                    String input = ui.promptText("Please write password:");
-                    if (user.getPassword().equals(input)) {
-                        System.out.println("Login in success");
-                        return user;
-                    } else {
-                        System.out.println("Wrong password please try again:");
-                        return loginUser();
+                        if (user.getPassword().equals(ui.promptText("Please write password:"))) {
+                            System.out.println("logged in xd");
+                            isloggedIn = true;
+                            return user;
+                        } else {
+                            System.out.println("Wrong password please try agian:");
+                            //Lav evt en back option
+                        }
+
                     }
+                }
 
+            }
+        }
+*/
+        public void runStartMenu () {
+            ArrayList<String> listOfMenu = new ArrayList<>();
+            listOfMenu.add("1) Search");
+            listOfMenu.add("2) Saved");
+            listOfMenu.add("3) History");
+            listOfMenu.add("4) Logout");
+            listOfMenu.add("5) Quit");
+            ArrayList<String> listOfMovies = new ArrayList<>();
+            listOfMovies.add("1) Play now");
+            listOfMovies.add("2) Add to save");
+            listOfMovies.add("3) Go back to the search list");
+            int choice = 0;
+            while (choice != listOfMenu.size()) {// the quit action is the last action
+                choice = ui.promptChoice(listOfMenu, "Choose action:");
+                switch (choice) {
+                    case 1:
+                        //Search for movie - does not work for series
+                        Search search = new Search();
+                        ArrayList<String> listOfSearch = new ArrayList<>();
+                        listOfSearch.add("1) Genre");
+                        listOfSearch.add("2) Title");
+                        listOfSearch.add("3) Rating");
+                        listOfSearch.add("4) Releasedate");
+                        listOfSearch.add("5) Go back to menu");
+                        ui.promptChoice(listOfSearch, "Choose a search option");
+                        switch (choice) {
+                            case 1:
+                                //Search for genre
+                                search.searchGenre(io.readFilmData(filmDataPath, 100));
+/*
+                                int choiceOfMovie = ui.promptNumeric("Choose a film from the list above");
+                                ArrayList<String> moviesList = search.getMoviesWithGenre();
+                                String[] movies = moviesList.toArray(new String[0]);
+                                boolean movieFound = false;
+
+                                for (int i = 0; i < movies.length; i++) {
+                                    if (choiceOfMovie == i + 1) {
+                                        ui.displayMsg(movies[i]);
+                                        movieFound = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!movieFound) {
+                                    ui.displayMsg("No movie found with the specified index.");
+                                }
+*/
+                               // ui.displayMsg("You have chosen: " +  (search.getMoviesWithGenre().indexOf(choiceOfMovie)+1));
+                                int movieChoice = 0;
+                                while (movieChoice != listOfMenu.size())
+                                switch (movieChoice) {
+                                    case 1:
+                                        //Play the film now
+                                        break;
+                                    case 2:
+                                        //Save for later
+                                        break;
+                                    case 3:
+                                        //Go back to search list
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                //Search for title
+                                search.searchName(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 3:
+                                //Search for Rating
+                                search.searchRating(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 4:
+                                //Search for Releasedate
+                                search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 5:
+                                //Go back to menu
+                                break;
+                        }
+                        break;
+                    case 2:
+                        //View saved videos
+                        currentUser.getSavedVideo();
+
+                        break;
+                    case 3:
+                        //View watch history
+                        currentUser.getSeenFilm(); //Gets seen films
+                        currentUser.getSeenSeries(); //Gets seen series
+                        break;
+                    case 4:
+                        //logout
+                        currentUser = null;
+                        this.runDialog();
+                        break;
+                    case 5:
+                        //quit
+                        //   this.quitProgram();
+                        break;
                 }
             }
-        return null;
-
         }
-
-    public void runStartMenu () {
-        int choice = 0;
-        switch (choice) {
-            case 1:
-                //Search for movie / Series
-                Search search = new Search();
-
-                break;
-            case 2:
-                //View saved videos
-                currentUser.getSavedVideo();
-
-                break;
-            case 3:
-                //View watch history
-                currentUser.getSeenFilm(); //Gets seen films
-                currentUser.getSeenSeries(); //Gets seen series
-                break;
-            case 4:
-                //logout
-                currentUser = null;
-                this.runDialog();
-                break;
-            case 5:
-                //quit
-//                this.quitProgram();
-                break;
-        }
-    }
-
-//    private void quitProgram() {
-//        io.saveData(this.currentUser, );
-//    }
-
+/*
+        private void quitProgram () {
+            io.saveData(this.currentUser, );
+        }*/
 
     public ArrayList<User> getUserNames() {
-    ArrayList<String>namesOfUsers = new ArrayList<>();
+        ArrayList<String>namesOfUsers = new ArrayList<>();
         for(User u: users){
-        namesOfUsers.add(u.getName());
-    }
+            namesOfUsers.add(u.getName());
+        }
 
         return users;
     }
@@ -178,3 +263,4 @@ public class Stream {
         this.filmList = filmList;
     }
 }
+
