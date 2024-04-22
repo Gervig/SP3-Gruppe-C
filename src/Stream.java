@@ -10,6 +10,7 @@ public class Stream {
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
+    String userDataPath = "data\\UserData\\";
     private User currentUser;
 
     protected Film film;
@@ -119,14 +120,15 @@ public class Stream {
                             isloggedIn = true;
                             return user;
                         } else {
-                            System.out.println("Wrong password please try agian:");
-                            //Lav evt en back option
+                            System.out.println("Wrong password please try again:");
+                            //  recursion if the password is wrong
+                            loginUser();
                         }
-
                     }
                 }
-
             }
+            // method should never reach this line, but needs a return to compile
+            return null;
         }
 
         public void runStartMenu () {
@@ -161,6 +163,6 @@ public class Stream {
         }
 
         private void quitProgram () {
-            io.saveData(this.currentUser, );
+            io.saveData(this.currentUser, userDataPath);
         }
     }
