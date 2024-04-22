@@ -64,7 +64,6 @@ public class Stream {
                     //Login to existing user
                     this.loginUser();
                     this.runStartMenu();
-
                     break;
                 case 2:
                     //Sign up new user
@@ -74,7 +73,6 @@ public class Stream {
                 case 3:
                     //quit program
                     this.quitProgram();
-
                     break;
             }
         }
@@ -122,10 +120,8 @@ public class Stream {
                         System.out.println("Wrong password please try agian:");
                         //Lav evt en back option
                     }
-
                 }
             }
-
         }
     }
 

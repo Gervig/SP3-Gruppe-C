@@ -9,8 +9,8 @@ class Stream{
 - String name
 'utilities
 - ArrayList<User> users
-- ArrayList<Film> films
-- ArrayList<Series> series
+- ArrayList<Film> filmsList
+- ArrayList<Series> seriesList
 - String userDataPath
 - TextUI ui
 - FileIO io
@@ -100,7 +100,8 @@ class Film {
 
 
 class Search{
-+ ArrayList<Video> search()
++ ArrayList<String> search()
++ seperator()
 'methods til de forskellige søgemuligheder
 ' Skal disse returnere objekterne fra video?
 + searchGenre()
