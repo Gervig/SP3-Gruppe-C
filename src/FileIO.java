@@ -48,18 +48,19 @@ public class FileIO {
     }
 
     //Saves data
-    public static void saveData(ArrayList<User> users, String path) {
+    public static void saveData(ArrayList<Video> video, String path) {
         try {
             FileWriter writer = new FileWriter(path);
             writer.write("Title, release date, genre");
-            for (User u : users) {
-                writer.write(u + "\n");
+            for (Video v : video) {
+                writer.write(v + "\n");
             }
             writer.close();
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<String> readUserData(String path){
         ArrayList<String> userData = new ArrayList<>();
         File file = new File(path);
