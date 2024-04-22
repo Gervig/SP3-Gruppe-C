@@ -6,13 +6,14 @@ public class User {
     private ArrayList<Series> seenSeries;
     private ArrayList<Film> seenFilm;
     private ArrayList<Video> savedVideo;
-    private ArrayList<Video> seenVideo;
     private String newPassword;
 
     public User(String name, String newPassword) {
         this.name = name;
         this.savedVideo = savedVideo;
-        this.seenVideo = seenVideo;
+        this.seenFilm = seenFilm;
+        this.seenSeries = seenSeries;
+
         this.newPassword = newPassword;
     }
 

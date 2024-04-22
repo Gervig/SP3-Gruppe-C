@@ -54,10 +54,11 @@ public class Stream {
     }
 
     public void runDialog() {
+        setup();
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
-            action = ui.promptChoice(listOfActions, "Choose action:");
+            action = ui.promptChoice(listOfActions, "Choose an  action: ");
 
             switch (action) {
                 case 1:
@@ -79,9 +80,9 @@ public class Stream {
     }
 
     public User createUser() {
-        String newUsername = ui.promptText("Choose a username:");
+        String newUsername = ui.promptText("Choose a username: ");
 //        if (!users.get(0).equalsIgnoreCase(newUsername)) {
-//            String newPassword = ui.promptText("Choose a password:");
+//            String newPassword = ui.promptText("Choose a password: ");
 //            User newUser = new User(newUsername, newPassword);
 //            users.add(newUser);
 //            return newUser;
@@ -113,17 +114,20 @@ public class Stream {
                     if (u.getName().equals(username)) {
                         User user = u;
 
-                        if (user.getPassword().equals(ui.promptText("Please write password:"))) {
-                            System.out.println("logged in xd");
+                        if (user.getPassword().equals(ui.promptText("Please write password: "))) {
+                            System.out.println("Logged in.");
                             isloggedIn = true;
                             return user;
                         } else {
-                            System.out.println("Wrong password please try agian:");
-                            //Lav evt en back option
+                            System.out.println("Wrong password please try again:");
+                            // recursion, calls the method again if the password is wrong
+                            loginUser();
                         }
                     }
                 }
             }
+            // method should never reach this point, but needs a return to compile
+            return null;
         }
 
         public void runStartMenu(){
@@ -160,4 +164,5 @@ public class Stream {
         private void quitProgram(){
             io.saveData(this.currentUser, );
         }
+
 }
