@@ -53,7 +53,7 @@ public class Stream {
         }
     }
 
-  /*  public void runDialog() {
+    public void runDialog() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
@@ -91,78 +91,76 @@ public class Stream {
 //            System.out.println("Username already in use, please choose a different username:");
 //            return null;
 //        }
-        for (User user : users){
-            if (user.getName().equalsIgnoreCase(newUsername)){
-            System.out.println("Username already in use, please choose a different username:");
-            return null;
-            }else{
-            String newPassword = ui.promptText("Choose a password:");
-            io.createUserFiles(newUsername, newPassword);
-            User newUser = new User(newUsername, newPassword);
-            users.add(newUser);
-            return newUser;
+        for (User user : users) {
+            if (user.getName().equalsIgnoreCase(newUsername)) {
+                System.out.println("Username already in use, please choose a different username:");
+                return null;
+            } else {
+                String newPassword = ui.promptText("Choose a password:");
+                io.createUserFiles(newUsername, newPassword);
+                User newUser = new User(newUsername, newPassword);
+                users.add(newUser);
+                return newUser;
+            }
         }
     }
+        public User loginUser () {
 
-    public User loginUser() {
+            boolean isloggedIn = false;
+            String username = ui.promptText("Please write username:");
+            // String password too
+            while (!isloggedIn) {
+                for (User u : users) {
+                    if (u.getName().equals(username)) {
+                        User user = u;
 
-        boolean isloggedIn = false;
-        String username = ui.promptText("Please write username:");
-        // String password too
-        while (!isloggedIn) {
-            for (User u : users) {
-                if (u.getName().equals(username)) {
-                    User user = u;
+                        if (user.getPassword().equals(ui.promptText("Please write password:"))) {
+                            System.out.println("logged in xd");
+                            isloggedIn = true;
+                            return user;
+                        } else {
+                            System.out.println("Wrong password please try agian:");
+                            //Lav evt en back option
+                        }
 
-                    if (user.getPassword().equals(ui.promptText("Please write password:"))) {
-                        System.out.println("logged in xd");
-                        isloggedIn = true;
-                        return user;
-                    } else {
-                        System.out.println("Wrong password please try agian:");
-                        //Lav evt en back option
                     }
-
                 }
+
+            }
+        }
+
+        public void runStartMenu () {
+            int choice = 0;
+            switch (choice) {
+                case 1:
+                    //Search for movie / Series
+                    Search search = new Search();
+
+                    break;
+                case 2:
+                    //View saved videos
+                    currentUser.getSavedVideo();
+
+                    break;
+                case 3:
+                    //View watch history
+                    currentUser.getSeenFilm(); //Gets seen films
+                    currentUser.getSeenSeries(); //Gets seen series
+                    break;
+                case 4:
+                    //logout
+                    currentUser = null;
+                    this.runDialog();
+                    break;
+                case 5:
+                    //quit
+                    this.quitProgram();
+                    break;
             }
 
         }
-    }
 
-    public void runStartMenu() {
-        int choice = 0;
-        switch (choice) {
-            case 1:
-                //Search for movie / Series
-                Search search = new Search();
-
-                break;
-            case 2:
-                //View saved movies / series
-                currentUser.viewSaved();
-
-                break;
-            case 3:
-                //View watch historie
-                currentUser.viewSaved();
-
-                break;
-            case 4:
-                //logout
-                currentUser = null;
-                this.runDialog();
-                break;
-            case 5:
-                //quit
-                this.quitProgram();
-                break;
+        private void quitProgram () {
+            io.saveData(this.currentUser, );
         }
-
     }
-
-    private void quitProgram() {
-        io.saveData(this.currentUser, );
-    }
-
- */
-}

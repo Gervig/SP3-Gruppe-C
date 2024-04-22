@@ -11,6 +11,7 @@ public class Search {
     FileIO reader = new FileIO();
     Scanner scan = new Scanner(System.in);
 
+        //This method is used to seperate the information given from the CSV-file
     private void seperator() {
         for (String line : reader.readFilmData("data/film.txt", 100)) {
             String[] parts = line.split(";");
@@ -20,7 +21,7 @@ public class Search {
             rating = parts[3];
         }
     }
-
+        //This method is used to search through the genres from the CSV-file. The \\s* "deletes" the spaces between , and the name of the genre
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
         ArrayList<String> moviesWithGenre = new ArrayList<>();
         boolean validInput = false;
@@ -160,7 +161,7 @@ public class Search {
         return moviesWithRating;
 
     }
-   public ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList){
+   public ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList) {
        ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
        boolean validInput = false;
        int counter = 1;
@@ -182,15 +183,15 @@ public class Search {
                    moviesWithReleaseDate.add(parts[0] + " (" + releaseDate + ")");
                }
            }
-           if(!moviesWithReleaseDate.isEmpty()) {
-               TextUI.displayMsg("Here is all the movies within your release date range " + "\""+upper+"-"+lower+"\""+"\n");
+           if (!moviesWithReleaseDate.isEmpty()) {
+               TextUI.displayMsg("Here is all the movies within your release date range " + "\"" + upper + "-" + lower + "\"" + "\n");
                for (String movie : moviesWithReleaseDate) {
-                   TextUI.displayMsg(counter+" "+movie);
-                   counter +=1;
+                   TextUI.displayMsg(counter + " " + movie);
+                   counter += 1;
                }
                validInput = true; // Set validInput to true to exit the Do {} loop
            } else {
-               TextUI.displayMsg("No film or series was found within the year "+lower+" and "+upper+ " please try a different range");
+               TextUI.displayMsg("No film or series was found within the year " + lower + " and " + upper + " please try a different range");
                TextUI.displayMsg("Would you like to try another search? (yes/no)");
                String tryAgain = scan.nextLine().toLowerCase();
                if (!tryAgain.equals("yes")) {
@@ -202,5 +203,4 @@ public class Search {
        return moviesWithReleaseDate;
 
    }
-
 }
