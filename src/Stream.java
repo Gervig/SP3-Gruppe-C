@@ -62,24 +62,24 @@ public class Stream {
             switch (action) {
                 case 1:
                     //Login to existing user
-                    this.loginUser();
+                //    this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                    this.createUser();
+                //    this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
                     //quit program
-                    this.quitProgram();
+            //        this.quitProgram();
 
                     break;
             }
         }
     }
-
+/*
     public User createUser() {
         String newUsername = ui.promptText("Choose a username:");
 //        if (!users.get(0).equalsIgnoreCase(newUsername)) {
@@ -103,7 +103,8 @@ public class Stream {
                 return newUser;
             }
         }
-    }
+    }*/
+    /*
         public User loginUser () {
 
             boolean isloggedIn = false;
@@ -128,39 +129,96 @@ public class Stream {
 
             }
         }
-
+*/
         public void runStartMenu () {
+            ArrayList<String> listOfMenu = new ArrayList<>();
+            listOfMenu.add("1) Search");
+            listOfMenu.add("2) Saved");
+            listOfMenu.add("3) History");
+            listOfMenu.add("4) Logout");
+            listOfMenu.add("5) Quit");
+            ArrayList<String> listOfMovies = new ArrayList<>();
+            listOfMovies.add("1) Play now");
+            listOfMovies.add("2) Add to save");
+            listOfMovies.add("3) Go back to the search list");
             int choice = 0;
-            switch (choice) {
-                case 1:
-                    //Search for movie / Series
-                    Search search = new Search();
+            while (choice != listOfMenu.size()) {// the quit action is the last action
+                choice = ui.promptChoice(listOfMenu, "Choose action:");
+                switch (choice) {
+                    case 1:
+                        //Search for movie - does not work for series
+                        Search search = new Search();
+                        ArrayList<String> listOfSearch = new ArrayList<>();
+                        listOfSearch.add("1) Genre");
+                        listOfSearch.add("2) Title");
+                        listOfSearch.add("3) Rating");
+                        listOfSearch.add("4) Releasedate");
+                        listOfSearch.add("5) Go back to menu");
+                        ui.promptChoice(listOfSearch, "Choose a search option");
+                        switch (choice) {
+                            case 1:
+                                //Search for genre
+                                search.searchGenre(io.readFilmData(filmDataPath, 100));
 
-                    break;
-                case 2:
-                    //View saved videos
-                    currentUser.getSavedVideo();
+                                //When the result of the search comes we want to prompt a new choice for the user
+                               // ui.promptChoice(search.getMoviesWithGenre(), "Choose a film");
+                                ui.promptNumeric("Choose a film from the list above");
+                                ui.displayMsg("You have chosen: " + search.getMoviesWithGenre());
+                                int movieChoice = 0;
+                                while (movieChoice != listOfMenu.size())
+                                switch (movieChoice) {
+                                    case 1:
+                                        //Play the film now
+                                        break;
+                                    case 2:
+                                        //Save for later
+                                        break;
+                                    case 3:
+                                        //Go back to search list
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                //Search for title
+                                search.searchName(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 3:
+                                //Search for Rating
+                                search.searchRating(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 4:
+                                //Search for Releasedate
+                                search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
+                                break;
+                            case 5:
+                                //Go back to menu
+                                break;
+                        }
+                        break;
+                    case 2:
+                        //View saved videos
+                        currentUser.getSavedVideo();
 
-                    break;
-                case 3:
-                    //View watch history
-                    currentUser.getSeenFilm(); //Gets seen films
-                    currentUser.getSeenSeries(); //Gets seen series
-                    break;
-                case 4:
-                    //logout
-                    currentUser = null;
-                    this.runDialog();
-                    break;
-                case 5:
-                    //quit
-                    this.quitProgram();
-                    break;
+                        break;
+                    case 3:
+                        //View watch history
+                        currentUser.getSeenFilm(); //Gets seen films
+                        currentUser.getSeenSeries(); //Gets seen series
+                        break;
+                    case 4:
+                        //logout
+                        currentUser = null;
+                        this.runDialog();
+                        break;
+                    case 5:
+                        //quit
+                        //   this.quitProgram();
+                        break;
+                }
             }
-
         }
-
+/*
         private void quitProgram () {
             io.saveData(this.currentUser, );
-        }
+        }*/
     }
