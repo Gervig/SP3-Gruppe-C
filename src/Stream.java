@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class Stream {
     String name;
+
     ArrayList<User> users = new ArrayList<>();
-    ArrayList<Film> filmsList = new ArrayList<>();
-    ArrayList<Series> seriesList = new ArrayList<>();
     TextUI ui;
     FileIO io;
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
-    private User currentUser;
+
+    public User currentUser;
 
     protected Film film;
 
@@ -25,7 +25,7 @@ public class Stream {
         listOfActions.add("2) Sign up");
         listOfActions.add("3) Quit");
 
-        //this.setup();
+        this.setup();
     }
 
     private void setup() {
@@ -33,27 +33,26 @@ public class Stream {
         for (String s : filmData) {
             String[] values = s.split(";");
             String name = values[0];
-            String releaseDate = values[1];
+            String year = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            Film film = new Film(name, releaseDate, genre, rating);
-            filmsList.add(film);
+            Film film = new Film(name, year, genre, rating);
         }
 
         ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
         for (String s : seriesData) {
             String[] values = s.split(";");
             String name = values[0];
-            String releaseDate = values[1];
+            String year = values[1];
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
-            String episode = values[4];
-            Series series = new Series(name, releaseDate, genre, rating, episode);
-            seriesList.add(series);
+            String episodes = values[4];
+            Series series = new Series(name, year, genre, rating, episodes);
+
         }
     }
 
-  /*  public void runDialog() {
+    public void runDialog() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
@@ -82,26 +81,16 @@ public class Stream {
 
     public User createUser() {
         String newUsername = ui.promptText("Choose a username:");
-//        if (!users.get(0).equalsIgnoreCase(newUsername)) {
-//            String newPassword = ui.promptText("Choose a password:");
-//            User newUser = new User(newUsername, newPassword);
-//            users.add(newUser);
-//            return newUser;
-//        } else {
-//            System.out.println("Username already in use, please choose a different username:");
-//            return null;
-//        }
-        for (User user : users){
-            if (user.getName().equalsIgnoreCase(newUsername)){
-            System.out.println("Username already in use, please choose a different username:");
-            return null;
-            }else{
+        if (!getUserNames().equals(newUsername)) {
             String newPassword = ui.promptText("Choose a password:");
-            io.createUserFiles(newUsername, newPassword);
             User newUser = new User(newUsername, newPassword);
             users.add(newUser);
             return newUser;
+        } else {
+            System.out.println("Username already in use, please choose a different username:");
+            return createUser();
         }
+
     }
 
     public User loginUser() {
@@ -127,9 +116,10 @@ public class Stream {
             }
 
         }
+        return null;
     }
 
-    public void runStartMenu() {
+    public void runStartMenu () {
         int choice = 0;
         switch (choice) {
             case 1:
@@ -138,14 +128,14 @@ public class Stream {
 
                 break;
             case 2:
-                //View saved movies / series
-                currentUser.viewSaved();
+                //View saved videos
+                currentUser.getSavedVideo();
 
                 break;
             case 3:
-                //View watch historie
-                currentUser.viewSaved();
-
+                //View watch history
+                currentUser.getSeenFilm(); //Gets seen films
+                currentUser.getSeenSeries(); //Gets seen series
                 break;
             case 4:
                 //logout
@@ -157,12 +147,21 @@ public class Stream {
                 this.quitProgram();
                 break;
         }
-
     }
 
     private void quitProgram() {
         io.saveData(this.currentUser, );
     }
 
- */
+
+    public ArrayList<User> getUserNames() {
+    ArrayList<String>namesOfUsers = new ArrayList<>();
+        for(User u: users){
+        namesOfUsers.add(u.getName());
+    }
+
+        return users;
+    }
+
+
 }
