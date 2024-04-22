@@ -46,6 +46,19 @@ public boolean addToSaved(){
     /*Vi vil lave en funktion der sammenligner search-string med objekterne og derefter gemmer den i historik/saved */
 
 
+    public void watchedVideo(Stream stream){    //needs stream parameter for stream object to be visible for the method
+        //todo need getter method to get names of films that have been seen
+        ArrayList<String> seenFilmNames = new ArrayList<>();
+        for (String s : seenFilmNames){
+            for (Film f : stream.getFilmList()){
+                if (f.getName().equals(s)){
+                    Film film = f;
+                    seenFilm.add(f);
+                }
+            }
+        }
+    }
+
     //Getters so that Stream-class can call the lists
     public ArrayList<Series> getSeenSeries() {
         return seenSeries;

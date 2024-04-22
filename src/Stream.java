@@ -170,5 +170,11 @@ public class Stream {
         return users;
     }
 
+    public ArrayList<Film> getFilmList() {
+        return filmList;
+    }
 
+    public void setFilmList(ArrayList<Film> filmList) {
+        this.filmList = filmList;
+    }
 }
