@@ -51,7 +51,7 @@ public class FileIO {
     public static void saveData(ArrayList<Video> video, String path) {
         try {
             FileWriter writer = new FileWriter(path);
-            writer.write("Title, release date, genre");
+//            writer.write("Title, release date, genre");
             for (Video v : video) {
                 writer.write(v + "\n");
             }

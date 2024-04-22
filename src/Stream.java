@@ -74,7 +74,7 @@ public class Stream {
                     break;
                 case 3:
                     //quit program
-                    this.quitProgram();
+//                    this.quitProgram();
 
                     break;
             }
@@ -95,7 +95,7 @@ public class Stream {
         for (User user : users) {
             if (user.getName().equalsIgnoreCase(newUsername)) {
                 System.out.println("Username already in use, please choose a different username:");
-                return null;
+                return createUser();
             } else {
                 String newPassword = ui.promptText("Choose a password:");
                 io.createUserFiles(newUsername, newPassword);
@@ -104,6 +104,7 @@ public class Stream {
                 return newUser;
             }
         }
+        return null;
     }
         public User loginUser () {
 
@@ -156,13 +157,13 @@ public class Stream {
                     break;
                 case 5:
                     //quit
-                    this.quitProgram();
+//                    this.quitProgram();
                     break;
             }
 
         }
 
-        private void quitProgram () {
-            io.saveData(this.currentUser, userDataPath);
-        }
+//        private void quitProgram () {
+//            io.saveData(this.currentUser, userDataPath);
+//        }
     }
