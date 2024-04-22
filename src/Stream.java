@@ -54,17 +54,17 @@ public class Stream {
     }
 
     public void runDialog() {
-        setup();
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
-            action = ui.promptChoice(listOfActions, "Choose an  action: ");
+            action = ui.promptChoice(listOfActions, "Choose action:");
 
             switch (action) {
                 case 1:
                     //Login to existing user
                     this.loginUser();
                     this.runStartMenu();
+
                     break;
                 case 2:
                     //Sign up new user
@@ -74,15 +74,16 @@ public class Stream {
                 case 3:
                     //quit program
                     this.quitProgram();
+
                     break;
             }
         }
     }
 
     public User createUser() {
-        String newUsername = ui.promptText("Choose a username: ");
+        String newUsername = ui.promptText("Choose a username:");
 //        if (!users.get(0).equalsIgnoreCase(newUsername)) {
-//            String newPassword = ui.promptText("Choose a password: ");
+//            String newPassword = ui.promptText("Choose a password:");
 //            User newUser = new User(newUsername, newPassword);
 //            users.add(newUser);
 //            return newUser;
@@ -103,8 +104,7 @@ public class Stream {
             }
         }
     }
-
-        public User loginUser(){
+        public User loginUser () {
 
             boolean isloggedIn = false;
             String username = ui.promptText("Please write username:");
@@ -114,23 +114,22 @@ public class Stream {
                     if (u.getName().equals(username)) {
                         User user = u;
 
-                        if (user.getPassword().equals(ui.promptText("Please write password: "))) {
-                            System.out.println("Logged in.");
+                        if (user.getPassword().equals(ui.promptText("Please write password:"))) {
+                            System.out.println("logged in xd");
                             isloggedIn = true;
                             return user;
                         } else {
-                            System.out.println("Wrong password please try again:");
-                            // recursion, calls the method again if the password is wrong
-                            loginUser();
+                            System.out.println("Wrong password please try agian:");
+                            //Lav evt en back option
                         }
+
                     }
                 }
+
             }
-            // method should never reach this point, but needs a return to compile
-            return null;
         }
 
-        public void runStartMenu(){
+        public void runStartMenu () {
             int choice = 0;
             switch (choice) {
                 case 1:
@@ -139,14 +138,14 @@ public class Stream {
 
                     break;
                 case 2:
-                    //View saved movies / series
-                    currentUser.viewSaved();
+                    //View saved videos
+                    currentUser.getSavedVideo();
 
                     break;
                 case 3:
-                    //View watch historie
-                    currentUser.viewSaved();
-
+                    //View watch history
+                    currentUser.getSeenFilm(); //Gets seen films
+                    currentUser.getSeenSeries(); //Gets seen series
                     break;
                 case 4:
                     //logout
@@ -161,8 +160,7 @@ public class Stream {
 
         }
 
-        private void quitProgram(){
+        private void quitProgram () {
             io.saveData(this.currentUser, );
         }
-
-}
+    }

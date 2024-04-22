@@ -30,6 +30,7 @@ return rating;
 public boolean playVideo(Video video) {
         //todo msg skal soutes i TextUI
         String msg = video.getName() + " is now playing...";
+
         return true;
     }
 

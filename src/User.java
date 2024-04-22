@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class User {
@@ -19,6 +20,7 @@ public class User {
 
 //methods
 
+    //This method is used to save a list of videos that the user has seen.
 public boolean watchedVideo(Video video){
     if (video instanceof Series && video.playVideo(video)){
         seenSeries.add((Series) video);
@@ -27,7 +29,9 @@ public boolean watchedVideo(Video video){
     }
         return true;
 }
+    //This method is used to add videos to the users list of savedVideos
 public boolean addToSaved(){
+        //Denne skal kunne gemme fra enten search eller hele listen
         return true;
     }
 
@@ -37,5 +41,19 @@ public boolean addToSaved(){
 
     public String getPassword() {
         return newPassword;
+    }
+
+    /*Vi vil lave en funktion der sammenligner search-string med objekterne og derefter gemmer den i historik/saved */
+
+
+    //Getters so that Stream-class can call the lists
+    public ArrayList<Series> getSeenSeries() {
+        return seenSeries;
+    }
+    public ArrayList<Film> getSeenFilm() {
+        return seenFilm;
+    }
+    public ArrayList<Video> getSavedVideo() {
+        return savedVideo;
     }
 }
