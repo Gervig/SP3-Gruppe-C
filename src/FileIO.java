@@ -8,6 +8,27 @@ import java.util.Scanner;
 public class FileIO {
 
 
+
+    public ArrayList<String> readUsers (){
+        String path = "data\\UserData\\Users.txt";
+        ArrayList<String> users = new ArrayList<>();
+        File file = new File(path);
+        try{
+            Scanner scan = new Scanner(file);
+
+            while(scan.hasNextLine()){
+                String line = scan.nextLine();
+                users.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        }
+
+        return users;
+
+
+    }
+
     //reads filmdata
     public ArrayList<String> readFilmData(String path, int length){
         ArrayList<String> filmdata = new ArrayList<>();
@@ -77,10 +98,10 @@ public class FileIO {
         return userData;
     }
     public void createUserFiles(String username, String password){
-        File fileH = new File("data\\UserData\\UserHistory\\" + username+".txt");
-        File fileS = new File("data\\UserData\\UserSaved\\" + username+".txt");
+        File fileH = new File("data\\UserData\\UserHistory\\" + username + ".txt");
+        File fileS = new File("data\\UserData\\UserSaved\\" + username + ".txt");
         try {
-            FileWriter writer = new FileWriter("data\\UserData\\Users.txt");
+            FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true); // true means append mode
             writer.write(username + ";" + password + ";" + "\n");
             writer.close();
         } catch (IOException e){
@@ -88,6 +109,7 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
 
 
 }

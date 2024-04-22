@@ -4,6 +4,8 @@ public class Stream {
     String name;
 
     ArrayList<User> users = new ArrayList<>();
+    ArrayList<Film> filmList = new ArrayList<>();
+    ArrayList<Series> seriesList = new ArrayList<>();
     TextUI ui;
     FileIO io;
     ArrayList<String> listOfActions = new ArrayList<>();
@@ -37,6 +39,7 @@ public class Stream {
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
             Film film = new Film(name, year, genre, rating);
+            filmList.add(film);
         }
 
         ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
@@ -48,35 +51,43 @@ public class Stream {
             float rating = Float.parseFloat(values[3].trim());
             String episodes = values[4];
             Series series = new Series(name, year, genre, rating, episodes);
-
+            seriesList.add(series);
+        }
+        ArrayList<String> userList = io.readUsers();
+        for (String s : userList){
+            String[] values = s.split(";");
+            String name = values[0];
+            String password = values[1];
+            User user = new User(name, password);
+            users.add(user);
         }
     }
 
     public void runDialog() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
-        while (action != listOfActions.size()) {// the quit action is the last action
+//        while (action != listOfActions.size()) {// the quit action is the last action
             action = ui.promptChoice(listOfActions, "Choose action:");
 
             switch (action) {
                 case 1:
                     //Login to existing user
-                    this.loginUser();
+                    currentUser = this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                    this.createUser();
+                    currentUser = this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
                     //quit program
-                    this.quitProgram();
+//                    this.quitProgram();
 
                     break;
             }
-        }
+//        }
     }
 
     public User createUser() {
@@ -85,6 +96,7 @@ public class Stream {
             String newPassword = ui.promptText("Choose a password:");
             User newUser = new User(newUsername, newPassword);
             users.add(newUser);
+            io.createUserFiles(newUsername, newPassword);
             return newUser;
         } else {
             System.out.println("Username already in use, please choose a different username:");
@@ -94,30 +106,25 @@ public class Stream {
     }
 
     public User loginUser() {
-
-        boolean isloggedIn = false;
         String username = ui.promptText("Please write username:");
         // String password too
-        while (!isloggedIn) {
             for (User u : users) {
                 if (u.getName().equals(username)) {
                     User user = u;
-
-                    if (user.getPassword().equals(ui.promptText("Please write password:"))) {
-                        System.out.println("logged in xd");
-                        isloggedIn = true;
+                    String input = ui.promptText("Please write password:");
+                    if (user.getPassword().equals(input)) {
+                        System.out.println("Login in success");
                         return user;
                     } else {
-                        System.out.println("Wrong password please try agian:");
-                        //Lav evt en back option
+                        System.out.println("Wrong password please try again:");
+                        return loginUser();
                     }
 
                 }
             }
+        return null;
 
         }
-        return null;
-    }
 
     public void runStartMenu () {
         int choice = 0;
@@ -144,14 +151,14 @@ public class Stream {
                 break;
             case 5:
                 //quit
-                this.quitProgram();
+//                this.quitProgram();
                 break;
         }
     }
 
-    private void quitProgram() {
-        io.saveData(this.currentUser, );
-    }
+//    private void quitProgram() {
+//        io.saveData(this.currentUser, );
+//    }
 
 
     public ArrayList<User> getUserNames() {
