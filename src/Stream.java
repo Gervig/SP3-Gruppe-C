@@ -159,11 +159,25 @@ public class Stream {
                             case 1:
                                 //Search for genre
                                 search.searchGenre(io.readFilmData(filmDataPath, 100));
+/*
+                                int choiceOfMovie = ui.promptNumeric("Choose a film from the list above");
+                                ArrayList<String> moviesList = search.getMoviesWithGenre();
+                                String[] movies = moviesList.toArray(new String[0]);
+                                boolean movieFound = false;
 
-                                //When the result of the search comes we want to prompt a new choice for the user
-                               // ui.promptChoice(search.getMoviesWithGenre(), "Choose a film");
-                                ui.promptNumeric("Choose a film from the list above");
-                                ui.displayMsg("You have chosen: " + search.getMoviesWithGenre());
+                                for (int i = 0; i < movies.length; i++) {
+                                    if (choiceOfMovie == i + 1) {
+                                        ui.displayMsg(movies[i]);
+                                        movieFound = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!movieFound) {
+                                    ui.displayMsg("No movie found with the specified index.");
+                                }
+*/
+                               // ui.displayMsg("You have chosen: " +  (search.getMoviesWithGenre().indexOf(choiceOfMovie)+1));
                                 int movieChoice = 0;
                                 while (movieChoice != listOfMenu.size())
                                 switch (movieChoice) {
