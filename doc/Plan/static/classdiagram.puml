@@ -41,7 +41,7 @@ class User{
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
 - ArrayList<Video> savedVideo
-+ boolean watchVideo()
++ boolean watchedVideo()
 + boolean addToSaved()
 }
 

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Stream {
     String name;
     ArrayList<User> users = new ArrayList<>();
+    ArrayList<Film> filmsList = new ArrayList<>();
+    ArrayList<Series> seriesList = new ArrayList<>();
     TextUI ui;
     FileIO io;
     ArrayList<String> listOfActions = new ArrayList<>();
@@ -25,7 +27,7 @@ public class Stream {
 
         //this.setup();
     }
-/*
+
     private void setup() {
         ArrayList<String> filmData = new ArrayList<>(io.readFilmData(filmDataPath, 100));
         for (String s : filmData) {
@@ -35,6 +37,7 @@ public class Stream {
             String genre = values[2];
             float rating = Float.parseFloat(values[3].trim());
             Film film = new Film(name, releaseDate, genre, rating);
+            filmsList.add(film);
         }
 
         ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
@@ -46,11 +49,11 @@ public class Stream {
             float rating = Float.parseFloat(values[3].trim());
             String episode = values[4];
             Series series = new Series(name, releaseDate, genre, rating, episode);
-
+            seriesList.add(series);
         }
     }
 
-    public void runDialog() {
+  /*  public void runDialog() {
         ui.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
