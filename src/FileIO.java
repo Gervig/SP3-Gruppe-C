@@ -69,7 +69,6 @@ public class FileIO {
     public static void saveData(ArrayList<User> users, String path) {
         try {
             FileWriter writer = new FileWriter(path);
-            writer.write("Title, release date, genre");
             for (User u : users) {
                 writer.write(u + "\n");
             }
@@ -78,6 +77,7 @@ public class FileIO {
             throw new RuntimeException(e);
         }
     }
+
 
     public ArrayList<String> readUserData(String path) {
         ArrayList<String> userData = new ArrayList<>();
@@ -107,6 +107,9 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
+
+
 
 
 }

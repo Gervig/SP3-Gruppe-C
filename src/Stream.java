@@ -25,8 +25,6 @@ public class Stream {
         listOfActions.add("1) Login");
         listOfActions.add("2) Sign up");
         listOfActions.add("3) Quit");
-
-        //this.setup();
     }
 
     private void setup() {
@@ -61,7 +59,6 @@ public class Stream {
             User user = new User(name, password);
             users.add(user);
         }
-
     }
 
     public void runDialog() {
@@ -84,8 +81,7 @@ public class Stream {
                     break;
                 case 3:
                     //quit program
-                    //        this.quitProgram();
-
+                    //this.quitProgram();
                     break;
             }
         }
@@ -121,7 +117,6 @@ public class Stream {
                 }
             }
         }
-
         System.out.println("User does not exist. Please try again:");
         return loginUser();
     }
@@ -182,17 +177,14 @@ public class Stream {
                                     switch (choiceForMovie) {
                                         case 1:
                                             ui.displayMsg("Now playing: " + selectedMovie);
-//                                                selectedVideo(selectedMovie);
-
                                             currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                            System.out.println(currentUser.getSeenFilm());
-//                                                Film addToWatched = new Film(selectedMovie);
-//                                               currentUser.watchedVideo(addToWatched); //Add to seenFilm
-                                            //Vi kan ikke få den til at samarbejde med watchedVideo
+                                            // sout for at se om det blev gemt i sete film
+//                                            System.out.println(currentUser.getSeenFilm());
 
                                             break;
                                         case 2:
-                                            //add to listOfSaved
+                                            ui.displayMsg(selectedMovie + " saved.");
+                                            currentUser.addToSaved(stringToFilm(selectedMovie));
                                             break;
                                         case 3:
                                             //go back
