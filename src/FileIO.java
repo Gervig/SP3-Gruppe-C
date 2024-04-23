@@ -26,28 +26,28 @@ public class FileIO {
     }
 
     //reads filmdata
-    public ArrayList<String> readFilmData(String path, int length) {
-        ArrayList<String> filmdata = new ArrayList<>();
-        File file = new File(path);
-
-        try {
-            Scanner scan = new Scanner(file);
-
-            for (int i = 0; i < length; i++) {
-                String line = scan.nextLine();
-                filmdata.add(i, line);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File was not found");
-        }
-
-        return filmdata;
-    }
+//    public ArrayList<String> readFilmData(String path, int length) {
+//        ArrayList<String> filmdata = new ArrayList<>();
+//        File file = new File(path);
+//
+//        try {
+//            Scanner scan = new Scanner(file);
+//
+//            for (int i = 0; i < length; i++) {
+//                String line = scan.nextLine();
+//                filmdata.add(i, line);
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File was not found");
+//        }
+//
+//        return filmdata;
+//    }
 
 
     //reads seriesdata
-    public ArrayList<String> readSeriesData(String path, int length) {
-        ArrayList<String> seriesdata = new ArrayList<>();
+    public ArrayList<String> readVideoData(String path, int length) {
+        ArrayList<String> videoData = new ArrayList<>();
         File file = new File(path);
 
         try {
@@ -55,14 +55,31 @@ public class FileIO {
 
             for (int i = 0; i < length; i++) {
                 String line = scan.nextLine();
-                seriesdata.add(i, line);
+                videoData.add(i, line);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File was not found");
-            ;
         }
 
-        return seriesdata;
+        return videoData;
+    }
+
+    public ArrayList<String> readVideoData(String path, String username) {
+        ArrayList<String> videoData = new ArrayList<>();
+        path += "\\" + username;
+        File file = new File(path);
+        try {
+            Scanner scan = new Scanner(file);
+
+            while(scan.hasNextLine()) {
+                String line = scan.nextLine();
+                videoData.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        }
+
+        return videoData;
     }
 
     //Saves data for users, should maybe be refactored to "saveUserData"
