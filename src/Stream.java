@@ -209,17 +209,16 @@ public class Stream {
                                                 TextUI.displayMsg("Now playing: " + selectedMovie);
                                                 break;
                                             case 2:
-                                                //add to listOfSaved
+                                                Film movieToSave = stringToFilm(selectedMovie);
+                                                currentUser.addToSaved(movieToSave);
+                                                TextUI.displayMsg("The movie: " + selectedMovie+" has been added to your save list");
                                                 break;
                                             case 3:
                                                 //go back
                                                 break;
                                         }
                                     }
-                                        //
-                                        //
-                                        // Code for playing movie or adding to the save list goes here.
-                                    } else{
+                                } else{
                                         TextUI.displayMsg("Invalid movie choice.");
                                     }
 
