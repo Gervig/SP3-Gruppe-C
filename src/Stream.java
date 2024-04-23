@@ -337,7 +337,7 @@ public class Stream {
                 case 1:
                     Scanner scan = new Scanner(System.in);
                     ui.displayMsg("Now playing: " + selectedMovie);
-                    ui.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching");
+                    ui.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
                     currentUser.watchedFilm(stringToFilm(selectedMovie));
                     Boolean validInput = false;
                     do {
