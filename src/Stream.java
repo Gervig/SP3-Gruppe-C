@@ -337,7 +337,7 @@ public class Stream {
                 case 1:
                     Scanner scan = new Scanner(System.in);
                     ui.displayMsg("Now playing: " + selectedMovie);
-                    ui.displayMsg("Type: Stop if you would like to stop watching");
+                    ui.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching");
                     currentUser.watchedFilm(stringToFilm(selectedMovie));
                     Boolean validInput = false;
                     do {
@@ -350,7 +350,7 @@ public class Stream {
                             ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
                             runStartMenu();
                         }
-
+                        //todo: Let it stay for a bit until userinput is registered
                     } while(!validInput);
 
                     break;
