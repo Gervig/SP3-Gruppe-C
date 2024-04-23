@@ -113,6 +113,7 @@ public class Stream {
                 String inputPassword = ui.promptText("Please write password:");
                 if (u.getPassword().equals(inputPassword)) {
                     System.out.println("Logged in");
+                    //todo read UserHistory & Saved and add to lists
                     return u;
                 } else {
                     System.out.println("Wrong password. Please try again:");
@@ -120,7 +121,6 @@ public class Stream {
                 }
             }
         }
-
         System.out.println("User does not exist. Please try again:");
         return loginUser();
     }
@@ -154,13 +154,16 @@ public class Stream {
                     break;
                 case 2:
                     //View saved videos
-                    currentUser.getSavedFilm();
-
+                    ui.displayMsg("Saved film" + currentUser.getSavedFilm());
+                    //the list is not yet added, there is a to do for that.
+                    //todo: make a method for choosing a movie and play those, like in the search method
                     break;
                 case 3:
                     //View watch history
                     currentUser.getSeenFilm(); //Gets seen films
                     currentUser.getSeenSeries(); //Gets seen series
+                    //the list is not yet added, there is a to do for that.
+                    //todo: make a method for choosing a movie and play those, like in the search method
                     break;
                 case 4:
                     //logout
