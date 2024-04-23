@@ -15,6 +15,7 @@ public class Stream {
 
     //Rikke
     ArrayList<String> listOfMovies = new ArrayList<>();
+    String selectedMovie = "movie";
 
     protected Film film;
 
@@ -227,29 +228,8 @@ public class Stream {
                 // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice = ui.promptNumeric("Choose a Film from the list above");
                 if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                    String selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-
-                    int choiceForMovie = 0;
-                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
-                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
-                        switch (choiceForMovie) {
-                            case 1:
-                                ui.displayMsg("Now playing: " + selectedMovie);
-                                currentUser.watchedFilm(stringToFilm(selectedMovie));
-                            //todo: Let it stay for a bit until userinput is registered
-                            break;
-                            case 2:
-                                currentUser.addToSaved(stringToFilm(selectedMovie));
-                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
-                                ui.displayMsg("You have been redirected to the Start menu");
-                                runStartMenu();
-                                break;
-                            case 3:
-                                //goes back to search menu
-                                searchForMovie();
-                                break;
-                        }
-                    }
+                    selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+                    playMenu();
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
                 }
@@ -265,29 +245,8 @@ public class Stream {
                 // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice2 = ui.promptNumeric("Choose a Film from the list above");
                 if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
-                    String selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
-
-                    int choiceForMovie = 0;
-                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
-                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
-                        switch (choiceForMovie) {
-                            case 1:
-                                ui.displayMsg("Now playing: " + selectedMovie);
-                                currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                //todo: Let it stay for a bit until userinput is registered
-                                break;
-                            case 2:
-                                currentUser.addToSaved(stringToFilm(selectedMovie));
-                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
-                                ui.displayMsg("You have been redirected to the Start menu");
-                                runStartMenu();
-                                break;
-                            case 3:
-                                //goes back to search menu
-                                searchForMovie();
-                                break;
-                        }
-                    }
+                    selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
+                    playMenu();
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
                 }
@@ -302,29 +261,8 @@ public class Stream {
                 // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice3 = ui.promptNumeric("Choose a Film from the list above");
                 if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
-                    String selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
-
-                    int choiceForMovie = 0;
-                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
-                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
-                        switch (choiceForMovie) {
-                            case 1:
-                                ui.displayMsg("Now playing: " + selectedMovie);
-                                currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                //todo: Let it stay for a bit until userinput is registered
-                                break;
-                            case 2:
-                                currentUser.addToSaved(stringToFilm(selectedMovie));
-                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
-                                ui.displayMsg("You have been redirected to the Start menu");
-                                runStartMenu();
-                                break;
-                            case 3:
-                                //goes back to search menu
-                                searchForMovie();
-                                break;
-                        }
-                    }
+                    selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
+                    playMenu();
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
                 }
@@ -339,29 +277,8 @@ public class Stream {
                 // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice4 = ui.promptNumeric("Choose a Film from the list above");
                 if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
-                    String selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
-
-                    int choiceForMovie = 0;
-                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
-                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
-                        switch (choiceForMovie) {
-                            case 1:
-                                ui.displayMsg("Now playing: " + selectedMovie);
-                                currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                //todo: Let it stay for a bit until userinput is registered
-                                break;
-                            case 2:
-                                currentUser.addToSaved(stringToFilm(selectedMovie));
-                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
-                                ui.displayMsg("You have been redirected to the Start menu");
-                                runStartMenu();
-                                break;
-                            case 3:
-                                //goes back to search menu
-                                searchForMovie();
-                                break;
-                        }
-                    }
+                    selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
+                    playMenu();
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
                 }
@@ -369,6 +286,32 @@ public class Stream {
             case 5:
                 runStartMenu();
                 break;
+        }
+    }
+
+    public void playMenu(){
+        int choiceForMovie = 0;
+        while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+            choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+            switch (choiceForMovie) {
+                case 1:
+                    ui.displayMsg("Now playing: " + selectedMovie);
+                    currentUser.watchedFilm(stringToFilm(selectedMovie));
+                    ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
+                    //todo: Let it stay for a bit until userinput is registered
+                    runStartMenu();
+                    break;
+                case 2:
+                    currentUser.addToSaved(stringToFilm(selectedMovie));
+                    TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
+                    ui.displayMsg("You have been redirected to the Start menu");
+                    runStartMenu();
+                    break;
+                case 3:
+                    //goes back to search menu
+                    searchForMovie();
+                    break;
+            }
         }
     }
 }
