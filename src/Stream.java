@@ -39,7 +39,7 @@ public class Stream {
             filmList.add(film);
         }
 
-        ArrayList<String> seriesData = new ArrayList<>(io.readSeriesData(seriesDataPath, 100));
+        ArrayList<String> seriesData = new ArrayList<>(io.readVideoData(seriesDataPath, 100));
         for (String s : seriesData) {
             String[] values = s.split(";");
             String name = values[0];
