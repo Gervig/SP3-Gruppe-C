@@ -64,6 +64,7 @@ public class Stream {
     }
 
     public void runDialog() {
+
         TextUI.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
@@ -89,31 +90,35 @@ public class Stream {
             }
         }
     }
-/*
-    public User createUser() {
-        String newUsername = ui.promptText("Choose a username:");
-//        if (!users.get(0).equalsIgnoreCase(newUsername)) {
-//            String newPassword = ui.promptText("Choose a password:");
-//            User newUser = new User(newUsername, newPassword);
-//            users.add(newUser);
-//            return newUser;
-//        } else {
-//            System.out.println("Username already in use, please choose a different username:");
-//            return null;
-//        }
-        for (User user : users) {
-            if (user.getName().equalsIgnoreCase(newUsername)) {
-                System.out.println("Username already in use, please choose a different username:");
-                return null;
-            } else {
-                String newPassword = ui.promptText("Choose a password:");
-                io.createUserFiles(newUsername, newPassword);
-                User newUser = new User(newUsername, newPassword);
-                users.add(newUser);
-                return newUser;
+
+
+
+    /*
+        public User createUser() {
+            String newUsername = ui.promptText("Choose a username:");
+    //        if (!users.get(0).equalsIgnoreCase(newUsername)) {
+    //            String newPassword = ui.promptText("Choose a password:");
+    //            User newUser = new User(newUsername, newPassword);
+    //            users.add(newUser);
+                  currentUser = newUser;
+    //            return newUser;
+    //        } else {
+    //            System.out.println("Username already in use, please choose a different username:");
+    //            return null;
+    //        }
+            for (User user : users) {
+                if (user.getName().equalsIgnoreCase(newUsername)) {
+                    System.out.println("Username already in use, please choose a different username:");
+                    return null;
+                } else {
+                    String newPassword = ui.promptText("Choose a password:");
+                    io.createUserFiles(newUsername, newPassword);
+                    User newUser = new User(newUsername, newPassword);
+                    users.add(newUser);
+                    return newUser;
+                }
             }
-        }
-    }*/
+        }*/
     /*
         public User loginUser () {
 
@@ -185,6 +190,7 @@ public class Stream {
                                                 Film addToWatched = new Film(selectedMovie);
                                                currentUser.watchedVideo(addToWatched); //Add to seenFilm
                                                 //Vi kan ikke få den til at samarbejde med watchedVideo
+
                                                 break;
                                             case 2:
                                                 //add to listOfSaved

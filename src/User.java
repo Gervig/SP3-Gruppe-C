@@ -11,10 +11,9 @@ public class User {
 
     public User(String name, String newPassword) {
         this.name = name;
-        this.savedVideo = savedVideo;
-        this.seenFilm = seenFilm;
-        this.seenSeries = seenSeries;
-
+        this.savedVideo = new ArrayList<>();
+        this.seenFilm = new ArrayList<>();
+        this.seenSeries = new ArrayList<>();
         this.newPassword = newPassword;
     }
 
