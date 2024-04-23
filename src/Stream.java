@@ -13,6 +13,9 @@ public class Stream {
     private User currentUser = new User("Lukas", "lukas");
     ArrayList<String> selectedVideos = new ArrayList<>();
 
+    //Rikke
+    ArrayList<String> listOfMovies = new ArrayList<>();
+
     protected Film film;
 
     protected Series series;
@@ -27,7 +30,7 @@ public class Stream {
         listOfActions.add("3) Quit");
     }
 
-    private void setup() {
+    public void setup() {
         ArrayList<String> filmData = new ArrayList<>(io.readFilmData(filmDataPath, 100));
         for (String s : filmData) {
             String[] values = s.split(";");
@@ -117,10 +120,12 @@ public class Stream {
                 }
             }
         }
+
         System.out.println("User does not exist. Please try again:");
         return loginUser();
     }
 
+    //Makes our string objects to film objects - needed in watchedFilm()
     public Film stringToFilm(String str) {
         for (Film f : filmList) {
             if (f.getName().equals(str)) {
@@ -137,7 +142,6 @@ public class Stream {
         listOfMenu.add("3) History");
         listOfMenu.add("4) Logout");
         listOfMenu.add("5) Quit");
-        ArrayList<String> listOfMovies = new ArrayList<>();
         listOfMovies.add("1) Play now");
         listOfMovies.add("2) Add to save");
         listOfMovies.add("3) Go back to the search list");
@@ -146,83 +150,11 @@ public class Stream {
             choice = ui.promptChoice(listOfMenu, "Choose action:");
             switch (choice) {
                 case 1:
-                    //Search for movie - does not work for series
-                    Search search = new Search();
-                    ArrayList<String> listOfSearch = new ArrayList<>();
-                    listOfSearch.add("1) Genre");
-                    listOfSearch.add("2) Title");
-                    listOfSearch.add("3) Rating");
-                    listOfSearch.add("4) Releasedate");
-                    listOfSearch.add("5) Go back to menu");
-                    int searchChoice = ui.promptChoice(listOfSearch, "Choose a search option");
-                    switch (searchChoice) {
-                        case 1:
-                            //Search for genre
-                            TextUI.displayMsg("Type the genre you would like to search for");
-                            search.searchGenre(io.readFilmData(filmDataPath, 100));
-
-                            int choiceOfMovie = ui.promptNumeric("Choose a film from the list above");
-                            ArrayList<String> moviesList = search.getMoviesWithGenre();
-                            String[] movies = moviesList.toArray(new String[0]);
-                            boolean movieFound = false;
-
-                            // Only prompt for movie choice if user didn't go back to menu
-                            int movieChoice = ui.promptNumeric("Choose a movie from the list above");
-                            if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                                String selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-
-                                int choiceForMovie = 0;
-                                while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
-                                    choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
-                                    switch (choiceForMovie) {
-                                        case 1:
-                                            //plays selected movie and saves the movie in the users history
-                                            ui.displayMsg("Now playing: " + selectedMovie);
-                                            currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                            // sout for at se om det blev gemt i sete film
-//                                            System.out.println(currentUser.getSeenFilm());
-
-                                            break;
-                                        case 2:
-                                            //saves the selected movie in the users savelist
-                                            ui.displayMsg(selectedMovie + " saved.");
-                                            currentUser.addToSaved(stringToFilm(selectedMovie));
-                                            break;
-                                        case 3:
-                                            //go back
-                                            runStartMenu();
-                                            break;
-                                    }
-                                }
-                                //
-                                //
-                                // Code for playing movie or adding to the save list goes here.
-                            } else {
-                                TextUI.displayMsg("Invalid movie choice.");
-                            }
-
-                            break;
-                        case 2:
-                            //Search for title
-                            search.searchName(io.readFilmData(filmDataPath, 100));
-                            break;
-                        case 3:
-                            //Search for Rating
-                            search.searchRating(io.readFilmData(filmDataPath, 100));
-                            break;
-                        case 4:
-                            //Search for Releasedate
-                            search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
-                            break;
-                        case 5:
-                            //Go back to menu
-                            break;
-                    }
-
+                    searchForMovie();
                     break;
                 case 2:
                     //View saved videos
-                    currentUser.getSavedVideo();
+                    currentUser.getSavedFilm();
 
                     break;
                 case 3:
@@ -252,7 +184,6 @@ public class Stream {
         for (User u : users) {
             namesOfUsers.add(u.getName());
         }
-
         return users;
     }
 
@@ -263,5 +194,171 @@ public class Stream {
     public void setFilmList(ArrayList<Film> filmList) {
         this.filmList = filmList;
     }
-}
 
+    public void searchForMovie() {
+        //Search for movie - does not work for series
+        Search search = new Search();
+        ArrayList<String> listOfSearch = new ArrayList<>();
+        listOfSearch.add("1) Genre");
+        listOfSearch.add("2) Title");
+        listOfSearch.add("3) Rating");
+        listOfSearch.add("4) Releasedate");
+        listOfSearch.add("5) Go back to menu");
+        int searchChoice = ui.promptChoice(listOfSearch, "Choose a search option");
+        switch (searchChoice) {
+            case 1:
+                //Search for genre
+                TextUI.displayMsg("Type the genre you would like to search for");
+                search.searchGenre(io.readFilmData(filmDataPath, 100));
+                ArrayList<String> moviesList = search.getMoviesWithGenre();
+                String[] movies = moviesList.toArray(new String[0]);
+                boolean movieFound = false;
+
+                // Only prompt for movie choice if user didn't go back to menu
+                int movieChoice = ui.promptNumeric("Choose a Film from the list above");
+                if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                    String selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+
+                    int choiceForMovie = 0;
+                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+                        switch (choiceForMovie) {
+                            case 1:
+                                ui.displayMsg("Now playing: " + selectedMovie);
+                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                            //todo: Let it stay for a bit until userinput is registered
+                            break;
+                            case 2:
+                                currentUser.addToSaved(stringToFilm(selectedMovie));
+                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
+                                ui.displayMsg("You have been redirected to the Start menu");
+                                runStartMenu();
+                                break;
+                            case 3:
+                                //goes back to search menu
+                                searchForMovie();
+                                break;
+                        }
+                    }
+                } else {
+                    TextUI.displayMsg("Invalid movie choice.");
+                }
+
+                break;
+            case 2:
+                //Search for title
+                search.searchName(io.readFilmData(filmDataPath, 100));
+                ArrayList<String> moviesList2 = search.getMoviesWithName();
+                String[] movies2 = moviesList2.toArray(new String[0]);
+                boolean movieFound2 = false;
+
+                // Only prompt for movie choice if user didn't go back to menu
+                int movieChoice2 = ui.promptNumeric("Choose a Film from the list above");
+                if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
+                    String selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
+
+                    int choiceForMovie = 0;
+                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+                        switch (choiceForMovie) {
+                            case 1:
+                                ui.displayMsg("Now playing: " + selectedMovie);
+                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                                //todo: Let it stay for a bit until userinput is registered
+                                break;
+                            case 2:
+                                currentUser.addToSaved(stringToFilm(selectedMovie));
+                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
+                                ui.displayMsg("You have been redirected to the Start menu");
+                                runStartMenu();
+                                break;
+                            case 3:
+                                //goes back to search menu
+                                searchForMovie();
+                                break;
+                        }
+                    }
+                } else {
+                    TextUI.displayMsg("Invalid movie choice.");
+                }
+                break;
+            case 3:
+                //Search for Rating
+                search.searchRating(io.readFilmData(filmDataPath, 100));
+                ArrayList<String> moviesList3 = search.getMoviesWithName();
+                String[] movies3 = moviesList3.toArray(new String[0]);
+                boolean movieFound3 = false;
+
+                // Only prompt for movie choice if user didn't go back to menu
+                int movieChoice3 = ui.promptNumeric("Choose a Film from the list above");
+                if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
+                    String selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
+
+                    int choiceForMovie = 0;
+                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+                        switch (choiceForMovie) {
+                            case 1:
+                                ui.displayMsg("Now playing: " + selectedMovie);
+                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                                //todo: Let it stay for a bit until userinput is registered
+                                break;
+                            case 2:
+                                currentUser.addToSaved(stringToFilm(selectedMovie));
+                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
+                                ui.displayMsg("You have been redirected to the Start menu");
+                                runStartMenu();
+                                break;
+                            case 3:
+                                //goes back to search menu
+                                searchForMovie();
+                                break;
+                        }
+                    }
+                } else {
+                    TextUI.displayMsg("Invalid movie choice.");
+                }
+                break;
+            case 4:
+                //Search for Releasedate
+                search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
+                ArrayList<String> moviesList4 = search.getMoviesWithReleaseDate();
+                String[] movies4 = moviesList4.toArray(new String[0]);
+                boolean movieFound4 = false;
+
+                // Only prompt for movie choice if user didn't go back to menu
+                int movieChoice4 = ui.promptNumeric("Choose a Film from the list above");
+                if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
+                    String selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
+
+                    int choiceForMovie = 0;
+                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+                        switch (choiceForMovie) {
+                            case 1:
+                                ui.displayMsg("Now playing: " + selectedMovie);
+                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                                //todo: Let it stay for a bit until userinput is registered
+                                break;
+                            case 2:
+                                currentUser.addToSaved(stringToFilm(selectedMovie));
+                                TextUI.displayMsg("The movie: " + selectedMovie +" has been added to your save list");
+                                ui.displayMsg("You have been redirected to the Start menu");
+                                runStartMenu();
+                                break;
+                            case 3:
+                                //goes back to search menu
+                                searchForMovie();
+                                break;
+                        }
+                    }
+                } else {
+                    TextUI.displayMsg("Invalid movie choice.");
+                }
+                break;
+            case 5:
+                runStartMenu();
+                break;
+        }
+    }
+}

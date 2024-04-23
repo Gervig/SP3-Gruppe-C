@@ -13,13 +13,12 @@ public class Search {
     Scanner scan = new Scanner(System.in);
     TextUI ui;
 
+    //Flyttet til brug for at lave getters
+    private ArrayList<String> moviesWithGenre = new ArrayList<>();
+    private ArrayList<String> moviesWithName = new ArrayList<>();
+    private ArrayList<String> moviesWithRating = new ArrayList<>();
+    private ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
 
-
-    public ArrayList<String> getMoviesWithGenre() {
-        return moviesWithGenre;
-    }
-
-    ArrayList<String> moviesWithGenre = new ArrayList<>();
 
         //This method is used to seperate the information given from the CSV-file
     private void seperator() {
@@ -74,8 +73,6 @@ public class Search {
 }
 
    public ArrayList<String> searchName(ArrayList<String> filmDataList){
-
-       ArrayList<String> moviesWithName = new ArrayList<>();
        boolean validInput = false;
        int counter = 1;
 
@@ -130,7 +127,6 @@ public class Search {
    }
     public ArrayList<String> searchRating(ArrayList<String> filmDataList){
 
-        ArrayList<String> moviesWithRating = new ArrayList<>();
         boolean validInput = false;
         int counter = 1;
 
@@ -173,7 +169,6 @@ public class Search {
     }
    public ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList) {
 
-       ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
        boolean validInput = false;
        int counter = 1;
 
@@ -215,5 +210,18 @@ public class Search {
 
    }
 
+    //getters
+    public ArrayList<String> getMoviesWithName() {
+        return moviesWithName;
+    }
+    public ArrayList<String> getMoviesWithRating() {
+        return moviesWithRating;
+    }
+    public ArrayList<String> getMoviesWithReleaseDate() {
+        return moviesWithReleaseDate;
+    }
+    public ArrayList<String> getMoviesWithGenre() {
+        return moviesWithGenre;
+    }
 
 }

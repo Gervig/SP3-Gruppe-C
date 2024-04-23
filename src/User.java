@@ -5,12 +5,12 @@ public class User {
     private String name;
     private ArrayList<Series> seenSeries;
     private ArrayList<Film> seenFilm;
-    private ArrayList<Video> savedVideo;
+    private ArrayList<Film> savedFilm;
     private String newPassword;
 
     public User(String name, String newPassword) {
         this.name = name;
-        this.savedVideo = new ArrayList<>();
+        this.savedFilm = new ArrayList<>();
         this.seenFilm = new ArrayList<>();
         this.seenSeries = new ArrayList<>();
         this.newPassword = newPassword;
@@ -19,15 +19,14 @@ public class User {
 //methods
 
     //This method is used to save a list of videos that the user has seen.
-        public void watchedFilm(Film film){    //needs stream parameter for stream object to be visible for the method
+    public void watchedFilm(Film film) {    //needs stream parameter for stream object to be visible for the method
         seenFilm.add(film);
-        }
+    }
 
     //This method is used to add videos to the users list of savedVideos
-    public void
-    addToSaved(Video video) {
+    public void addToSaved(Film film) {
         //Denne skal kunne gemme fra enten search eller hele listen
-        savedVideo.add(video);
+        savedFilm.add(film);
     }
 
     public String getName() {
@@ -49,7 +48,7 @@ public class User {
         return seenFilm;
     }
 
-    public ArrayList<Video> getSavedVideo() {
-        return savedVideo;
+    public ArrayList<Film> getSavedFilm() {
+        return savedFilm;
     }
     }
