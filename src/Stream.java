@@ -10,7 +10,8 @@ public class Stream {
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
-    private User currentUser;
+    private User currentUser = new User("Lukas","lukas");
+    ArrayList<String> selectedVideos = new ArrayList<>();
 
     protected Film film;
 
@@ -73,13 +74,13 @@ public class Stream {
             switch (action) {
                 case 1:
                     //Login to existing user
-                //    this.loginUser();
+                   // this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                //    this.createUser();
+                    //this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
@@ -143,8 +144,25 @@ public class Stream {
                 }
 
             }
+
         }
 */
+    public ArrayList<String> selectedVideo(String str){
+        selectedVideos.add(str);
+        return selectedVideos;
+    }
+    public ArrayList<String> getSelectedVideos() {
+        return selectedVideos;
+    }
+    public Film stringToFilm(String str){
+            for (Film f : filmList){
+                if (f.getName().equals(str)){
+                    return f;
+                }
+        }
+        return null;
+    }
+
         public void runStartMenu () {
             ArrayList<String> listOfMenu = new ArrayList<>();
             listOfMenu.add("1) Search");
@@ -187,8 +205,12 @@ public class Stream {
                                         switch (choiceForMovie) {
                                             case 1:
                                                 ui.displayMsg("Now playing: " + selectedMovie);
-                                                Film addToWatched = new Film(selectedMovie);
-                                               currentUser.watchedVideo(addToWatched); //Add to seenFilm
+//                                                selectedVideo(selectedMovie);
+
+                                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                                                System.out.println(currentUser.getSeenFilm());
+//                                                Film addToWatched = new Film(selectedMovie);
+//                                               currentUser.watchedVideo(addToWatched); //Add to seenFilm
                                                 //Vi kan ikke få den til at samarbejde med watchedVideo
 
                                                 break;

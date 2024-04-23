@@ -97,7 +97,7 @@ public class FileIO {
         File fileH = new File("data\\UserData\\UserHistory\\" + username + ".txt");
         File fileS = new File("data\\UserData\\UserSaved\\" + username + ".txt");
         try {
-            FileWriter writer = new FileWriter("data\\UserData\\Users.txt");
+            FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true);
             writer.write(username + ";" + password + ";" + "\n");
             writer.close();
         } catch (IOException e) {
