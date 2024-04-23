@@ -8,7 +8,6 @@ public class User {
     private ArrayList<Film> savedFilm;
     private String newPassword;
 
-
     public User(String name, String newPassword) {
         this.name = name;
         this.savedFilm = new ArrayList<>();
@@ -18,16 +17,16 @@ public class User {
     }
 
 //methods
-//vi skal have det over til objekter i stedet for strenge og så få det enkelte objekt derhen
+
     //This method is used to save a list of videos that the user has seen.
-        public void watchedFilm(Film film){    //needs stream parameter for stream object to be visible for the method
+    public void watchedFilm(Film film) {    //needs stream parameter for stream object to be visible for the method
         seenFilm.add(film);
-        }
+    }
 
     //This method is used to add videos to the users list of savedVideos
     public void addToSaved(Film film) {
         //Denne skal kunne gemme fra enten search eller hele listen
-            savedFilm.add(film);
+        savedFilm.add(film);
     }
 
     public String getName() {

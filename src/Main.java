@@ -15,7 +15,7 @@ public class Main {
 //        sear.searchName(reader.readFilmData("data/film.txt",100));
         ArrayList<Video> caspersList = new ArrayList<>();
         User user = new User("Casper", "123");
-
+        stream.setup();
         stream.runDialog();
 
     }

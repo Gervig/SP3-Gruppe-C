@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIO {
+    private String userHistoryPath = "data\\UserData\\UserHistory\\";
+    private String userSavedPath = "data\\UserData\\UserSaved\\";
 
     public ArrayList<String> readUsers() {
         String path = "data\\UserData\\Users.txt";
@@ -63,11 +65,10 @@ public class FileIO {
         return seriesdata;
     }
 
-    //Saves data
+    //Saves data for users, should maybe be refactored to "saveUserData"
     public static void saveData(ArrayList<User> users, String path) {
         try {
             FileWriter writer = new FileWriter(path);
-            writer.write("Title, release date, genre");
             for (User u : users) {
                 writer.write(u + "\n");
             }
@@ -76,6 +77,21 @@ public class FileIO {
             throw new RuntimeException(e);
         }
     }
+
+
+    //Læs video objekter i det givne array, og skriv det ind i filen med username navn, i directoryiet path
+    //Skriver lige nu ikke season/episodes ned
+    public static void saveVideoData(Video v, String path, String username) {
+        path += "\\" + username;
+        try {
+            FileWriter writer = new FileWriter(path, true);
+            writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + ";" + v.getRating() + ";\n");
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public ArrayList<String> readUserData(String path) {
         ArrayList<String> userData = new ArrayList<>();
@@ -94,8 +110,8 @@ public class FileIO {
     }
 
     public void createUserFiles(String username, String password) {
-        File fileH = new File("data\\UserData\\UserHistory\\" + username + ".txt");
-        File fileS = new File("data\\UserData\\UserSaved\\" + username + ".txt");
+        File fileH = new File(userHistoryPath + username + ".txt");
+        File fileS = new File(userSavedPath + username + ".txt");
         try {
             FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true);
             writer.write(username + ";" + password + ";" + "\n");
@@ -105,6 +121,9 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
+
+
 
 
 }
