@@ -29,7 +29,7 @@ public class Stream {
         //this.setup();
     }
 
-    private void setup() {
+    public void setup() {
         ArrayList<String> filmData = new ArrayList<>(io.readFilmData(filmDataPath, 100));
         for (String s : filmData) {
             String[] values = s.split(";");
@@ -204,15 +204,9 @@ public class Stream {
                                         choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
                                         switch (choiceForMovie) {
                                             case 1:
-                                                ui.displayMsg("Now playing: " + selectedMovie);
-//                                                selectedVideo(selectedMovie);
-
-                                                currentUser.watchedFilm(stringToFilm(selectedMovie));
-                                                System.out.println(currentUser.getSeenFilm());
-//                                                Film addToWatched = new Film(selectedMovie);
-//                                               currentUser.watchedVideo(addToWatched); //Add to seenFilm
-                                                //Vi kan ikke få den til at samarbejde med watchedVideo
-
+                                                Film movieToWatch = stringToFilm(selectedMovie);
+                                                currentUser.watchedFilm(movieToWatch);
+                                                TextUI.displayMsg("Now playing: " + selectedMovie);
                                                 break;
                                             case 2:
                                                 //add to listOfSaved
