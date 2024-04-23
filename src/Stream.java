@@ -92,17 +92,20 @@ public class Stream {
 
     public User createUser() {
         String newUsername = ui.promptText("Choose a username:");
-        if (!getUserNames().equals(newUsername)) {
+
+        // Check if the username already exists
+        if (getUserNames().contains(newUsername.toLowerCase())) {
+            System.out.println("Username already in use, please choose a different username:");
+            return createUser(); // Recursively prompt for a new username
+        } else {
             String newPassword = ui.promptText("Choose a password:");
             User newUser = new User(newUsername, newPassword);
             users.add(newUser);
             io.createUserFiles(newUsername, newPassword);
             return newUser;
-        } else {
-            System.out.println("Username already in use, please choose a different username:");
-            return createUser();
         }
     }
+
 
     public User loginUser() {
         String username = ui.promptText("Please write username:");
