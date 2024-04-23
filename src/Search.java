@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -11,6 +12,8 @@ public class Search {
     FileIO reader = new FileIO();
     Scanner scan = new Scanner(System.in);
     TextUI ui;
+
+
 
     public ArrayList<String> getMoviesWithGenre() {
         return moviesWithGenre;
@@ -30,6 +33,7 @@ public class Search {
     }
         //This method is used to search through the genres from the CSV-file. The \\s* "deletes" the spaces between , and the name of the genre
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
+
         boolean validInput = false;
         int counter = 1;
 
@@ -70,6 +74,7 @@ public class Search {
 }
 
    public ArrayList<String> searchName(ArrayList<String> filmDataList){
+
        ArrayList<String> moviesWithName = new ArrayList<>();
        boolean validInput = false;
        int counter = 1;
@@ -124,6 +129,7 @@ public class Search {
 
    }
     public ArrayList<String> searchRating(ArrayList<String> filmDataList){
+
         ArrayList<String> moviesWithRating = new ArrayList<>();
         boolean validInput = false;
         int counter = 1;
@@ -166,6 +172,7 @@ public class Search {
 
     }
    public ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList) {
+
        ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
        boolean validInput = false;
        int counter = 1;
@@ -207,4 +214,6 @@ public class Search {
        return moviesWithReleaseDate;
 
    }
+
+
 }
