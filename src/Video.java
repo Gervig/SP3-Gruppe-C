@@ -13,6 +13,13 @@ private String releaseDate;
         this.rating = rating;
         this.releaseDate = releaseDate;
     }
+    public Video(String name){
+        this.name = name;
+    }
+    public Video(String name, int rating){
+        this.name = name;
+        this.rating = rating;
+    }
 
 //methods
 public String getReleaseDate(){

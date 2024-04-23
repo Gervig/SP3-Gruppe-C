@@ -10,7 +10,8 @@ public class Stream {
     ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
-    private User currentUser;
+    private User currentUser = new User("Lukas","lukas");
+    ArrayList<String> selectedVideos = new ArrayList<>();
 
     protected Film film;
 
@@ -149,60 +150,71 @@ public class Stream {
                         listOfSearch.add("3) Rating");
                         listOfSearch.add("4) Releasedate");
                         listOfSearch.add("5) Go back to menu");
-                        ui.promptChoice(listOfSearch, "Choose a search option");
-                        switch (choice) {
+                        int searchChoice = ui.promptChoice(listOfSearch, "Choose a search option");
+                        switch (searchChoice) {
                             case 1:
                                 //Search for genre
+                                TextUI.displayMsg("Type the genre you would like to search for");
                                 search.searchGenre(io.readFilmData(filmDataPath, 100));
-/*
+
                                 int choiceOfMovie = ui.promptNumeric("Choose a film from the list above");
                                 ArrayList<String> moviesList = search.getMoviesWithGenre();
                                 String[] movies = moviesList.toArray(new String[0]);
                                 boolean movieFound = false;
 
-                                for (int i = 0; i < movies.length; i++) {
-                                    if (choiceOfMovie == i + 1) {
-                                        ui.displayMsg(movies[i]);
-                                        movieFound = true;
-                                        break;
-                                    }
-                                }
+                                // Only prompt for movie choice if user didn't go back to menu
+                                int movieChoice = ui.promptNumeric("Choose a movie from the list above");
+                                if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                                    String selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
 
-                                if (!movieFound) {
-                                    ui.displayMsg("No movie found with the specified index.");
-                                }
-*/
-                               // ui.displayMsg("You have chosen: " +  (search.getMoviesWithGenre().indexOf(choiceOfMovie)+1));
-                                int movieChoice = 0;
-                                while (movieChoice != listOfMenu.size())
-                                switch (movieChoice) {
-                                    case 1:
-                                        //Play the film now
-                                        break;
+                                    int choiceForMovie = 0;
+                                    while (choiceForMovie != listOfMovies.size()) { // the quit action is the last action
+                                        choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
+                                        switch (choiceForMovie) {
+                                            case 1:
+                                                ui.displayMsg("Now playing: " + selectedMovie);
+//                                                selectedVideo(selectedMovie);
+
+                                                currentUser.watchedFilm(stringToFilm(selectedMovie));
+                                                System.out.println(currentUser.getSeenFilm());
+//                                                Film addToWatched = new Film(selectedMovie);
+//                                               currentUser.watchedVideo(addToWatched); //Add to seenFilm
+                                                //Vi kan ikke få den til at samarbejde med watchedVideo
+
+                                                break;
+                                            case 2:
+                                                //add to listOfSaved
+                                                break;
+                                            case 3:
+                                                //go back
+                                                break;
+                                        }
+                                    }
+                                        //
+                                        //
+                                        // Code for playing movie or adding to the save list goes here.
+                                    } else{
+                                        TextUI.displayMsg("Invalid movie choice.");
+                                    }
+
+                                    break;
                                     case 2:
-                                        //Save for later
+                                        //Search for title
+                                        search.searchName(io.readFilmData(filmDataPath, 100));
                                         break;
                                     case 3:
-                                        //Go back to search list
+                                        //Search for Rating
+                                        search.searchRating(io.readFilmData(filmDataPath, 100));
+                                        break;
+                                    case 4:
+                                        //Search for Releasedate
+                                        search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
+                                        break;
+                                    case 5:
+                                        //Go back to menu
                                         break;
                                 }
-                                break;
-                            case 2:
-                                //Search for title
-                                search.searchName(io.readFilmData(filmDataPath, 100));
-                                break;
-                            case 3:
-                                //Search for Rating
-                                search.searchRating(io.readFilmData(filmDataPath, 100));
-                                break;
-                            case 4:
-                                //Search for Releasedate
-                                search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
-                                break;
-                            case 5:
-                                //Go back to menu
-                                break;
-                        }
+
                         break;
                     case 2:
                         //View saved videos
