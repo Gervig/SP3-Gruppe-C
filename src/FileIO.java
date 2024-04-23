@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIO {
+    private String userHistoryPath = "data\\UserData\\UserHistory\\";
+    private String userSavedPath = "data\\UserData\\UserSaved\\";
 
     public ArrayList<String> readUsers() {
         String path = "data\\UserData\\Users.txt";
@@ -94,10 +96,10 @@ public class FileIO {
     }
 
     public void createUserFiles(String username, String password) {
-        File fileH = new File("data\\UserData\\UserHistory\\" + username + ".txt");
-        File fileS = new File("data\\UserData\\UserSaved\\" + username + ".txt");
+        File fileH = new File(userHistoryPath + username + ".txt");
+        File fileS = new File(userSavedPath + username + ".txt");
         try {
-            FileWriter writer = new FileWriter("data\\UserData\\Users.txt");
+            FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true);
             writer.write(username + ";" + password + ";" + "\n");
             writer.close();
         } catch (IOException e) {

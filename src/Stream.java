@@ -72,13 +72,13 @@ public class Stream {
             switch (action) {
                 case 1:
                     //Login to existing user
-                //    this.loginUser();
+                    this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                //    this.createUser();
+                    this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
@@ -89,58 +89,43 @@ public class Stream {
             }
         }
     }
-/*
+
     public User createUser() {
         String newUsername = ui.promptText("Choose a username:");
-//        if (!users.get(0).equalsIgnoreCase(newUsername)) {
-//            String newPassword = ui.promptText("Choose a password:");
-//            User newUser = new User(newUsername, newPassword);
-//            users.add(newUser);
-//            return newUser;
-//        } else {
-//            System.out.println("Username already in use, please choose a different username:");
-//            return null;
-//        }
-        for (User user : users) {
-            if (user.getName().equalsIgnoreCase(newUsername)) {
-                System.out.println("Username already in use, please choose a different username:");
-                return null;
-            } else {
-                String newPassword = ui.promptText("Choose a password:");
-                io.createUserFiles(newUsername, newPassword);
-                User newUser = new User(newUsername, newPassword);
-                users.add(newUser);
-                return newUser;
-            }
+        if (!getUserNames().equals(newUsername)) {
+            String newPassword = ui.promptText("Choose a password:");
+            User newUser = new User(newUsername, newPassword);
+            users.add(newUser);
+            io.createUserFiles(newUsername, newPassword);
+            return newUser;
+        } else {
+            System.out.println("Username already in use, please choose a different username:");
+            return createUser();
         }
-    }*/
-    /*
-        public User loginUser () {
+    }
 
-            boolean isloggedIn = false;
-            String username = ui.promptText("Please write username:");
-            // String password too
-            while (!isloggedIn) {
-                for (User u : users) {
-                    if (u.getName().equals(username)) {
-                        User user = u;
+    public User loginUser() {
+        String username = ui.promptText("Please write username:");
 
-                        if (user.getPassword().equals(ui.promptText("Please write password:"))) {
-                            System.out.println("logged in xd");
-                            isloggedIn = true;
-                            return user;
-                        } else {
-                            System.out.println("Wrong password please try agian:");
-                            //Lav evt en back option
-                        }
-
-                    }
+        // Check if the user exists
+        for (User u : users) {
+            if (u.getName().equals(username)) {
+                String inputPassword = ui.promptText("Please write password:");
+                if (u.getPassword().equals(inputPassword)) {
+                    System.out.println("Logged in");
+                    return u;
+                } else {
+                    System.out.println("Wrong password. Please try again:");
+                    return loginUser();
                 }
-
             }
         }
-*/
-        public void runStartMenu () {
+
+        System.out.println("User does not exist. Please try again:");
+        return loginUser();
+    }
+
+    public void runStartMenu () {
             ArrayList<String> listOfMenu = new ArrayList<>();
             listOfMenu.add("1) Search");
             listOfMenu.add("2) Saved");
