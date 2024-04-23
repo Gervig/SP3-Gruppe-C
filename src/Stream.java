@@ -176,6 +176,7 @@ public class Stream {
                                     choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
                                     switch (choiceForMovie) {
                                         case 1:
+                                            //plays selected movie and saves the movie in the users history
                                             ui.displayMsg("Now playing: " + selectedMovie);
                                             currentUser.watchedFilm(stringToFilm(selectedMovie));
                                             // sout for at se om det blev gemt i sete film
@@ -183,11 +184,13 @@ public class Stream {
 
                                             break;
                                         case 2:
+                                            //saves the selected movie in the users savelist
                                             ui.displayMsg(selectedMovie + " saved.");
                                             currentUser.addToSaved(stringToFilm(selectedMovie));
                                             break;
                                         case 3:
                                             //go back
+                                            runStartMenu();
                                             break;
                                     }
                                 }

@@ -24,7 +24,8 @@ public class User {
         }
 
     //This method is used to add videos to the users list of savedVideos
-    public void addToSaved(Video video) {
+    public void
+    addToSaved(Video video) {
         //Denne skal kunne gemme fra enten search eller hele listen
         savedVideo.add(video);
     }
