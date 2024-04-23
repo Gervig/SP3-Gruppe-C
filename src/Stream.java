@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Stream {
     String name;
@@ -334,11 +335,24 @@ public class Stream {
             choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
             switch (choiceForMovie) {
                 case 1:
+                    Scanner scan = new Scanner(System.in);
                     ui.displayMsg("Now playing: " + selectedMovie);
+                    ui.displayMsg("Type: Stop if you would like to stop watching");
                     currentUser.watchedFilm(stringToFilm(selectedMovie));
-                    ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
-                    //todo: Let it stay for a bit until userinput is registered
-                    runStartMenu();
+                    Boolean validInput = false;
+                    do {
+
+                        String stopOrNot = scan.nextLine().toLowerCase();
+                        if (!stopOrNot.equals("stop")) {
+                            validInput = true; // Exit the loop if the user doesn't want to try again
+                        } else {
+                            validInput = false;
+                            ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
+                            runStartMenu();
+                        }
+
+                    } while(!validInput);
+
                     break;
                 case 2:
                     currentUser.addToSaved(stringToFilm(selectedMovie));
