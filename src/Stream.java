@@ -173,7 +173,7 @@ public class Stream {
             ArrayList<String> listOfMovies = new ArrayList<>();
             listOfMovies.add("1) Play now");
             listOfMovies.add("2) Add to save");
-            listOfMovies.add("3) Go back to the search list");
+            listOfMovies.add("3) Go back");
             int choice = 0;
             while (choice != listOfMenu.size()) {// the quit action is the last action
                 choice = ui.promptChoice(listOfMenu, "Choose action:");
