@@ -32,7 +32,7 @@ public class Stream {
     }
 
     public void setup() {
-        ArrayList<String> filmData = new ArrayList<>(io.readFilmData(filmDataPath, 100));
+        ArrayList<String> filmData = new ArrayList<>(io.readVideoData(filmDataPath, 100));
         for (String s : filmData) {
             String[] values = s.split(";");
             String name = values[0];
@@ -220,7 +220,7 @@ public class Stream {
             case 1:
                 //Search for genre
                 TextUI.displayMsg("Type the genre you would like to search for");
-                search.searchGenre(io.readFilmData(filmDataPath, 100));
+                search.searchGenre(io.readVideoData(filmDataPath, 100));
                 ArrayList<String> moviesList = search.getMoviesWithGenre();
                 String[] movies = moviesList.toArray(new String[0]);
                 boolean movieFound = false;
@@ -237,7 +237,7 @@ public class Stream {
                 break;
             case 2:
                 //Search for title
-                search.searchName(io.readFilmData(filmDataPath, 100));
+                search.searchName(io.readVideoData(filmDataPath, 100));
                 ArrayList<String> moviesList2 = search.getMoviesWithName();
                 String[] movies2 = moviesList2.toArray(new String[0]);
                 boolean movieFound2 = false;
@@ -253,7 +253,7 @@ public class Stream {
                 break;
             case 3:
                 //Search for Rating
-                search.searchRating(io.readFilmData(filmDataPath, 100));
+                search.searchRating(io.readVideoData(filmDataPath, 100));
                 ArrayList<String> moviesList3 = search.getMoviesWithName();
                 String[] movies3 = moviesList3.toArray(new String[0]);
                 boolean movieFound3 = false;
@@ -269,7 +269,7 @@ public class Stream {
                 break;
             case 4:
                 //Search for Releasedate
-                search.searchReleaseDate(io.readFilmData(filmDataPath, 100));
+                search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
                 ArrayList<String> moviesList4 = search.getMoviesWithReleaseDate();
                 String[] movies4 = moviesList4.toArray(new String[0]);
                 boolean movieFound4 = false;
