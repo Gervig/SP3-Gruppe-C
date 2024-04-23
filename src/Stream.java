@@ -350,7 +350,7 @@ public class Stream {
                             ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
                             runStartMenu();
                         }
-                        //todo: Let it stay for a bit until userinput is registered
+
                     } while(!validInput);
 
                     break;
