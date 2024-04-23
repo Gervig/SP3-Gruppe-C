@@ -145,9 +145,6 @@ public class Stream {
         listOfMenu.add("3) History");
         listOfMenu.add("4) Logout");
         listOfMenu.add("5) Quit");
-        listOfMovies.add("1) Play now");
-        listOfMovies.add("2) Add to save");
-        listOfMovies.add("3) Go back to the search list");
         int choice = 0;
         while (choice != listOfMenu.size()) {// the quit action is the last action
             choice = ui.promptChoice(listOfMenu, "Choose action:");
@@ -157,9 +154,48 @@ public class Stream {
                     break;
                 case 2:
                     //View saved videos
-                    ui.displayMsg("Saved film" + currentUser.getSavedFilm());
-                    //the list is not yet added, there is a to do for that.
-                    //todo: make a method for choosing a movie and play those, like in the search method
+                    if (currentUser.getSavedFilm().isEmpty()) {
+                        System.out.println("You have no saved films in your list");
+                    } else {
+                        ArrayList<String> optionsForSaved = new ArrayList<>();
+                        optionsForSaved.add("1) Watch a saved video");
+                        optionsForSaved.add("2) View saved videos");
+                        int optionsChoice = ui.promptChoice(optionsForSaved, "Choose a search option");
+                        switch (optionsChoice){
+                            case 1:
+                                if (currentUser.getSavedFilm().isEmpty()) {
+                                    System.out.println("You have no saved films in your list");
+                                } else {
+                                    ArrayList<String> savedVideoOptions = new ArrayList<>();
+                                    int index = 1;
+                                    for (Film savedFilm : currentUser.getSavedFilm()) {
+                                        savedVideoOptions.add(index + ") " + savedFilm.getName());
+                                        index++;
+                                    }
+                                    int videoChoice = ui.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
+                                    Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    ui.displayMsg("Now playing: " + selectedVideo.getName());
+
+                                }
+                                break;
+                            case 2:
+                                if (currentUser.getSavedFilm().isEmpty()) {
+                                    System.out.println("You have no saved films in your list");
+                                } else {
+                                    System.out.println("Size of saved films: " + currentUser.getSavedFilm().size());
+                                    System.out.println("Saved films:");
+                                    int index1 = 1;
+                                    for (Film savedFilm : currentUser.getSavedFilm()) {
+                                        System.out.println(index1+") "+savedFilm.getName()); // Using getName() method to print the title of the film
+                                        index1++;
+
+                                    }
+                                }
+                                break;
+                        }
+                    }
+
+
                     break;
                 case 3:
                     //View watch history
