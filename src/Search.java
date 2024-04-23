@@ -4,33 +4,13 @@ import java.util.Scanner;
 
 
 public class Search {
-    private String title;
-    private String releaseDate;
-    private String genre;
-    private String rating;
-    private ArrayList<Video> csr;
-    FileIO reader = new FileIO();
     Scanner scan = new Scanner(System.in);
-    TextUI ui;
 
-    //Flyttet til brug for at lave getters
-    private ArrayList<String> moviesWithGenre = new ArrayList<>();
-    private ArrayList<String> moviesWithName = new ArrayList<>();
-    private ArrayList<String> moviesWithRating = new ArrayList<>();
-    private ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
+    private final ArrayList<String> moviesWithGenre = new ArrayList<>();
+    private final ArrayList<String> moviesWithName = new ArrayList<>();
+    private final ArrayList<String> moviesWithRating = new ArrayList<>();
+    private final ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
 
-
-        //This method is used to seperate the information given from the CSV-file
-    private void seperator() {
-        for (String line : reader.readFilmData("data/film.txt", 100)) {
-            String[] parts = line.split(";");
-            title = parts[0];
-            releaseDate = parts[1];
-            genre = parts[2];
-            rating = parts[3];
-        }
-    }
-        //This method is used to search through the genres from the CSV-file. The \\s* "deletes" the spaces between , and the name of the genre
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
 
         boolean validInput = false;
@@ -38,7 +18,6 @@ public class Search {
 
         do {
         String choice = scan.nextLine();
-        seperator();
 
         for (String filmData : filmDataList) {
             String[] parts = filmData.split(";\\s*");
@@ -79,21 +58,6 @@ public class Search {
        do {
            TextUI.displayMsg("Please enter the name you want to search for");
            String choice = scan.nextLine();
-           seperator();
-            /*
-           for (String filmData : filmDataList) {
-               String[] parts = filmData.split(";\\s*");
-               String[] names = parts[0].split(" \\s*"); // Splitting the genre string into individual names
-
-               for (String name : names) {
-                   if (name.equalsIgnoreCase(choice.trim())) {
-                       // If any of the movie's names match the user's choice, add it to the list
-                       moviesWithName.add(parts[0]);
-                       break; // Once a match is found, no need to continue checking other names for this movie
-                   }
-               }
-           }
-             */
            for (String filmData : filmDataList) {
                String[] parts = filmData.split(";\\s*");
                String movieName = parts[0].toLowerCase(); // Convert movie name to lowercase for case-insensitive search
@@ -136,8 +100,6 @@ public class Search {
             double upper = Double.parseDouble(scan.nextLine());
             System.out.println(" ");
 
-            seperator();
-
             for (String filmData : filmDataList) {
                 String[] parts = filmData.split(";\\s*");
                 double rating = Double.parseDouble(parts[3]);
@@ -177,9 +139,6 @@ public class Search {
            int lower = Integer.parseInt(scan.nextLine());
            int upper = Integer.parseInt(scan.nextLine());
            System.out.println(" ");
-
-           seperator();
-
            for (String filmData : filmDataList) {
                String[] parts = filmData.split(";\\s*");
                int releaseDate = Integer.parseInt(parts[1]);
