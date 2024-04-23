@@ -65,13 +65,27 @@ public class FileIO {
         return seriesdata;
     }
 
-    //Saves data
+    //Saves data for users, should maybe be refactored to "saveUserData"
     public static void saveData(ArrayList<User> users, String path) {
         try {
             FileWriter writer = new FileWriter(path);
             for (User u : users) {
                 writer.write(u + "\n");
             }
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    //Læs video objekter i det givne array, og skriv det ind i filen med username navn, i directoryiet path
+    //Skriver lige nu ikke season/episodes ned
+    public static void saveVideoData(Video v, String path, String username) {
+        path += "\\" + username;
+        try {
+            FileWriter writer = new FileWriter(path, true);
+            writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + ";" + v.getRating() + ";\n");
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
