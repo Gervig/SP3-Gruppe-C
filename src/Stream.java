@@ -72,7 +72,7 @@ public class Stream {
     }
 
     public void runDialog() {
-        ui.displayMsg("Welcome to " + this.name);
+        TextUI.displayMsg("Welcome to " + this.name);
         int action = 0;
         while (action != listOfActions.size()) {// the quit action is the last action
             action = ui.promptChoice(listOfActions, "Choose action:");
