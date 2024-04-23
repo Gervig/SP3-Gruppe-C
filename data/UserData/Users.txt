@@ -7,3 +7,6 @@ Rikke;123;
 Rikke;123;
 Rikke;123;
 Rikke;123;
+Rikke;123;
+rikke;123;
+rikke;ert;
