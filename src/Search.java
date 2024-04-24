@@ -58,6 +58,7 @@ public class Search {
        do {
            TextUI.displayMsg("Please enter the name you want to search for");
            String choice = scan.nextLine();
+           choice = choice.toLowerCase();
            for (String filmData : filmDataList) {
                String[] parts = filmData.split(";\\s*");
                String movieName = parts[0].toLowerCase(); // Convert movie name to lowercase for case-insensitive search
