@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+//todo "Type "stop" if you would like to stop watching." Function accepts other things than stop .. fix it.
 public class Stream {
     String name;
     ArrayList<User> users = new ArrayList<>();
@@ -41,7 +41,8 @@ public class Stream {
         optionsForSaved.add("3) Remove a video from saved");
         optionsForSaved.add("4) Go back");
         listOfHistory.add("1) View watched history");
-        listOfHistory.add("1) Watch a video from history");
+        listOfHistory.add("2) Watch a video from history");
+        listOfHistory.add("3) Go back");
     }
 
     public void setup() {
@@ -189,8 +190,8 @@ public class Stream {
                                         savedVideoOptions.add(index + ") " + savedFilm.getName());
                                         index++;
                                     }
-                                   // int videoChoice = ui.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
-                                    //   Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    int videoChoice = ui.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
+                                    Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
                                     watchingNow();
                                 }
                                 break;
@@ -221,27 +222,42 @@ public class Stream {
                 case 3:
                     //View watch history
                     int historyChoice = 0;
-                    historyChoice = ui.promptChoice(listOfHistory, "Choose action:");
-                    switch (historyChoice){
-                        case 1:
-                            if (currentUser.getSeenFilm().isEmpty()) {
-                                System.out.println("You haven't watched anything yet");
-                            } else {
-                                System.out.println("Watch history:");
-                                int index1 = 1;
-                                for (Film seenFilm : currentUser.getSeenFilm()) {
-                                    System.out.println(index1 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
-                                    index1++;
+                    while (historyChoice !=listOfMovies.size()) {
+                        historyChoice = ui.promptChoice(listOfHistory, "Choose action:");
+                        switch (historyChoice) {
+                            case 1:
+                                // View history
+                                if (currentUser.getSeenFilm().isEmpty()) {
+                                    System.out.println("You haven't watched anything yet");
+                                } else {
+                                    System.out.println("Watch history:");
+                                    int index1 = 1;
+                                    for (Film seenFilm : currentUser.getSeenFilm()) {
+                                        System.out.println(index1 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
+                                        index1++;
+                                    }
                                 }
-                            }
-                            break;
-                        case 2:
-
+                                break;
+                            case 2:
+                                //Choose a movie to watch from history
+                                if (currentUser.getSeenFilm().isEmpty()) {
+                                    System.out.println("You have no watch history");
+                                } else {
+                                    ArrayList<String> seenVideoOptions = new ArrayList<>();
+                                    int index = 1;
+                                    for (Film seenFilm : currentUser.getSeenFilm()) {
+                                        seenVideoOptions.add(index + ") " + seenFilm.getName());
+                                        index++;
+                                    }
+                                    int videoChoice = ui.promptChoice(seenVideoOptions, "Choose a video from history to watch:");
+                                    Film selectedVideo = currentUser.getSeenFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    watchingNow();
+                                }
+                            case 3:
+                                //Go back
+                                runStartMenu();
+                        }
                     }
-
-                    //currentUser.getSeenSeries(); //Gets seen series
-                    //the list is not yet added, there is a to do for that.
-                    //todo: make a method for choosing a movie and play those, like in the search method
                     break;
                 case 4:
                     //logout
@@ -303,7 +319,6 @@ public class Stream {
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
                 }
-
                 break;
             case 2:
                 //Search for title
@@ -388,15 +403,15 @@ public class Stream {
         TextUI.displayMsg("Now playing: " + selectedMovie);
         TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
         currentUser.watchedFilm(stringToFilm(selectedMovie));
-        Boolean validInput = false;
+        boolean validInput = false;
         do {
             String stopOrNot = scan.nextLine().toLowerCase();
             if (!stopOrNot.equals("stop")) {
                 validInput = true; // Exit the loop if the user doesn't want to try again
+                TextUI.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
+                //runStartMenu();
             } else {
                 validInput = false;
-                ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
-                runStartMenu();
             }
         } while(!validInput);
     }
