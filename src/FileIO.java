@@ -9,6 +9,22 @@ public class FileIO {
     private String userHistoryPath = "data\\UserData\\UserHistory\\";
     private String userSavedPath = "data\\UserData\\UserSaved\\";
 
+    public String getUserHistoryPath() {
+        return userHistoryPath;
+    }
+
+    public void setUserHistoryPath(String userHistoryPath) {
+        this.userHistoryPath = userHistoryPath;
+    }
+
+    public String getUserSavedPath() {
+        return userSavedPath;
+    }
+
+    public void setUserSavedPath(String userSavedPath) {
+        this.userSavedPath = userSavedPath;
+    }
+
     public ArrayList<String> readUsers() {
         String path = "data\\UserData\\Users.txt";
         ArrayList<String> users = new ArrayList<>();
@@ -26,23 +42,23 @@ public class FileIO {
     }
 
     //reads filmdata
-//    public ArrayList<String> readFilmData(String path, int length) {
-//        ArrayList<String> filmdata = new ArrayList<>();
-//        File file = new File(path);
-//
-//        try {
-//            Scanner scan = new Scanner(file);
-//
-//            for (int i = 0; i < length; i++) {
-//                String line = scan.nextLine();
-//                filmdata.add(i, line);
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File was not found");
-//        }
-//
-//        return filmdata;
-//    }
+    public ArrayList<String> readFilmData(String path, int length) {
+        ArrayList<String> filmdata = new ArrayList<>();
+        File file = new File(path);
+
+        try {
+            Scanner scan = new Scanner(file);
+
+            for (int i = 0; i < length; i++) {
+                String line = scan.nextLine();
+                filmdata.add(i, line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        }
+
+        return filmdata;
+    }
 
 
     //reads seriesdata

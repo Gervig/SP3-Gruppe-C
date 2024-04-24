@@ -121,7 +121,9 @@ public class Stream {
                 String inputPassword = ui.promptText("Please write password:");
                 if (u.getPassword().equals(inputPassword)) {
                     System.out.println("Logged in");
-                    //todo read UserHistory & Saved and add to lists
+                    //todo read UserHistory & Saved and add to lists, DONE?
+                    u.getSeenFilm().add(io.readVideoData(io.getUserHistoryPath()+username, username););
+                    u.getSavedFilm().add(io.readVideoData(io.getUserSavedPath()+username, username););
                     return u;
                 } else {
                     System.out.println("Wrong password. Please try again:");
