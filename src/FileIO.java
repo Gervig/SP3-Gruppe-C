@@ -115,7 +115,7 @@ public class FileIO {
         path += "\\" + username + ".txt";
         try {
             FileWriter writer = new FileWriter(path, true);
-            writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
+            writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";\n");
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
