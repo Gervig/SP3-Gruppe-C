@@ -183,7 +183,11 @@ public class Stream {
                     if (currentUser.getSavedFilm().isEmpty()) {
                         TextUI.displayMsg("You have no saved films in your list");
                     } else {
-
+                        int index1 = 1;
+                        for (Film savedFilm : currentUser.getSavedFilm()) {
+                            TextUI.displayMsg(index1 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
+                            index1++;
+                        }
                         int optionsChoice = TextUI.promptChoice(optionsForSaved, "Choose an option");
                         switch (optionsChoice) {
                             case 1:
@@ -207,24 +211,25 @@ public class Stream {
                                 } else {
                                     TextUI.displayMsg("Size of saved films: " + currentUser.getSavedFilm().size());
                                     TextUI.displayMsg("Saved films:");
-                                    int index1 = 1;
+                                    int index2 = 1;
                                     for (Film savedFilm : currentUser.getSavedFilm()) {
-                                        TextUI.displayMsg(index1 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
-                                        index1++;
+                                        TextUI.displayMsg(index2 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
+                                        index2++;
                                     }
                                 }
                                 break;
                             case 3: //remove film from Saved videos
                                 ArrayList<String> savedVideoOptions = new ArrayList<>();
-                                int index = 1;
+                                int index3 = 1;
                                 for (Film savedFilm : currentUser.getSavedFilm()) {
-                                    savedVideoOptions.add(index + ") " + savedFilm.getName());
-                                    index++;
+                                    savedVideoOptions.add(index3 + ") " + savedFilm.getName());
+                                    index3++;
                                 }
-                                int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
-                                Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
-                                currentUser.removeFromSaved(selectedVideo);
-                                TextUI.displayMsg(selectedMovie + " has been removed from your saved list");
+                                int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to remove:");
+                                Film selectedMovie = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                currentUser.removeFromSaved(selectedMovie);
+                                io.deleteLineFromFile(io.getUserSavedPath()+currentUser.getName()+".txt", selectedMovie.getName());
+                                TextUI.displayMsg(selectedMovie.getName() + " has been removed from your saved list");
                                 break;
                             case 4: //Go back
                                 runStartMenu();
@@ -377,7 +382,6 @@ public class Stream {
                     TextUI.displayMsg("The movie: " + selectedMovie + " has been added to your save list");
                     TextUI.displayMsg("You have been redirected to the Start menu");
                     io.saveVideoData(stringToFilm(selectedMovie), io.getUserSavedPath(), currentUser.getName());
-                    TextUI.displayMsg("The movie: " + selectedMovie + " has been added to your save list");
                     runStartMenu();
                     break;
                 case 3: //Goes back to search menu

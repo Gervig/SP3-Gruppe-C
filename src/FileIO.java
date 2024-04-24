@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -140,6 +137,33 @@ public class FileIO {
             System.out.println("File not found");
         }
         return userData;
+    }
+    public void deleteLineFromFile(String filePath, String matchString) {
+        // Read the contents of the file into a list
+        ArrayList<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the matchString
+                if (!line.split(";")[0].equals(matchString)) {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        lines.removeIf(line -> line.split(";")[0].equals(matchString));
+
+        // Write the modified contents back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createUserFiles(String username, String password) {
