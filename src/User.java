@@ -28,6 +28,9 @@ public class User {
         //Denne skal kunne gemme fra enten search eller hele listen
         savedFilm.add(film);
     }
+    public void removeFromSaved(Film film){
+        savedFilm.remove(film);
+    }
 
     public String getName() {
         return name;
