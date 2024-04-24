@@ -99,7 +99,7 @@ public class Search {
             TextUI.displayMsg("Please enter the 2 ratings you want to search within");
             double lower = Double.parseDouble(scan.nextLine());
             double upper = Double.parseDouble(scan.nextLine());
-            System.out.println(" ");
+            TextUI.displayMsg(" ");
 
             for (String filmData : filmDataList) {
                 String[] parts = filmData.split(";\\s*");
@@ -139,7 +139,7 @@ public class Search {
            TextUI.displayMsg("Please enter the 2 release dates you want to search within");
            int lower = Integer.parseInt(scan.nextLine());
            int upper = Integer.parseInt(scan.nextLine());
-           System.out.println(" ");
+           TextUI.displayMsg(" ");
            for (String filmData : filmDataList) {
                String[] parts = filmData.split(";\\s*");
                int releaseDate = Integer.parseInt(parts[1]);

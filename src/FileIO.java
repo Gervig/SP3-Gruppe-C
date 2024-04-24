@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -118,7 +115,7 @@ public class FileIO {
         path += "\\" + username + ".txt";
         try {
             FileWriter writer = new FileWriter(path, true);
-            writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + ";" + v.getRating() + ";\n");
+            writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -141,13 +138,49 @@ public class FileIO {
         }
         return userData;
     }
+    public void deleteLineFromFile(String filePath, String matchString) {
+        // Read the contents of the file into a list
+        ArrayList<String> lines = new ArrayList<>();
+        boolean foundMatch = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the matchString
+                if (!foundMatch && line.split(";")[0].equals(matchString)) {
+                    foundMatch = true;
+                    continue; // Skip this line and all subsequent lines
+                }
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Write the modified contents back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            boolean firstLine = true;
+            for (String line : lines) {
+                if (!firstLine) {
+                    writer.newLine(); // Add newline only if it's not the first line
+                } else {
+                    firstLine = false;
+                }
+                writer.write(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void createUserFiles(String username, String password) {
         File fileH = new File(userHistoryPath + username + ".txt");
         File fileS = new File(userSavedPath + username + ".txt");
         try {
-            FileWriter writer = new FileWriter(fileH);
-            writer.close();
+            FileWriter writer1 = new FileWriter(fileH);
+            FileWriter writer2 = new FileWriter(fileS);
+            writer1.close();
+            writer2.close();
         } catch (IOException e){
                 System.out.println("An error occured");
                 e.printStackTrace();
@@ -161,9 +194,5 @@ public class FileIO {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 }
