@@ -82,7 +82,7 @@ public class FileIO {
 
     public ArrayList<String> readVideoData(String path, String username) {
         ArrayList<String> videoData = new ArrayList<>();
-        path += "\\" + username;
+        path += "\\" + username + ".txt";
         File file = new File(path);
         try {
             Scanner scan = new Scanner(file);
@@ -115,7 +115,7 @@ public class FileIO {
     //Læs video objekter i det givne array, og skriv det ind i filen med username navn, i directoryiet path
     //Skriver lige nu ikke season/episodes ned
     public static void saveVideoData(Video v, String path, String username) {
-        path += "\\" + username;
+        path += "\\" + username + ".txt";
         try {
             FileWriter writer = new FileWriter(path, true);
             writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + ";" + v.getRating() + ";\n");
@@ -145,6 +145,13 @@ public class FileIO {
     public void createUserFiles(String username, String password) {
         File fileH = new File(userHistoryPath + username + ".txt");
         File fileS = new File(userSavedPath + username + ".txt");
+        try {
+            FileWriter writer = new FileWriter(fileH);
+            writer.close();
+        } catch (IOException e){
+                System.out.println("An error occured");
+                e.printStackTrace();
+            }
         try {
             FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true);
             writer.write(username + ";" + password + ";" + "\n");
