@@ -146,8 +146,10 @@ public class FileIO {
         File fileH = new File(userHistoryPath + username + ".txt");
         File fileS = new File(userSavedPath + username + ".txt");
         try {
-            FileWriter writer = new FileWriter(fileH);
-            writer.close();
+            FileWriter writer1 = new FileWriter(fileH);
+            FileWriter writer2 = new FileWriter(fileS);
+            writer1.close();
+            writer2.close();
         } catch (IOException e){
                 System.out.println("An error occured");
                 e.printStackTrace();
