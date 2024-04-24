@@ -141,25 +141,32 @@ public class FileIO {
     public void deleteLineFromFile(String filePath, String matchString) {
         // Read the contents of the file into a list
         ArrayList<String> lines = new ArrayList<>();
+        boolean foundMatch = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Check if the line contains the matchString
-                if (!line.split(";")[0].equals(matchString)) {
-                    lines.add(line);
+                if (!foundMatch && line.split(";")[0].equals(matchString)) {
+                    foundMatch = true;
+                    continue; // Skip this line and all subsequent lines
                 }
+                lines.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
-        lines.removeIf(line -> line.split(";")[0].equals(matchString));
 
         // Write the modified contents back to the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            boolean firstLine = true;
             for (String line : lines) {
+                if (!firstLine) {
+                    writer.newLine(); // Add newline only if it's not the first line
+                } else {
+                    firstLine = false;
+                }
                 writer.write(line);
-                writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
