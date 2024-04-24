@@ -16,6 +16,8 @@ public class Stream {
 
     //Rikke
     ArrayList<String> listOfMovies = new ArrayList<>();
+    ArrayList<String> optionsForSaved = new ArrayList<>();
+    ArrayList<String> listOfHistory = new ArrayList<>();
 
     String selectedMovie = "movie";
 
@@ -34,6 +36,12 @@ public class Stream {
         listOfMovies.add("1) Play now");
         listOfMovies.add("2) Add to save");
         listOfMovies.add("3) Go back to the search list");
+        optionsForSaved.add("1) Watch a saved video");
+        optionsForSaved.add("2) View saved videos");
+        optionsForSaved.add("3) Remove a video from saved");
+        optionsForSaved.add("4) Go back");
+        listOfHistory.add("1) View watched history");
+        listOfHistory.add("1) Watch a video from history");
     }
 
     public void setup() {
@@ -168,10 +176,8 @@ public class Stream {
                     if (currentUser.getSavedFilm().isEmpty()) {
                         System.out.println("You have no saved films in your list");
                     } else {
-                        ArrayList<String> optionsForSaved = new ArrayList<>();
-                        optionsForSaved.add("1) Watch a saved video");
-                        optionsForSaved.add("2) View saved videos");
-                        int optionsChoice = ui.promptChoice(optionsForSaved, "Choose a search option");
+
+                        int optionsChoice = ui.promptChoice(optionsForSaved, "Choose an option");
                         switch (optionsChoice){
                             case 1:
                                 if (currentUser.getSavedFilm().isEmpty()) {
@@ -183,10 +189,9 @@ public class Stream {
                                         savedVideoOptions.add(index + ") " + savedFilm.getName());
                                         index++;
                                     }
-                                    int videoChoice = ui.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
-                                    Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
-                                    ui.displayMsg("Now playing: " + selectedVideo.getName());
-
+                                   // int videoChoice = ui.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
+                                    //   Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    watchingNow();
                                 }
                                 break;
                             case 2:
@@ -199,17 +204,42 @@ public class Stream {
                                     for (Film savedFilm : currentUser.getSavedFilm()) {
                                         System.out.println(index1+") "+savedFilm.getName()); // Using getName() method to print the title of the film
                                         index1++;
-
                                     }
                                 }
+                                break;
+                            case 3:
+                                //remove film from Saved videos
+                                //currentUser.removeFromSaved();
+                                break;
+                            case 4:
+                                //Go back
+                                runStartMenu();
                                 break;
                         }
                     }
                     break;
                 case 3:
                     //View watch history
-                    currentUser.getSeenFilm(); //Gets seen films
-                    currentUser.getSeenSeries(); //Gets seen series
+                    int historyChoice = 0;
+                    historyChoice = ui.promptChoice(listOfHistory, "Choose action:");
+                    switch (historyChoice){
+                        case 1:
+                            if (currentUser.getSeenFilm().isEmpty()) {
+                                System.out.println("You haven't watched anything yet");
+                            } else {
+                                System.out.println("Watch history:");
+                                int index1 = 1;
+                                for (Film seenFilm : currentUser.getSeenFilm()) {
+                                    System.out.println(index1 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
+                                    index1++;
+                                }
+                            }
+                            break;
+                        case 2:
+
+                    }
+
+                    //currentUser.getSeenSeries(); //Gets seen series
                     //the list is not yet added, there is a to do for that.
                     //todo: make a method for choosing a movie and play those, like in the search method
                     break;
@@ -335,24 +365,7 @@ public class Stream {
             choiceForMovie = ui.promptChoice(listOfMovies, "Choose action:");
             switch (choiceForMovie) {
                 case 1:
-                    Scanner scan = new Scanner(System.in);
-                    ui.displayMsg("Now playing: " + selectedMovie);
-                    ui.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
-                    currentUser.watchedFilm(stringToFilm(selectedMovie));
-                    Boolean validInput = false;
-                    do {
-
-                        String stopOrNot = scan.nextLine().toLowerCase();
-                        if (!stopOrNot.equals("stop")) {
-                            validInput = true; // Exit the loop if the user doesn't want to try again
-                        } else {
-                            validInput = false;
-                            ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
-                            runStartMenu();
-                        }
-
-                    } while(!validInput);
-
+                    watchingNow();
                     break;
                 case 2:
                     currentUser.addToSaved(stringToFilm(selectedMovie));
@@ -369,5 +382,22 @@ public class Stream {
     }
     public void quitProgram(){
         System.exit(0);
+    }
+    public void watchingNow(){
+        Scanner scan = new Scanner(System.in);
+        TextUI.displayMsg("Now playing: " + selectedMovie);
+        TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
+        currentUser.watchedFilm(stringToFilm(selectedMovie));
+        Boolean validInput = false;
+        do {
+            String stopOrNot = scan.nextLine().toLowerCase();
+            if (!stopOrNot.equals("stop")) {
+                validInput = true; // Exit the loop if the user doesn't want to try again
+            } else {
+                validInput = false;
+                ui.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
+                runStartMenu();
+            }
+        } while(!validInput);
     }
 }
