@@ -91,7 +91,7 @@ public class Stream {
                     break;
                 case 3:
                     //quit program
-                    //this.quitProgram();
+                    this.quitProgram();
                     break;
             }
         }
@@ -220,7 +220,7 @@ public class Stream {
                     break;
                 case 5:
                     //quit
-                    //   this.quitProgram();
+                    this.quitProgram();
                     break;
             }
         }
@@ -366,5 +366,8 @@ public class Stream {
                     break;
             }
         }
+    }
+    public void quitProgram(){
+        System.exit(0);
     }
 }
