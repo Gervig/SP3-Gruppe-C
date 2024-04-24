@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-//todo "Type "stop" if you would like to stop watching." Function accepts other things than stop .. fix it.
+
 public class Stream {
     String name;
     ArrayList<User> users = new ArrayList<>();
@@ -406,12 +406,12 @@ public class Stream {
         boolean validInput = false;
         do {
             String stopOrNot = scan.nextLine().toLowerCase();
-            if (!stopOrNot.equals("stop")) {
+            if (stopOrNot.equals("stop")) {
                 validInput = true; // Exit the loop if the user doesn't want to try again
                 TextUI.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
-                //runStartMenu();
+                runStartMenu();
             } else {
-                validInput = false;
+                TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
             }
         } while(!validInput);
     }
