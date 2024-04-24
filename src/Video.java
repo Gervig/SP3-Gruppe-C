@@ -13,13 +13,6 @@ private String releaseDate;
         this.rating = rating;
         this.releaseDate = releaseDate;
     }
-    public Video(String name){
-        this.name = name;
-    }
-    public Video(String name, int rating){
-        this.name = name;
-        this.rating = rating;
-    }
 
 //methods
 public String getReleaseDate(){
@@ -35,9 +28,7 @@ public float getRating(){
 return rating;
 }
 public boolean playVideo(Video video) {
-        //todo msg skal soutes i TextUI
         String msg = video.getName() + " is now playing...";
-
         return true;
     }
 
