@@ -307,12 +307,15 @@ public class Stream {
         int searchChoice = TextUI.promptChoice(listOfSearch, "Choose a search option");
         switch (searchChoice) {
             case 1: //Search for genre
-                TextUI.displayMsg("Type the genre you would like to search for");
+                //todo select number instead of writing the genre.
+                ArrayList<String> filmDataList = io.readVideoData(filmDataPath, 100);
+                ArrayList<String> allGenres = search.allGenres(filmDataList);
+                for (int i = 0; i < allGenres.size(); i++) {
+                    System.out.println((i + 1) + ") " + allGenres.get(i));
+                }
+                TextUI.displayMsg("Above is all the available genres you can search");
+                TextUI.displayMsg("Type the genre you would like to search for (Word and not number)");
                 search.searchGenre(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList = search.getMoviesWithGenre();
-                String[] movies = moviesList.toArray(new String[0]);
-                boolean movieFound = false;
-                // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
                 if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
                     selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
@@ -323,10 +326,6 @@ public class Stream {
                 break;
             case 2://Search for title
                 search.searchName(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList2 = search.getMoviesWithName();
-                String[] movies2 = moviesList2.toArray(new String[0]);
-                boolean movieFound2 = false;
-                // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice2 = TextUI.promptNumeric("Choose a Film from the list above");
                 if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
                     selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
@@ -337,10 +336,6 @@ public class Stream {
                 break;
             case 3: //Search for Rating
                 search.searchRating(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList3 = search.getMoviesWithName();
-                String[] movies3 = moviesList3.toArray(new String[0]);
-                boolean movieFound3 = false;
-                // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice3 = TextUI.promptNumeric("Choose a Film from the list above");
                 if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
                     selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
@@ -351,10 +346,6 @@ public class Stream {
                 break;
             case 4: //Search for Releasedate
                 search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList4 = search.getMoviesWithReleaseDate();
-                String[] movies4 = moviesList4.toArray(new String[0]);
-                boolean movieFound4 = false;
-                // Only prompt for movie choice if user didn't go back to menu
                 int movieChoice4 = TextUI.promptNumeric("Choose a Film from the list above");
                 if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
                     selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
@@ -366,6 +357,8 @@ public class Stream {
             case 5:
                 runStartMenu();
                 break;
+            case 6:
+
         }
     }
 

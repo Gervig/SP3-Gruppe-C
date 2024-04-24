@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +11,23 @@ public class Search {
     private final ArrayList<String> moviesWithName = new ArrayList<>();
     private final ArrayList<String> moviesWithRating = new ArrayList<>();
     private final ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
+    private final ArrayList<String> allGenres = new ArrayList<>();
+
+    public ArrayList<String> allGenres(ArrayList<String> filmDataList) {
+        HashSet<String> uniqueGenres = new HashSet<>(); // Using HashSet to automatically handle duplicates
+
+        for (String filmData : filmDataList) {
+            String[] parts = filmData.split(";\\s*");
+            String[] genres = parts[2].split(",\\s*");
+
+            for (String genre : genres) {
+                uniqueGenres.add(genre.trim());
+            }
+        }
+
+        // Converting HashSet to ArrayList for returning
+        return new ArrayList<>(uniqueGenres);
+    }
 
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
 
@@ -171,6 +189,9 @@ public class Search {
    }
 
     //getters
+    public ArrayList<String> getAllGenres() {
+        return allGenres;
+    }
     public ArrayList<String> getMoviesWithName() {
         return moviesWithName;
     }
