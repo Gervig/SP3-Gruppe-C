@@ -13,17 +13,10 @@ public class Stream {
     String filmDataPath = "data\\film.txt";
     private User currentUser = new User("Lukas", "lukas");
     ArrayList<String> selectedVideos = new ArrayList<>();
-
-    //Rikke
     ArrayList<String> listOfMovies = new ArrayList<>();
     ArrayList<String> optionsForSaved = new ArrayList<>();
     ArrayList<String> listOfHistory = new ArrayList<>();
-
     String selectedMovie = "movie";
-
-    protected Film film;
-
-    protected Series series;
 
     public Stream(String name) {
         this.name = name;
@@ -180,6 +173,7 @@ public class Stream {
                         int optionsChoice = ui.promptChoice(optionsForSaved, "Choose an option");
                         switch (optionsChoice){
                             case 1:
+                                //watch saved video
                                 if (currentUser.getSavedFilm().isEmpty()) {
                                     System.out.println("You have no saved films in your list");
                                 } else {
@@ -195,6 +189,7 @@ public class Stream {
                                 }
                                 break;
                             case 2:
+                                //View saved video
                                 if (currentUser.getSavedFilm().isEmpty()) {
                                     System.out.println("You have no saved films in your list");
                                 } else {
