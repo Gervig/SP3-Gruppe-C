@@ -9,6 +9,22 @@ public class FileIO {
     private String userHistoryPath = "data\\UserData\\UserHistory\\";
     private String userSavedPath = "data\\UserData\\UserSaved\\";
 
+    public String getUserHistoryPath() {
+        return userHistoryPath;
+    }
+
+    public void setUserHistoryPath(String userHistoryPath) {
+        this.userHistoryPath = userHistoryPath;
+    }
+
+    public String getUserSavedPath() {
+        return userSavedPath;
+    }
+
+    public void setUserSavedPath(String userSavedPath) {
+        this.userSavedPath = userSavedPath;
+    }
+
     public ArrayList<String> readUsers() {
         String path = "data\\UserData\\Users.txt";
         ArrayList<String> users = new ArrayList<>();
@@ -26,23 +42,23 @@ public class FileIO {
     }
 
     //reads filmdata
-//    public ArrayList<String> readFilmData(String path, int length) {
-//        ArrayList<String> filmdata = new ArrayList<>();
-//        File file = new File(path);
-//
-//        try {
-//            Scanner scan = new Scanner(file);
-//
-//            for (int i = 0; i < length; i++) {
-//                String line = scan.nextLine();
-//                filmdata.add(i, line);
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File was not found");
-//        }
-//
-//        return filmdata;
-//    }
+    public ArrayList<String> readFilmData(String path, int length) {
+        ArrayList<String> filmdata = new ArrayList<>();
+        File file = new File(path);
+
+        try {
+            Scanner scan = new Scanner(file);
+
+            for (int i = 0; i < length; i++) {
+                String line = scan.nextLine();
+                filmdata.add(i, line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        }
+
+        return filmdata;
+    }
 
 
     //reads seriesdata
@@ -66,7 +82,7 @@ public class FileIO {
 
     public ArrayList<String> readVideoData(String path, String username) {
         ArrayList<String> videoData = new ArrayList<>();
-        path += "\\" + username;
+        path += "\\" + username + ".txt";
         File file = new File(path);
         try {
             Scanner scan = new Scanner(file);
@@ -99,7 +115,7 @@ public class FileIO {
     //Læs video objekter i det givne array, og skriv det ind i filen med username navn, i directoryiet path
     //Skriver lige nu ikke season/episodes ned
     public static void saveVideoData(Video v, String path, String username) {
-        path += "\\" + username;
+        path += "\\" + username + ".txt";
         try {
             FileWriter writer = new FileWriter(path, true);
             writer.write(v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + ";" + v.getRating() + ";\n");
@@ -129,6 +145,13 @@ public class FileIO {
     public void createUserFiles(String username, String password) {
         File fileH = new File(userHistoryPath + username + ".txt");
         File fileS = new File(userSavedPath + username + ".txt");
+        try {
+            FileWriter writer = new FileWriter(fileH);
+            writer.close();
+        } catch (IOException e){
+                System.out.println("An error occured");
+                e.printStackTrace();
+            }
         try {
             FileWriter writer = new FileWriter("data\\UserData\\Users.txt", true);
             writer.write(username + ";" + password + ";" + "\n");
