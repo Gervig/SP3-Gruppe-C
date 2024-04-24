@@ -129,7 +129,6 @@ public class Stream {
 
     public User loginUser() {
         String username = ui.promptText("Please write username:");
-
         // Check if the user exists
         for (User u : users) {
             if (u.getName().equals(username)) {
