@@ -131,7 +131,7 @@ public class Stream {
         // Check if the user exists
         for (User u : users) {
             if (u.getName().equalsIgnoreCase(username)) {
-                String inputPassword = ui.promptText("Please write password:");
+                String inputPassword = TextUI.promptText("Please write password:");
                 if (u.getPassword().equals(inputPassword)) {
                     TextUI.displayMsg("Logged in");
                     //todo read UserHistory & Saved and add to lists
