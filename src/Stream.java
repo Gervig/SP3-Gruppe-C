@@ -407,8 +407,8 @@ public class Stream {
         do {
             String stopOrNot = scan.nextLine().toLowerCase();
             if (stopOrNot.equals("stop")) {
-                validInput = true; // Exit the loop if the user doesn't want to try again
                 TextUI.displayMsg("The movie has ended, and you are now being redirected to the Start menu");
+                validInput = true; // Exit the loop if the user doesn't want to try again
                 runStartMenu();
             } else {
                 TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
