@@ -88,13 +88,13 @@ public class Stream {
             switch (action) {
                 case 1:
                     //Login to existing user
-                    this.loginUser();
+                    currentUser = this.loginUser();
                     this.runStartMenu();
 
                     break;
                 case 2:
                     //Sign up new user
-                    this.createUser();
+                    currentUser = this.createUser();
                     this.runStartMenu();
                     break;
                 case 3:
@@ -144,7 +144,7 @@ public class Stream {
                     for (String s : userHistory) {
                         String[] values = s.split(";");
                         String name = values[0];
-                        u.getSavedFilm().add(stringToFilm(name));
+                        u.getSeenFilm().add(stringToFilm(name));
                     }
                     return u;
                 }
@@ -283,10 +283,6 @@ public class Stream {
             }
         }
     }
-/*
-        private void quitProgram () {
-            io.saveData(this.currentUser, );
-        }*/
 
     public ArrayList<User> getUserNames() {
         ArrayList<String> namesOfUsers = new ArrayList<>();
@@ -396,6 +392,7 @@ public class Stream {
                     break;
                 case 2:
                     currentUser.addToSaved(stringToFilm(selectedMovie));
+                    io.saveVideoData(stringToFilm(selectedMovie), io.getUserSavedPath(), currentUser.getName());
                     TextUI.displayMsg("The movie: " + selectedMovie + " has been added to your save list");
                     ui.displayMsg("You have been redirected to the Start menu");
                     runStartMenu();
@@ -417,6 +414,7 @@ public class Stream {
         TextUI.displayMsg("Now playing: " + selectedMovie);
         TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
         currentUser.watchedFilm(stringToFilm(selectedMovie));
+        io.saveVideoData(stringToFilm(selectedMovie), io.getUserHistoryPath(), currentUser.getName());
         boolean validInput = false;
         do {
             String stopOrNot = scan.nextLine().toLowerCase();
