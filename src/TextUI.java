@@ -45,9 +45,7 @@ public class TextUI {
     }
 
     public static void displayMsg(String msg){
-        //System.out.println("\n**********");
-        System.out.println(msg);
-        //System.out.println("**********\n");
+           System.out.println(msg);
     }
 
 

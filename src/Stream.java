@@ -2,25 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Stream {
-    String name;
-    ArrayList<User> users = new ArrayList<>();
-    ArrayList<Film> filmList = new ArrayList<>();
-    ArrayList<Series> seriesList = new ArrayList<>();
+    private String name;
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Film> filmList = new ArrayList<>();
+    private ArrayList<Series> seriesList = new ArrayList<>();
     TextUI TextUI;
     FileIO io;
-    ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
+    private ArrayList<String> listOfActions = new ArrayList<>();
     private User currentUser;
-    ArrayList<String> selectedVideos = new ArrayList<>();
-    ArrayList<String> listOfMovies = new ArrayList<>();
-    ArrayList<String> optionsForSaved = new ArrayList<>();
-    ArrayList<String> listOfHistory = new ArrayList<>();
-    ArrayList<String> listOfMenu = new ArrayList<>();
-    ArrayList<String> listOfSearch = new ArrayList<>();
-    String selectedMovie = "movie";
-    protected Film film;
-    protected Series series;
+    private ArrayList<String> listOfMovies = new ArrayList<>();
+    private ArrayList<String> optionsForSaved = new ArrayList<>();
+    private ArrayList<String> listOfHistory = new ArrayList<>();
+    private ArrayList<String> listOfMenu = new ArrayList<>();
+    private ArrayList<String> listOfSearch = new ArrayList<>();
+    private ArrayList<String> searchResultList = new ArrayList<>();
+    private String selectedMovie = "movie";
 
     public Stream(String name) {
         this.name = name;
@@ -181,8 +179,8 @@ public class Stream {
                     break;
                 case 2: //View saved videos
                     if (currentUser.getSavedFilm().isEmpty()) {
-                        TextUI.displayMsg("You have no saved films in your list");
-                    } else {
+                      TextUI.displayMsg("You have no saved films in your list");
+                   } else {
                         int index1 = 1;
                         for (Film savedFilm : currentUser.getSavedFilm()) {
                             TextUI.displayMsg(index1 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
@@ -286,28 +284,13 @@ public class Stream {
         }
     }
 
-    public ArrayList<User> getUserNames() {
-        ArrayList<String> namesOfUsers = new ArrayList<>();
-        for (User u : users) {
-            namesOfUsers.add(u.getName());
-        }
-        return users;
-    }
-
-    public ArrayList<Film> getFilmList() {
-        return filmList;
-    }
-
-    public void setFilmList(ArrayList<Film> filmList) {
-        this.filmList = filmList;
-    }
-
     public void searchForMovie() { //Search for movies - does not work for series
         Search search = new Search();
         int searchChoice = TextUI.promptChoice(listOfSearch, "Choose a search option");
         switch (searchChoice) {
             case 1: //Search for genre
-                TextUI.displayMsg("Type the genre you would like to search for");
+                TextUI.displayMsg("Type out the genre you would like to search for");
+                TextUI.displayMsg("Action, Adventure, Biografi, Crime, Drama, Family, Fantasy, Film-Noir, History, Horror, Mystery, Romance, Sci-fi, Sport, Thriller, War");
                 search.searchGenre(io.readVideoData(filmDataPath, 100));
                 ArrayList<String> moviesList = search.getMoviesWithGenre();
                 String[] movies = moviesList.toArray(new String[0]);
@@ -412,5 +395,16 @@ public class Stream {
                 TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
             }
         } while (!validInput);
+    }
+
+    public ArrayList<User> getUserNames() {
+        ArrayList<String> namesOfUsers = new ArrayList<>();
+        for (User u : users) {
+            namesOfUsers.add(u.getName());
+        }
+        return users;
+    }
+    public void setFilmList(ArrayList<Film> filmList) {
+        this.filmList = filmList;
     }
 }

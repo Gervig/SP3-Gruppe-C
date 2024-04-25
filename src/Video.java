@@ -3,7 +3,6 @@ public abstract class Video implements IVideo {
 private String name;
 private String genre;
 private float rating;
-private boolean hasSeen;
 private String releaseDate;
 
     //constructor
@@ -27,10 +26,6 @@ public String getGenre() {
 public float getRating(){
 return rating;
 }
-public boolean playVideo(Video video) {
-        String msg = video.getName() + " is now playing...";
-        return true;
-    }
 
     @Override
     public String toString() {
