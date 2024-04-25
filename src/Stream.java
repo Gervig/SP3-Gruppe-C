@@ -12,15 +12,13 @@ public class Stream {
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
     private User currentUser;
-    ArrayList<String> selectedVideos = new ArrayList<>();
     ArrayList<String> listOfMovies = new ArrayList<>();
     ArrayList<String> optionsForSaved = new ArrayList<>();
     ArrayList<String> listOfHistory = new ArrayList<>();
     ArrayList<String> listOfMenu = new ArrayList<>();
     ArrayList<String> listOfSearch = new ArrayList<>();
+    ArrayList<String> searchResultList = new ArrayList<>();
     String selectedMovie = "movie";
-    protected Film film;
-    protected Series series;
 
     public Stream(String name) {
         this.name = name;
@@ -110,20 +108,34 @@ public class Stream {
 
     public User createUser() {
         String newUsername = TextUI.promptText("Choose a username:");
-        // Check if the username already exists
-        for (User user : users) {
-            if (user.getName().equalsIgnoreCase(newUsername)) {
-                TextUI.displayMsg("Username already in use, please choose a different username:");
-                //todo burde return til login eller createUser
+
+        String pattern = "^[a-zA-Z0-9æøåÆØÅ]+$";
+        if(newUsername.matches(pattern)) {
+            // Check if the username already exists
+            for (User user : users) {
+                if (user.getName().equalsIgnoreCase(newUsername)) {
+                    TextUI.displayMsg("Username already in use, please choose a different username:");
+                    return createUser();
+                }
+            }
+            pattern = "^[a-zA-Z0-9æøåÆØÅ!#¤%&/()=?`@,.$£€]+$";
+            String newPassword = TextUI.promptText("Choose a password:");
+            if (newPassword.matches(pattern)) {
+                io.createUserFiles(newUsername, newPassword);
+                User newUser = new User(newUsername, newPassword);
+                users.add(newUser);
+                return newUser;
+            } else {
+                TextUI.displayMsg("Please use only numbers and letters for your password");
+                return createUser();
+            }
+            } else {
+                TextUI.displayMsg("Please use only numbers and letters for your username");
                 return createUser();
             }
         }
-        String newPassword = TextUI.promptText("Choose a password:");
-        io.createUserFiles(newUsername, newPassword);
-        User newUser = new User(newUsername, newPassword);
-        users.add(newUser);
-        return newUser;
-    }
+
+
 
 
     public User loginUser() {
@@ -134,7 +146,6 @@ public class Stream {
                 String inputPassword = TextUI.promptText("Please write password:");
                 if (u.getPassword().equals(inputPassword)) {
                     TextUI.displayMsg("Logged in");
-                    //todo read UserHistory & Saved and add to lists
                     ArrayList<String> userSaved = io.readVideoData(io.getUserSavedPath(), username);
                     ArrayList<String> userHistory = io.readVideoData(io.getUserHistoryPath(), username);
                     for (String s : userSaved) {
@@ -148,10 +159,7 @@ public class Stream {
                         u.getSeenFilm().add(stringToFilm(name));
                     }
                     return u;
-                }
-                //                    u.getSeenFilm()= io.readVideoData(io.getUserHistoryPath(), username);
-                //                    u.getSavedFilm().add(io.readVideoData(io.getUserSavedPath(), username));
-                else {
+                } else {
                     TextUI.displayMsg("Wrong password. Please try again:");
                     return loginUser();
                 }
@@ -172,12 +180,11 @@ public class Stream {
     }
 
     public void runStartMenu() {
-        //todo if input is not an int, try again (right now it crashes)
         int choice = 0;
         while (choice != listOfMenu.size()) {// the quit action is the last action
             choice = TextUI.promptChoice(listOfMenu, "Choose action:");
             switch (choice) {
-                case 1:
+                case 1: // search for videos
                     searchForMovie();
                     break;
                 case 2: //View saved videos
@@ -192,14 +199,8 @@ public class Stream {
                         int optionsChoice = TextUI.promptChoice(optionsForSaved, "Choose an option");
                         switch (optionsChoice) {
                             case 1:
-                                ArrayList<String> savedVideoOptions = new ArrayList<>();
-                                int index = 1;
-                                for (Film savedFilm : currentUser.getSavedFilm()) {
-                                    savedVideoOptions.add(index + ") " + savedFilm.getName());
-                                    index++;
-                                }
-                                int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
-                                Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                int videoChoice = TextUI.promptChoice(optionsForSaved, "Choose a video to watch");
+                                selectedMovie = currentUser.getSavedFilm().get(videoChoice-1).getName();
                                 watchingNow();
                                 break;
                             case 2:
@@ -245,11 +246,6 @@ public class Stream {
                                     TextUI.displayMsg("You haven't watched anything yet");
                                 } else {
                                     TextUI.displayMsg("Watch history:");
-                                    int index2 = 1;
-                                    for (Film seenFilm : currentUser.getSeenFilm()) {
-                                        TextUI.displayMsg(index2 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
-                                        index2++;
-                                    }
                                 }
                                 break;
                             case 2: //Choose a movie to watch from history
@@ -263,7 +259,7 @@ public class Stream {
                                         index++;
                                     }
                                     int videoChoice = TextUI.promptChoice(seenVideoOptions, "Choose a video from history to watch:");
-                                    Film selectedVideo = currentUser.getSeenFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    selectedMovie = currentUser.getSeenFilm().get(videoChoice - 1).getName(); // Adjusting for 0-based index
                                     watchingNow();
                                 }
                             case 3: //Go back
@@ -284,82 +280,70 @@ public class Stream {
         }
     }
 
-    public ArrayList<User> getUserNames() {
-        ArrayList<String> namesOfUsers = new ArrayList<>();
-        for (User u : users) {
-            namesOfUsers.add(u.getName());
-        }
-        return users;
-    }
-
-    public ArrayList<Film> getFilmList() {
-        return filmList;
-    }
-
-    public void setFilmList(ArrayList<Film> filmList) {
-        this.filmList = filmList;
-    }
-
     public void searchForMovie() { //Search for movies - does not work for series
         Search search = new Search();
         int searchChoice = TextUI.promptChoice(listOfSearch, "Choose a search option");
         switch (searchChoice) {
             case 1: //Search for genre
-              //  search.showGenre(io.readVideoData(filmDataPath, 100));
+                //todo display all unique genres in filmList
                 TextUI.displayMsg("Type the genre you would like to search for");
-                search.searchGenre(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList = search.getMoviesWithGenre();
-                String[] movies = moviesList.toArray(new String[0]);
-                boolean movieFound = false;
-                // Only prompt for movie choice if user didn't go back to menu
-                int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
-                if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                    selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-                    playMenu();
+                searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
+                if(searchResultList.isEmpty()){
+                    runStartMenu();
                 } else {
-                    TextUI.displayMsg("Invalid movie choice.");
+                    // Only prompt for movie choice if user didn't go back to menu
+                    int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
+                    if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                        selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+                        playMenu();
+                    } else {
+                        TextUI.displayMsg("Invalid movie choice.");
+                    }
                 }
                 break;
             case 2://Search for title
-                search.searchName(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList2 = search.getMoviesWithName();
-                String[] movies2 = moviesList2.toArray(new String[0]);
-                boolean movieFound2 = false;
-                // Only prompt for movie choice if user didn't go back to menu
-                int movieChoice2 = TextUI.promptNumeric("Choose a Film from the list above");
-                if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
-                    selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
-                    playMenu();
+                searchResultList = search.searchName(io.readVideoData(filmDataPath, 100));
+                if(searchResultList.isEmpty()){
+                    runStartMenu();
                 } else {
-                    TextUI.displayMsg("Invalid movie choice.");
+                    // Only prompt for movie choice if user didn't go back to menu
+                    int movieChoice2 = TextUI.promptNumeric("Choose a Film from the list above");
+                    if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
+                        selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
+                        playMenu();
+                    } else {
+                        TextUI.displayMsg("Invalid movie choice.");
+                    }
                 }
                 break;
             case 3: //Search for Rating
-                search.searchRating(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList3 = search.getMoviesWithName();
-                String[] movies3 = moviesList3.toArray(new String[0]);
-                boolean movieFound3 = false;
-                // Only prompt for movie choice if user didn't go back to menu
-                int movieChoice3 = TextUI.promptNumeric("Choose a Film from the list above");
-                if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
-                    selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
-                    playMenu();
+                searchResultList = search.searchRating(io.readVideoData(filmDataPath, 100));
+                if(searchResultList.isEmpty()){
+                    runStartMenu();
                 } else {
-                    TextUI.displayMsg("Invalid movie choice.");
+                    // Only prompt for movie choice if user didn't go back to menu
+                    int movieChoice3 = TextUI.promptNumeric("Choose a Film from the list above");
+                    if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
+                        selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
+                        playMenu();
+                    } else {
+                        TextUI.displayMsg("Invalid movie choice.");
+                    }
                 }
                 break;
             case 4: //Search for Releasedate
-                search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList4 = search.getMoviesWithReleaseDate();
-                String[] movies4 = moviesList4.toArray(new String[0]);
-                boolean movieFound4 = false;
-                // Only prompt for movie choice if user didn't go back to menu
-                int movieChoice4 = TextUI.promptNumeric("Choose a Film from the list above");
-                if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
-                    selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
-                    playMenu();
+                searchResultList = search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
+                if(searchResultList.isEmpty()) {
+                    runStartMenu();
                 } else {
-                    TextUI.displayMsg("Invalid movie choice.");
+                    // Only prompt for movie choice if user didn't go back to menu
+                    int movieChoice4 = TextUI.promptNumeric("Choose a Film from the list above");
+                    if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
+                        selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
+                        playMenu();
+                    } else {
+                        TextUI.displayMsg("Invalid movie choice.");
+                    }
                 }
                 break;
             case 5:
@@ -380,6 +364,7 @@ public class Stream {
                     currentUser.addToSaved(stringToFilm(selectedMovie));
                     TextUI.displayMsg("The movie: " + selectedMovie + " has been added to your save list");
                     TextUI.displayMsg("You have been redirected to the Start menu");
+                    //todo fix nullpointer
                     io.saveVideoData(stringToFilm(selectedMovie), io.getUserSavedPath(), currentUser.getName());
                     runStartMenu();
                     break;
@@ -411,5 +396,16 @@ public class Stream {
                 TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
             }
         } while (!validInput);
+    }
+    public ArrayList<User> getUserNames() {
+        ArrayList<String> namesOfUsers = new ArrayList<>();
+        for (User u : users) {
+            namesOfUsers.add(u.getName());
+        }
+        return users;
+    }
+
+    public void setFilmList(ArrayList<Film> filmList) {
+        this.filmList = filmList;
     }
 }

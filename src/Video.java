@@ -3,7 +3,7 @@ public abstract class Video implements IVideo {
 private String name;
 private String genre;
 private float rating;
-private boolean hasSeen;
+private boolean hasSeen; //Rikke har fjernet i sin
 private String releaseDate;
 
     //constructor
@@ -31,6 +31,7 @@ public boolean playVideo(Video video) {
         String msg = video.getName() + " is now playing...";
         return true;
     }
+    //Denne bliver aldrig brugt - slettet fra klassediagrammet
 
     @Override
     public String toString() {

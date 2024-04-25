@@ -34,7 +34,13 @@ public class TextUI {
     }
     public int promptNumeric(String msg){
         String input = promptText(msg);         //Give brugere et sted at placere sit svar og vente pÃ¥ svaret
-        return Integer.parseInt(input);
+        try {
+            int num = Integer.parseInt(input);
+            return num;
+        } catch (NumberFormatException e) {
+            displayMsg("Please input a number from the list above.");
+        }
+        return promptNumeric(msg);
     }
     public int promptChoice(ArrayList<String> optionslist, String msg){//["Gin&Tonic", "Beer","Vine" ]
         displayMsg(msg);

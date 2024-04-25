@@ -6,15 +6,11 @@ import java.util.Scanner;
 
 public class Search {
     Scanner scan = new Scanner(System.in);
-
     private final ArrayList<String> moviesWithGenre = new ArrayList<>();
     private final ArrayList<String> moviesWithName = new ArrayList<>();
     private final ArrayList<String> moviesWithRating = new ArrayList<>();
     private final ArrayList<String> moviesWithReleaseDate = new ArrayList<>();
-
-    //Rikkes tilføjelser
-    public ArrayList<String> listOfGenres = new ArrayList<>();
-    TextUI TextUI;
+    private TextUI TextUI;
 
 
     public ArrayList<String> searchGenre(ArrayList<String> filmDataList) {
@@ -33,7 +29,6 @@ public class Search {
                     if (genre.equalsIgnoreCase(choice.trim())) {
                         // If any of the movie's genres match the user's choice, add it to the list
                         moviesWithGenre.add(parts[0]);
-                        listOfGenres.add(genre);
                         break; // Once a match is found, no need to continue checking other genres for this movie
                     }
                 }
@@ -50,7 +45,7 @@ public class Search {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes")) {
+                if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 }
             }
@@ -87,7 +82,7 @@ public class Search {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes")) {
+                if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 }
             }
@@ -129,7 +124,7 @@ public class Search {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes")) {
+                if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 }
             }
@@ -169,7 +164,7 @@ public class Search {
                 TextUI.displayMsg("No film or series was found within the year " + lower + " and " + upper + " please try a different range");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes")) {
+                if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 }
             }
@@ -194,22 +189,5 @@ public class Search {
 
     public ArrayList<String> getMoviesWithGenre() {
         return moviesWithGenre;
-    }
-
-
-    //Det Rikke lavede - som ikke virkede
-    public void showGenre(ArrayList<String> filmDataList) {
-        for (String filmData : filmDataList) {
-            String[] parts = filmData.split(";\\s*");
-            String[] genres = parts[2].split(",\\s*"); // Splitting the genre string into individual genres
-
-            for (String genre : genres) {
-                if (!genre.equalsIgnoreCase(String.valueOf(listOfGenres))){
-                    // If any of the movie's genres match the user's choice, add it to the list
-                    listOfGenres.add(genre);
-                    }
-            }
-        }
-        TextUI.displayMsg( "\nHere are the genres:" + listOfGenres);
     }
 }
