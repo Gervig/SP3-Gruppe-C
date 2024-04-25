@@ -312,26 +312,26 @@ public class Stream {
                     playMenu();
                 } else {
                     TextUI.displayMsg("Invalid movie choice.");
-                //todo display all unique genres in filmList
-                TextUI.displayMsg("Type the genre you would like to search for");
-                searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
-                if(searchResultList.isEmpty()){
-                    runStartMenu();
-                } else {
-                    // Only prompt for movie choice if user didn't go back to menu
-                    movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
-                    if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                        selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-                        playMenu();
+                    //todo display all unique genres in filmList
+                    TextUI.displayMsg("Type the genre you would like to search for");
+                    searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
+                    if (searchResultList.isEmpty()) {
+                        runStartMenu();
                     } else {
-                        TextUI.displayMsg("Invalid movie choice.");
+                        // Only prompt for movie choice if user didn't go back to menu
+                        movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
+                        if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                            selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+                            playMenu();
+                        } else {
+                            TextUI.displayMsg("Invalid movie choice.");
+                        }
                     }
-                }
                 }
                 break;
             case 2://Search for title
                 searchResultList = search.searchName(io.readVideoData(filmDataPath, 100));
-                if(searchResultList.isEmpty()){
+                if (searchResultList.isEmpty()) {
                     runStartMenu();
                 } else {
                     // Only prompt for movie choice if user didn't go back to menu
@@ -346,7 +346,7 @@ public class Stream {
                 break;
             case 3: //Search for Rating
                 searchResultList = search.searchRating(io.readVideoData(filmDataPath, 100));
-                if(searchResultList.isEmpty()){
+                if (searchResultList.isEmpty()) {
                     runStartMenu();
                 } else {
                     // Only prompt for movie choice if user didn't go back to menu
@@ -361,7 +361,7 @@ public class Stream {
                 break;
             case 4: //Search for Releasedate
                 searchResultList = search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
-                if(searchResultList.isEmpty()) {
+                if (searchResultList.isEmpty()) {
                     runStartMenu();
                 } else {
                     // Only prompt for movie choice if user didn't go back to menu
