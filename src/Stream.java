@@ -202,6 +202,7 @@ public class Stream {
                                     }
                                     int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
                                     Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    selectedMovie = selectedVideo.getName();
                                     watchingNow();
                                 }
                                 break;
@@ -266,6 +267,7 @@ public class Stream {
                                     }
                                     int videoChoice = TextUI.promptChoice(seenVideoOptions, "Choose a video from history to watch:");
                                     Film selectedVideo = currentUser.getSeenFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    selectedMovie = selectedVideo.getName();
                                     watchingNow();
                                 }
                             case 3: //Go back
