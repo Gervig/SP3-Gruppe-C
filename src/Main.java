@@ -7,6 +7,6 @@ public class Main {
         Stream stream = new Stream("toString'n'Chill");
         stream.setup();
         stream.runDialog();
-
+        //Kommentar
     }
 }
