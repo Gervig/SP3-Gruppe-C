@@ -317,33 +317,24 @@ public class Stream {
         int searchChoice = TextUI.promptChoice(listOfSearch, "Choose a search option");
         switch (searchChoice) {
             case 1: //Search for genre
-                TextUI.displayMsg("Type out the genre you would like to search for");
-                TextUI.displayMsg("Action, Adventure, Biografi, Crime, Drama, Family, Fantasy, Film-Noir, History, Horror, Mystery, Romance, Sci-fi, Sport, Thriller, War");
-                search.searchGenre(io.readVideoData(filmDataPath, 100));
-                ArrayList<String> moviesList = search.getMoviesWithGenre();
-                String[] movies = moviesList.toArray(new String[0]);
-                boolean movieFound = false;
-                // Only prompt for movie choice if user didn't go back to menu
-                int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
-                if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                    selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-                    playMenu();
+                //todo select number instead of writing the genre.
+                ArrayList<String> filmDataList = io.readVideoData(filmDataPath, 100);
+                ArrayList<String> allGenres = search.allGenres(filmDataList);
+                for (int i = 0; i < allGenres.size(); i++) {
+                    System.out.println((i + 1) + ") " + allGenres.get(i));
+                }
+                TextUI.displayMsg("Type the genre you would like to search for");
+                searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
+                if(searchResultList.isEmpty()){
+                    runStartMenu();
                 } else {
-                    TextUI.displayMsg("Invalid movie choice.");
-                    //todo display all unique genres in filmList
-                    TextUI.displayMsg("Type the genre you would like to search for");
-                    searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
-                    if (searchResultList.isEmpty()) {
-                        runStartMenu();
+                    // Only prompt for movie choice if user didn't go back to menu
+                    int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
+                    if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                        selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+                        playMenu();
                     } else {
-                        // Only prompt for movie choice if user didn't go back to menu
-                        movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
-                        if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
-                            selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
-                            playMenu();
-                        } else {
-                            TextUI.displayMsg("Invalid movie choice.");
-                        }
+                        TextUI.displayMsg("Invalid movie choice.");
                     }
                 }
                 break;

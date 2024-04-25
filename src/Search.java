@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 
 public class Search {
+    private FileIO io = new FileIO();
+    private TextUI ui = new TextUI();
     Scanner scan = new Scanner(System.in);
 
     private final ArrayList<String> moviesWithGenre = new ArrayList<>();
@@ -56,7 +58,6 @@ public class Search {
                     TextUI.displayMsg(counter + " " + movie);
                     counter += 1;
                 }
-                validInput = true; // Set validInput to true to exit the Do {} loop
             } else {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
@@ -98,15 +99,13 @@ public class Search {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
+                if (!tryAgain.equals("yes")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 }
             }
         } while (!validInput);
 
         return moviesWithName;
-
-
     }
 
     public ArrayList<String> searchRating(ArrayList<String> filmDataList) {
