@@ -6,6 +6,22 @@ public class FileIO {
     private String userHistoryPath = "data\\UserData\\UserHistory\\";
     private String userSavedPath = "data\\UserData\\UserSaved\\";
 
+    public String getUserHistoryPath() {
+        return userHistoryPath;
+    }
+
+    public void setUserHistoryPath(String userHistoryPath) {
+        this.userHistoryPath = userHistoryPath;
+    }
+
+    public String getUserSavedPath() {
+        return userSavedPath;
+    }
+
+    public void setUserSavedPath(String userSavedPath) {
+        this.userSavedPath = userSavedPath;
+    }
+
     public ArrayList<String> readUsers() {
         String path = "data\\UserData\\Users.txt";
         ArrayList<String> users = new ArrayList<>();
@@ -23,7 +39,6 @@ public class FileIO {
     }
 
     //reads filmdata
-
     public ArrayList<String> readFilmData(String path, int length) {
         ArrayList<String> filmdata = new ArrayList<>();
         File file = new File(path);
@@ -43,7 +58,6 @@ public class FileIO {
     }
 
     //reads seriesdata
-
     public ArrayList<String> readVideoData(String path, int length) {
         ArrayList<String> videoData = new ArrayList<>();
         File file = new File(path);
@@ -61,6 +75,7 @@ public class FileIO {
 
         return videoData;
     }
+
     public ArrayList<String> readVideoData(String path, String username) {
         ArrayList<String> videoData = new ArrayList<>();
         path += "\\" + username + ".txt";
@@ -80,7 +95,6 @@ public class FileIO {
     }
 
     //Saves data for users, should maybe be refactored to "saveUserData"
-
     public static void saveData(ArrayList<User> users, String path) {
         try {
             FileWriter writer = new FileWriter(path);
@@ -93,18 +107,34 @@ public class FileIO {
         }
     }
 
+
     //Læs video objekter i det givne array, og skriv det ind i filen med username navn, i directoryiet path
     //Skriver lige nu ikke season/episodes ned
-
     public static void saveVideoData(Video v, String path, String username) {
         path += "\\" + username + ".txt";
         try {
-            FileWriter writer = new FileWriter(path, true);
-            writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
-            writer.close();
+            if(!isDuplicate(v,path)) {
+                FileWriter writer = new FileWriter(path, true);
+                writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
+                writer.close();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private static boolean isDuplicate(Video v, String path) throws IOException {
+        FileReader fileReader = new FileReader(path);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] parts = line.split(";");
+            if (parts.length > 0 && parts[0].equals(v.getName())) {
+                bufferedReader.close();
+                return true;
+            }
+        }
+        bufferedReader.close();
+        return false;
     }
 
     public ArrayList<String> readUserData(String path) {
@@ -157,6 +187,7 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
     public void createUserFiles(String username, String password) {
         File fileH = new File(userHistoryPath + username + ".txt");
         File fileS = new File(userSavedPath + username + ".txt");
@@ -179,20 +210,4 @@ public class FileIO {
         }
     }
 
-
-    public String getUserHistoryPath() {
-        return userHistoryPath;
-    }
-
-    public void setUserHistoryPath(String userHistoryPath) {
-        this.userHistoryPath = userHistoryPath;
-    }
-
-    public String getUserSavedPath() {
-        return userSavedPath;
-    }
-
-    public void setUserSavedPath(String userSavedPath) {
-        this.userSavedPath = userSavedPath;
-    }
 }

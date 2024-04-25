@@ -8,9 +8,9 @@ public class Stream {
     private ArrayList<Series> seriesList = new ArrayList<>();
     TextUI TextUI;
     FileIO io;
+    ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
-    private ArrayList<String> listOfActions = new ArrayList<>();
     private User currentUser;
     private ArrayList<String> listOfMovies = new ArrayList<>();
     private ArrayList<String> optionsForSaved = new ArrayList<>();
@@ -210,6 +210,7 @@ public class Stream {
                                     }
                                     int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
                                     Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    selectedMovie = selectedVideo.getName();
                                     watchingNow();
                                 }
                                 break;
@@ -274,6 +275,7 @@ public class Stream {
                                     }
                                     int videoChoice = TextUI.promptChoice(seenVideoOptions, "Choose a video from history to watch:");
                                     Film selectedVideo = currentUser.getSeenFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    selectedMovie = selectedVideo.getName();
                                     watchingNow();
                                 }
                             case 3: //Go back
@@ -292,6 +294,22 @@ public class Stream {
                     break;
             }
         }
+    }
+
+    public ArrayList<User> getUserNames() {
+        ArrayList<String> namesOfUsers = new ArrayList<>();
+        for (User u : users) {
+            namesOfUsers.add(u.getName());
+        }
+        return users;
+    }
+
+    public ArrayList<Film> getFilmList() {
+        return filmList;
+    }
+
+    public void setFilmList(ArrayList<Film> filmList) {
+        this.filmList = filmList;
     }
 
     public void searchForMovie() { //Search for movies - does not work for series
@@ -330,48 +348,33 @@ public class Stream {
                 }
                 break;
             case 2://Search for title
-                searchResultList = search.searchName(io.readVideoData(filmDataPath, 100));
-                if (searchResultList.isEmpty()) {
-                    runStartMenu();
+                search.searchName(io.readVideoData(filmDataPath, 100));
+                int movieChoice2 = TextUI.promptNumeric("Choose a Film from the list above");
+                if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
+                    selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
+                    playMenu();
                 } else {
-                    // Only prompt for movie choice if user didn't go back to menu
-                    int movieChoice2 = TextUI.promptNumeric("Choose a Film from the list above");
-                    if (movieChoice2 >= 1 && movieChoice2 <= search.getMoviesWithName().size()) {
-                        selectedMovie = search.getMoviesWithName().get(movieChoice2 - 1);
-                        playMenu();
-                    } else {
-                        TextUI.displayMsg("Invalid movie choice.");
-                    }
+                    TextUI.displayMsg("Invalid movie choice.");
                 }
                 break;
             case 3: //Search for Rating
-                searchResultList = search.searchRating(io.readVideoData(filmDataPath, 100));
-                if (searchResultList.isEmpty()) {
-                    runStartMenu();
+                search.searchRating(io.readVideoData(filmDataPath, 100));
+                int movieChoice3 = TextUI.promptNumeric("Choose a Film from the list above");
+                if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
+                    selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
+                    playMenu();
                 } else {
-                    // Only prompt for movie choice if user didn't go back to menu
-                    int movieChoice3 = TextUI.promptNumeric("Choose a Film from the list above");
-                    if (movieChoice3 >= 1 && movieChoice3 <= search.getMoviesWithRating().size()) {
-                        selectedMovie = search.getMoviesWithRating().get(movieChoice3 - 1);
-                        playMenu();
-                    } else {
-                        TextUI.displayMsg("Invalid movie choice.");
-                    }
+                    TextUI.displayMsg("Invalid movie choice.");
                 }
                 break;
             case 4: //Search for Releasedate
-                searchResultList = search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
-                if (searchResultList.isEmpty()) {
-                    runStartMenu();
+                search.searchReleaseDate(io.readVideoData(filmDataPath, 100));
+                int movieChoice4 = TextUI.promptNumeric("Choose a Film from the list above");
+                if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
+                    selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
+                    playMenu();
                 } else {
-                    // Only prompt for movie choice if user didn't go back to menu
-                    int movieChoice4 = TextUI.promptNumeric("Choose a Film from the list above");
-                    if (movieChoice4 >= 1 && movieChoice4 <= search.getMoviesWithReleaseDate().size()) {
-                        selectedMovie = search.getMoviesWithReleaseDate().get(movieChoice4 - 1);
-                        playMenu();
-                    } else {
-                        TextUI.displayMsg("Invalid movie choice.");
-                    }
+                    TextUI.displayMsg("Invalid movie choice.");
                 }
                 break;
             case 5:
@@ -423,16 +426,5 @@ public class Stream {
                 TextUI.displayMsg("Type \"" + "stop" + "\" if you would like to stop watching.");
             }
         } while (!validInput);
-    }
-    public ArrayList<User> getUserNames() {
-        ArrayList<String> namesOfUsers = new ArrayList<>();
-        for (User u : users) {
-            namesOfUsers.add(u.getName());
-        }
-        return users;
-    }
-
-    public void setFilmList(ArrayList<Film> filmList) {
-        this.filmList = filmList;
     }
 }
