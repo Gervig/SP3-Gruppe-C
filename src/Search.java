@@ -65,32 +65,33 @@ public class Search {
                 String tryAgain = scan.nextLine().toLowerCase();
                 if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
+                    searchGenre(filmDataList);
                 }
             }
         } while (!validInput);
         return moviesWithGenre;
     }
 
-   public ArrayList<String> searchName(ArrayList<String> filmDataList){
-       boolean validInput = false;
-       int counter = 1;
+    public ArrayList<String> searchName(ArrayList<String> filmDataList) {
+        boolean validInput = false;
+        int counter = 1;
 
-       do {
-           TextUI.displayMsg("Please enter the name you want to search for");
-           String choice = scan.nextLine();
-           choice = choice.toLowerCase();
-           for (String filmData : filmDataList) {
-               String[] parts = filmData.split(";\\s*");
-               String movieName = parts[0].toLowerCase(); // Convert movie name to lowercase for case-insensitive search
+        do {
+            TextUI.displayMsg("Please enter the name you want to search for");
+            String choice = scan.nextLine();
+            choice = choice.toLowerCase();
+            for (String filmData : filmDataList) {
+                String[] parts = filmData.split(";\\s*");
+                String movieName = parts[0].toLowerCase(); // Convert movie name to lowercase for case-insensitive search
 
-               if (movieName.contains(choice)) {
-                   // If the movie name contains the user's choice (partial match), add it to the list
-                   moviesWithName.add(parts[0]);
-               }
-           }
-           if(!moviesWithName.isEmpty()) {
-               TextUI.displayMsg("Here is all the movies that contains the word " + "\""+choice+"\""+"\n");
-               for (String movie : moviesWithName) {
+                if (movieName.contains(choice)) {
+                    // If the movie name contains the user's choice (partial match), add it to the list
+                    moviesWithName.add(parts[0]);
+                }
+            }
+            if (!moviesWithName.isEmpty()) {
+                TextUI.displayMsg("Here is all the movies that contains the word " + "\"" + choice + "\"" + "\n");
+                for (String movie : moviesWithName) {
 
                     TextUI.displayMsg(counter + " " + movie);
                     counter += 1;
@@ -194,6 +195,7 @@ public class Search {
     public ArrayList<String> getAllGenres() {
         return allGenres;
     }
+
     public ArrayList<String> getMoviesWithName() {
         return moviesWithName;
     }

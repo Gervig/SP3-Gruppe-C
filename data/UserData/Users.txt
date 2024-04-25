@@ -1,7 +1,6 @@
 Casper;123;
 Rasmus;123;
-Rikke;123;
+Rikke;!123;
 Chrisser;123;
 Lukas;124
 Lasse;123;
-wa;1234;
