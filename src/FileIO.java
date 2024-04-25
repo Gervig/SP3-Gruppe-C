@@ -114,14 +114,30 @@ public class FileIO {
     public static void saveVideoData(Video v, String path, String username) {
         path += "\\" + username + ".txt";
         try {
-            FileWriter writer = new FileWriter(path, true);
-            writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
-            writer.close();
+            if(!isDuplicate(v,path)) {
+                FileWriter writer = new FileWriter(path, true);
+                writer.write("\n" + v.getName() + ";" + v.getReleaseDate() + ";" + v.getGenre() + "; " + v.getRating() + ";");
+                writer.close();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
+    private static boolean isDuplicate(Video v, String path) throws IOException {
+        FileReader fileReader = new FileReader(path);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] parts = line.split(";");
+            // Assuming name is the first part
+            if (parts.length > 0 && parts[0].equals(v.getName())) {
+                bufferedReader.close();
+                return true;
+            }
+        }
+        bufferedReader.close();
+        return false;
+    }
 
     public ArrayList<String> readUserData(String path) {
         ArrayList<String> userData = new ArrayList<>();
