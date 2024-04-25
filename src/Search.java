@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Search {
     Scanner scan = new Scanner(System.in);
-    Stream stream = new Stream("john");
 
     private final ArrayList<String> moviesWithGenre = new ArrayList<>();
     private final ArrayList<String> moviesWithName = new ArrayList<>();
@@ -69,7 +68,7 @@ public class Search {
                validInput = false; // Stay in loop
            } else if (tryAgain.equals("no")){
                System.out.println("NO TYPED");
-               stream.runStartMenu();
+               searchGenre(filmDataList);
            } else {
                TextUI.displayMsg("Invalid input try again");
            }
@@ -114,7 +113,7 @@ public class Search {
                    validInput = true; // Exit the loop if the user doesn't want to try again
                } else if (tryAgain.equals("no")){
                    System.out.println("NO TYPED");
-                   stream.runStartMenu();
+                   searchGenre(filmDataList);
                } else {
                    TextUI.displayMsg("Invalid input try again");
                }
@@ -162,7 +161,7 @@ public class Search {
                     validInput = true; // Exit the loop if the user doesn't want to try again
                 } else if (tryAgain.equals("no")){
                     System.out.println("NO TYPED");
-                    stream.runStartMenu();
+                    searchGenre(filmDataList);
                 } else {
                     TextUI.displayMsg("Invalid input try again");
                 }
@@ -208,7 +207,7 @@ public class Search {
                    validInput = true; // Exit the loop if the user doesn't want to try again
                } else if (tryAgain.equals("no")){
                    System.out.println("NO TYPED");
-                   stream.runStartMenu();
+                   searchGenre(filmDataList);
                } else {
                    TextUI.displayMsg("Invalid input try again");
                }
