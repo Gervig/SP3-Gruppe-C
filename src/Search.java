@@ -58,6 +58,7 @@ public class Search {
                     TextUI.displayMsg(counter + " " + movie);
                     counter += 1;
                 }
+                validInput = true; // Set validInput to true to exit the Do {} loop
             } else {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
