@@ -11,10 +11,10 @@ class Stream{
 - ArrayList<User> users
 - ArrayList<Film> filmList
 - ArrayList<Series> seriesList
- TextUI TextUI
- FileIO io
- String seriesDataPath
- String filmDataPath
+- TextUI TextUI
+- FileIO io
+- String seriesDataPath
+- String filmDataPath
 - ArrayList<String> listOfActions;
 - User currentUser;
 - ArrayList<String> selectedVideos
