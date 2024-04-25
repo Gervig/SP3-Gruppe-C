@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Search {
     Scanner scan = new Scanner(System.in);
+    Stream stream = new Stream("john");
 
     private final ArrayList<String> moviesWithGenre = new ArrayList<>();
     private final ArrayList<String> moviesWithName = new ArrayList<>();
@@ -35,6 +36,8 @@ public class Search {
         int counter = 1;
 
         do {
+        TextUI.displayMsg("Type the genre you would like to search for (Word and not number)");
+        moviesWithGenre.clear();
         String choice = scan.nextLine();
 
         for (String filmData : filmDataList) {
@@ -56,16 +59,23 @@ public class Search {
             TextUI.displayMsg(counter+" "+movie);
             counter +=1;
         }
-           validInput = true; // Set validInput to true to exit the Do {} loop
+        validInput = true;
     } else {
-           TextUI.displayMsg("No film or series was found within those search parameters, try another search");
+           TextUI.displayMsg("No genre was found within those search parameters, try another search");
            TextUI.displayMsg("Would you like to try another search? (yes/no)");
            String tryAgain = scan.nextLine().toLowerCase();
-           if (!tryAgain.equals("yes")) {
-               validInput = true; // Exit the loop if the user doesn't want to try again
+           if (tryAgain.equals("yes")) {
+               System.out.println("YES TYPED");
+               validInput = false; // Stay in loop
+           } else if (tryAgain.equals("no")){
+               System.out.println("NO TYPED");
+               stream.runStartMenu();
+           } else {
+               TextUI.displayMsg("Invalid input try again");
            }
        }
     } while (!validInput);
+
     return moviesWithGenre;
 }
 
@@ -75,6 +85,7 @@ public class Search {
 
        do {
            TextUI.displayMsg("Please enter the name you want to search for");
+           moviesWithName.clear();
            String choice = scan.nextLine();
            choice = choice.toLowerCase();
            for (String filmData : filmDataList) {
@@ -93,13 +104,19 @@ public class Search {
                    TextUI.displayMsg(counter+" "+movie);
                    counter +=1;
                }
-               validInput = true; // Set validInput to true to exit the Do {} loop
+               validInput = true;
            } else {
                TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                TextUI.displayMsg("Would you like to try another search? (yes/no)");
                String tryAgain = scan.nextLine().toLowerCase();
-               if (!tryAgain.equals("yes")) {
+               if (tryAgain.equals("yes")) {
+                   System.out.println("YES TYPED");
                    validInput = true; // Exit the loop if the user doesn't want to try again
+               } else if (tryAgain.equals("no")){
+                   System.out.println("NO TYPED");
+                   stream.runStartMenu();
+               } else {
+                   TextUI.displayMsg("Invalid input try again");
                }
            }
        } while (!validInput);
@@ -115,6 +132,7 @@ public class Search {
 
         do {
             TextUI.displayMsg("Please enter the 2 ratings you want to search within");
+            moviesWithRating.clear();
             double lower = Double.parseDouble(scan.nextLine());
             double upper = Double.parseDouble(scan.nextLine());
             TextUI.displayMsg(" ");
@@ -134,13 +152,19 @@ public class Search {
                     TextUI.displayMsg(counter+" "+movie);
                     counter +=1;
                 }
-                validInput = true; // Set validInput to true to exit the Do {} loop
+                validInput = true;
             } else {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
                 TextUI.displayMsg("Would you like to try another search? (yes/no)");
                 String tryAgain = scan.nextLine().toLowerCase();
-                if (!tryAgain.equals("yes")) {
+                if (tryAgain.equals("yes")) {
+                    System.out.println("YES TYPED");
                     validInput = true; // Exit the loop if the user doesn't want to try again
+                } else if (tryAgain.equals("no")){
+                    System.out.println("NO TYPED");
+                    stream.runStartMenu();
+                } else {
+                    TextUI.displayMsg("Invalid input try again");
                 }
             }
         } while (!validInput);
@@ -155,6 +179,7 @@ public class Search {
 
        do {
            TextUI.displayMsg("Please enter the 2 release dates you want to search within");
+           moviesWithReleaseDate.clear();
            int lower = Integer.parseInt(scan.nextLine());
            int upper = Integer.parseInt(scan.nextLine());
            TextUI.displayMsg(" ");
@@ -173,13 +198,19 @@ public class Search {
                    TextUI.displayMsg(counter + " " + movie);
                    counter += 1;
                }
-               validInput = true; // Set validInput to true to exit the Do {} loop
+               validInput = true;
            } else {
                TextUI.displayMsg("No film or series was found within the year " + lower + " and " + upper + " please try a different range");
                TextUI.displayMsg("Would you like to try another search? (yes/no)");
                String tryAgain = scan.nextLine().toLowerCase();
-               if (!tryAgain.equals("yes")) {
+               if (tryAgain.equals("yes")) {
+                   System.out.println("YES TYPED");
                    validInput = true; // Exit the loop if the user doesn't want to try again
+               } else if (tryAgain.equals("no")){
+                   System.out.println("NO TYPED");
+                   stream.runStartMenu();
+               } else {
+                   TextUI.displayMsg("Invalid input try again");
                }
            }
        } while (!validInput);

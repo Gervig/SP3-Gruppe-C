@@ -316,7 +316,6 @@ public class Stream {
                     System.out.println((i + 1) + ") " + allGenres.get(i));
                 }
                 TextUI.displayMsg("Above is all the available genres you can search");
-                TextUI.displayMsg("Type the genre you would like to search for (Word and not number)");
                 search.searchGenre(io.readVideoData(filmDataPath, 100));
                 int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
                 if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
