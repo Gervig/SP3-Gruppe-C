@@ -9,59 +9,87 @@ class Stream{
 - String name
 'utilities
 - ArrayList<User> users
-- ArrayList<Film> filmsList
+- ArrayList<Film> filmList
 - ArrayList<Series> seriesList
-- String userDataPath
-- TextUI ui
-- FileIO io
+ TextUI TextUI
+ FileIO io
+ String seriesDataPath
+ String filmDataPath
 - ArrayList<String> listOfActions;
-- String seriesDataPath
-- String filmDataPath
+- User currentUser;
+- ArrayList<String> selectedVideos
+- ArrayList<String> listOfMovies
+- ArrayList<String> optionsForSaved
+- ArrayList<String> listOfHistory
+- ArrayList<String> listOfMenu
+- ArrayList<String> listOfSearch
+- ArrayList<String> searchResultList
+- String selectedMovie
 'constructor
 + Stream(String name)
 'methods
 - void setup()
 ' setup er til er at læse data
-+ runStartMenu()
-+ void createUser()
-' skal createUser være void? Det er den i matador
-' createUser skal vel checke om der er andre med det brugernavn
-+ loginUser()
-' skal loginUser være void?
-' den skal vel checke om der er en user med det username og tjekke om loginnet er korrekt
-+ runDialog()
-' i runDialog kan man vælge at søge
-- void quitProgram()
++ void runDialog()
+' i runDialog kan man vælge at logge ind eller sign up
++ User createUser()
+' createUser tjekker om der er andre med det brugernavn, når man laver en ny bruger
++ User loginUser()
++ Film stringToFilm(String str)
+'laver strings om til film-objekter
++ void runStartMenu()
++ void searchForMovie()
++ void playMenu()
++ void quitProgram()
++ void watchingNow()
++ ArrayList<User> getUserNames()
++ void setFilmList(ArrayList<Film> filmList)
 }
 
 
 class User{
 - String name
-- boolean hasSeen
 - ArrayList<Series> seenSeries
 - ArrayList<Film> seenFilm
-- ArrayList<Video> savedVideo
-+ boolean watchedVideo()
-+ boolean addToSaved()
-+ boolean removeFromSaved()
+- ArrayList<Film> savedFilm
+- String newPassword
++ User(String name, String newPassword)
++ void watchedFilm(Film film)
++ void addToSaved(Film film)
++ void removeFromSaved(Film film)
++ String getName()
++ String getPassword()
++ ArrayList<Series> getSeenSeries()
++ ArrayList<Film> getSeenFilm()
++ ArrayList<Film> getSavedFilm()
 }
 
 class FileIO{
-+ String[] readFilmData(String path)
-+ String[] readSeriesData(String path)
-+ void saveData(ArrayList<User> users, String path)
-+ String[] readFilmData(String path, int length)
-+ String[] readSeriesData(String path, int length)
-+ ArrayList<User> readSaveData(String path, int length)
+- String userHistoryPath
+- String userSavedPath
++ ArrayList<String> readUsers()
++ ArrayList<String> readFilmData(String path, int length)
++ ArrayList<String> readVideoData(String path, int length)
++ ArrayList<String> readVideoData(String path, String username)
++ static void saveData(ArrayList<User> users, String path)
++ static void saveVideoData(Video v, String path, String username)
++ ArrayList<String> readUserData(String path)
++ void deleteLineFromFile(String filePath, String matchString)
++ void createUserFiles(String username, String password)
++ String getUserHistoryPath()
++ void setUserHistoryPath(String userHistoryPath)
++ String getUserSavedPath()
++ void setUserSavedPath(String userSavedPath)
 }
 
 class TextUI{
 - Scanner scanner
-+ void displayList()
-+ void displayMsg(String s)
-+ int promptNumeric(String msg)
++ void displayList(ArrayList<String> list, String msg)
 + String promptText(String msg)
-+ int promptChoice(String msg, ArrayList<String> list)
++ boolean promptBinary(String msg, String accept, String reject)
++ int promptNumeric(String msg)
++ int promptChoice(ArrayList<String> optionslist, String msg)
++ static void displayMsg(String s)
 }
 
 interface IVideo {
@@ -69,7 +97,6 @@ String getReleaseDate()
 String getName()
 String getGenre()
 float getRating()
-String playVideo()
 }
 
 abstract Class Video{
@@ -78,38 +105,39 @@ abstract Class Video{
 - float rating
 - String releaseDate
 'constructor
-+ Video(String name, String genre, float rating, String releaseDate)
++ Video(String name, String releaseDate, String genre, float rating)
 }
 
 class Series{
-'brug evt. et map
-- ArrayList<String [3]> seenEpisodes
-- int seasons
-- int episodes
-+ Series (int seasons)
+- String season
+- String episode
++ Series (String name, String releaseDate, String genre, float rating, String episode)
 + getSeason()
 + getEpisode()
-+ createSeries(ArrayList<String> seriesData)
 }
 
 class Film {
 'constructor
-+ Film ()
-- ArrayList<String> movieName()
-+ createFilms(ArrayList<String> filmData))
++ Film (String name, String releaseDate, String genre, float rating)
 }
 
 
 class Search{
-+ ArrayList<String> search()
-+ seperator()
-'methods til de forskellige søgemuligheder
-' Skal disse returnere objekterne fra video?
-+ searchGenre()
-+ searchName()
-+ searchRating()
-+ searchReleasedate()
-'skal vi have funktioner der kun søger blandt serier og film adskilt?
+- Scanner scanner
+- ArrayList<String> moviesWithGenre
+- ArrayList<String> moviesWithName
+- ArrayList<String> moviesWithRating
+- ArrayList<String> moviesWithReleaseDate
+- TextUI TextUI
++ ArrayList<String> searchGenre(ArrayList<String> filmDataList)
++ ArrayList<String> searchName(ArrayList<String> filmDataList)
++ ArrayList<String> searchRating(ArrayList<String> filmDataList)
++ ArrayList<String> searchReleaseDate(ArrayList<String> filmDataList)
++ ArrayList<String> getMoviesWithName()
++ ArrayList<String> getMoviesWithRating()
++ ArrayList<String> getMoviesWithReleaseDate()
++ ArrayList<String> getMoviesWithGenre()
+
 }
 
 IVideo <|-- Video

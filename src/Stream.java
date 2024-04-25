@@ -2,23 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Stream {
-    String name;
-    ArrayList<User> users = new ArrayList<>();
-    ArrayList<Film> filmList = new ArrayList<>();
-    ArrayList<Series> seriesList = new ArrayList<>();
+    private String name;
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Film> filmList = new ArrayList<>();
+    private ArrayList<Series> seriesList = new ArrayList<>();
     TextUI TextUI;
     FileIO io;
-    ArrayList<String> listOfActions = new ArrayList<>();
     String seriesDataPath = "data\\series.txt";
     String filmDataPath = "data\\film.txt";
+    private ArrayList<String> listOfActions = new ArrayList<>();
     private User currentUser;
-    ArrayList<String> listOfMovies = new ArrayList<>();
-    ArrayList<String> optionsForSaved = new ArrayList<>();
-    ArrayList<String> listOfHistory = new ArrayList<>();
-    ArrayList<String> listOfMenu = new ArrayList<>();
-    ArrayList<String> listOfSearch = new ArrayList<>();
-    ArrayList<String> searchResultList = new ArrayList<>();
-    String selectedMovie = "movie";
+    private ArrayList<String> listOfMovies = new ArrayList<>();
+    private ArrayList<String> optionsForSaved = new ArrayList<>();
+    private ArrayList<String> listOfHistory = new ArrayList<>();
+    private ArrayList<String> listOfMenu = new ArrayList<>();
+    private ArrayList<String> listOfSearch = new ArrayList<>();
+    private ArrayList<String> searchResultList = new ArrayList<>();
+    private String selectedMovie = "movie";
 
     public Stream(String name) {
         this.name = name;
@@ -189,8 +189,8 @@ public class Stream {
                     break;
                 case 2: //View saved videos
                     if (currentUser.getSavedFilm().isEmpty()) {
-                        TextUI.displayMsg("You have no saved films in your list");
-                    } else {
+                      TextUI.displayMsg("You have no saved films in your list");
+                   } else {
                         int index1 = 1;
                         for (Film savedFilm : currentUser.getSavedFilm()) {
                             TextUI.displayMsg(index1 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
@@ -199,30 +199,44 @@ public class Stream {
                         int optionsChoice = TextUI.promptChoice(optionsForSaved, "Choose an option");
                         switch (optionsChoice) {
                             case 1:
-                                int videoChoice = TextUI.promptChoice(optionsForSaved, "Choose a video to watch");
-                                selectedMovie = currentUser.getSavedFilm().get(videoChoice-1).getName();
-                                watchingNow();
+                                if (currentUser.getSavedFilm().isEmpty()) {
+                                    TextUI.displayMsg("You have no saved films in your list");
+                                } else {
+                                    ArrayList<String> savedVideoOptions = new ArrayList<>();
+                                    int index = 1;
+                                    for (Film savedFilm : currentUser.getSavedFilm()) {
+                                        savedVideoOptions.add(index + ") " + savedFilm.getName());
+                                        index++;
+                                    }
+                                    int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to watch:");
+                                    Film selectedVideo = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
+                                    watchingNow();
+                                }
                                 break;
                             case 2:
-                                TextUI.displayMsg("Size of saved films: " + currentUser.getSavedFilm().size());
-                                TextUI.displayMsg("Saved films:");
-                                int index2 = 1;
-                                for (Film savedFilm : currentUser.getSavedFilm()) {
-                                    TextUI.displayMsg(index2 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
-                                    index2++;
+                                if (currentUser.getSavedFilm().isEmpty()) {
+                                    TextUI.displayMsg("You have no saved films in your list");
+                                } else {
+                                    TextUI.displayMsg("Size of saved films: " + currentUser.getSavedFilm().size());
+                                    TextUI.displayMsg("Saved films:");
+                                    int index2 = 1;
+                                    for (Film savedFilm : currentUser.getSavedFilm()) {
+                                        TextUI.displayMsg(index2 + ") " + savedFilm.getName()); // Using getName() method to print the title of the film
+                                        index2++;
+                                    }
                                 }
                                 break;
                             case 3: //remove film from Saved videos
-                                ArrayList<String> savedVideoOptions2 = new ArrayList<>();
+                                ArrayList<String> savedVideoOptions = new ArrayList<>();
                                 int index3 = 1;
                                 for (Film savedFilm : currentUser.getSavedFilm()) {
-                                    savedVideoOptions2.add(index3 + ") " + savedFilm.getName());
+                                    savedVideoOptions.add(index3 + ") " + savedFilm.getName());
                                     index3++;
                                 }
-                                int videoChoice2 = TextUI.promptChoice(savedVideoOptions2, "Choose a saved video to remove:");
-                                Film selectedMovie = currentUser.getSavedFilm().get(videoChoice2 - 1); // Adjusting for 0-based index
+                                int videoChoice = TextUI.promptChoice(savedVideoOptions, "Choose a saved video to remove:");
+                                Film selectedMovie = currentUser.getSavedFilm().get(videoChoice - 1); // Adjusting for 0-based index
                                 currentUser.removeFromSaved(selectedMovie);
-                                io.deleteLineFromFile(io.getUserSavedPath() + currentUser.getName() + ".txt", selectedMovie.getName());
+                                io.deleteLineFromFile(io.getUserSavedPath()+currentUser.getName()+".txt", selectedMovie.getName());
                                 TextUI.displayMsg(selectedMovie.getName() + " has been removed from your saved list");
                                 break;
                             case 4: //Go back
@@ -234,11 +248,6 @@ public class Stream {
                 case 3: //View watch history
                     int historyChoice = 0;
                     while (historyChoice != listOfMovies.size()) {
-                        int index1 = 1;
-                        for (Film seenFilm : currentUser.getSeenFilm()) {
-                            TextUI.displayMsg(index1 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
-                            index1++;
-                        }
                         historyChoice = TextUI.promptChoice(listOfHistory, "Choose action:");
                         switch (historyChoice) {
                             case 1: //View history
@@ -246,6 +255,11 @@ public class Stream {
                                     TextUI.displayMsg("You haven't watched anything yet");
                                 } else {
                                     TextUI.displayMsg("Watch history:");
+                                    int index1 = 1;
+                                    for (Film seenFilm : currentUser.getSeenFilm()) {
+                                        TextUI.displayMsg(index1 + ") " + seenFilm.getName()); // Using getName() method to print the title of the film
+                                        index1++;
+                                    }
                                 }
                                 break;
                             case 2: //Choose a movie to watch from history
@@ -259,7 +273,7 @@ public class Stream {
                                         index++;
                                     }
                                     int videoChoice = TextUI.promptChoice(seenVideoOptions, "Choose a video from history to watch:");
-                                    selectedMovie = currentUser.getSeenFilm().get(videoChoice - 1).getName(); // Adjusting for 0-based index
+                                    Film selectedVideo = currentUser.getSeenFilm().get(videoChoice - 1); // Adjusting for 0-based index
                                     watchingNow();
                                 }
                             case 3: //Go back
@@ -285,6 +299,19 @@ public class Stream {
         int searchChoice = TextUI.promptChoice(listOfSearch, "Choose a search option");
         switch (searchChoice) {
             case 1: //Search for genre
+                TextUI.displayMsg("Type out the genre you would like to search for");
+                TextUI.displayMsg("Action, Adventure, Biografi, Crime, Drama, Family, Fantasy, Film-Noir, History, Horror, Mystery, Romance, Sci-fi, Sport, Thriller, War");
+                search.searchGenre(io.readVideoData(filmDataPath, 100));
+                ArrayList<String> moviesList = search.getMoviesWithGenre();
+                String[] movies = moviesList.toArray(new String[0]);
+                boolean movieFound = false;
+                // Only prompt for movie choice if user didn't go back to menu
+                int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
+                if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
+                    selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
+                    playMenu();
+                } else {
+                    TextUI.displayMsg("Invalid movie choice.");
                 //todo display all unique genres in filmList
                 TextUI.displayMsg("Type the genre you would like to search for");
                 searchResultList = search.searchGenre(io.readVideoData(filmDataPath, 100));
@@ -292,13 +319,14 @@ public class Stream {
                     runStartMenu();
                 } else {
                     // Only prompt for movie choice if user didn't go back to menu
-                    int movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
+                    movieChoice = TextUI.promptNumeric("Choose a Film from the list above");
                     if (movieChoice >= 1 && movieChoice <= search.getMoviesWithGenre().size()) {
                         selectedMovie = search.getMoviesWithGenre().get(movieChoice - 1);
                         playMenu();
                     } else {
                         TextUI.displayMsg("Invalid movie choice.");
                     }
+                }
                 }
                 break;
             case 2://Search for title
@@ -364,7 +392,6 @@ public class Stream {
                     currentUser.addToSaved(stringToFilm(selectedMovie));
                     TextUI.displayMsg("The movie: " + selectedMovie + " has been added to your save list");
                     TextUI.displayMsg("You have been redirected to the Start menu");
-                    //todo fix nullpointer
                     io.saveVideoData(stringToFilm(selectedMovie), io.getUserSavedPath(), currentUser.getName());
                     runStartMenu();
                     break;

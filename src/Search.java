@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class Search {
-    Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
     private final ArrayList<String> moviesWithGenre = new ArrayList<>();
     private final ArrayList<String> moviesWithName = new ArrayList<>();
     private final ArrayList<String> moviesWithRating = new ArrayList<>();
