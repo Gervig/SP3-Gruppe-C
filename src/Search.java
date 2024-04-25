@@ -61,12 +61,15 @@ public class Search {
                 validInput = true; // Set validInput to true to exit the Do {} loop
             } else {
                 TextUI.displayMsg("No film or series was found within those search parameters, try another search");
-                TextUI.displayMsg("Would you like to try another search? (yes/no)");
-                String tryAgain = scan.nextLine().toLowerCase();
+                //TextUI.displayMsg("Would you like to try another search? (yes/no)");
+                /*String tryAgain = scan.nextLine().toLowerCase();
                 if (!tryAgain.equals("yes") || !tryAgain.equals("y")) {
                     validInput = true; // Exit the loop if the user doesn't want to try again
+                } else {*/
+                    TextUI.displayMsg("You can now search again:");
                     searchGenre(filmDataList);
-                }
+                validInput = true;
+              //  }
             }
         } while (!validInput);
         return moviesWithGenre;
