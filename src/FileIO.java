@@ -129,7 +129,6 @@ public class FileIO {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             String[] parts = line.split(";");
-            // Assuming name is the first part
             if (parts.length > 0 && parts[0].equals(v.getName())) {
                 bufferedReader.close();
                 return true;
